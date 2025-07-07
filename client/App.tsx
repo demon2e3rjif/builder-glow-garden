@@ -743,9 +743,12 @@ function DashboardPage() {
 // Events Page with Advanced Filtering
 function EventsPage() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [selectedLocation, setSelectedLocation] = useState("all");
+  const [selectedUniversity, setSelectedUniversity] = useState("all");
+  const [selectedCity, setSelectedCity] = useState("all");
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [dateRange, setDateRange] = useState({ start: "", end: "" });
   const [sortBy, setSortBy] = useState("date");
+  const [showFilters, setShowFilters] = useState(false);
 
   const events = [
     {
@@ -753,12 +756,14 @@ function EventsPage() {
       title: "Tech Innovation Summit 2024",
       club: "Tech Innovators Club",
       clubId: 1,
-      date: "Dec 15, 2024",
+      date: "2024-12-15",
       time: "9:00 AM - 6:00 PM",
-      location: "Convention Center, Downtown",
+      location: "Convention Center",
+      city: "San Francisco",
+      university: "Stanford University",
       attendees: 124,
       maxAttendees: 200,
-      category: "Technology",
+      tags: ["Technology", "Innovation", "Networking", "AI"],
       description:
         "A full-day summit featuring the latest in tech innovation, networking opportunities, and keynote speakers from industry leaders.",
       price: 0,
@@ -769,12 +774,14 @@ function EventsPage() {
       title: "Photography Masterclass",
       club: "Creative Lens Society",
       clubId: 2,
-      date: "Dec 18, 2024",
+      date: "2024-12-18",
       time: "2:00 PM - 5:00 PM",
-      location: "Art Studio, Brooklyn",
+      location: "Art Studio",
+      city: "Brooklyn",
+      university: "NYU",
       attendees: 45,
       maxAttendees: 50,
-      category: "Arts",
+      tags: ["Photography", "Arts", "Workshop", "Creative"],
       description:
         "Learn advanced photography techniques from professional photographers with hands-on workshops and real-world scenarios.",
       price: 25,
@@ -785,12 +792,14 @@ function EventsPage() {
       title: "Startup Pitch Night",
       club: "Entrepreneurs Network",
       clubId: 3,
-      date: "Dec 20, 2024",
+      date: "2024-12-20",
       time: "7:00 PM - 10:00 PM",
-      location: "Innovation Hub, Austin",
+      location: "Innovation Hub",
+      city: "Austin",
+      university: "UT Austin",
       attendees: 89,
       maxAttendees: 150,
-      category: "Business",
+      tags: ["Business", "Startup", "Pitch", "Investment"],
       description:
         "Watch emerging startups pitch their innovative ideas to a panel of experienced investors and industry experts.",
       price: 15,
@@ -801,12 +810,14 @@ function EventsPage() {
       title: "Machine Learning Workshop",
       club: "AI Research Club",
       clubId: 4,
-      date: "Dec 22, 2024",
+      date: "2024-12-22",
       time: "10:00 AM - 4:00 PM",
-      location: "University Campus, Seattle",
+      location: "Computer Science Building",
+      city: "Seattle",
+      university: "University of Washington",
       attendees: 67,
       maxAttendees: 80,
-      category: "Technology",
+      tags: ["Technology", "Machine Learning", "AI", "Workshop"],
       description:
         "Comprehensive workshop covering machine learning fundamentals, practical applications, and hands-on coding sessions.",
       price: 50,
@@ -817,12 +828,14 @@ function EventsPage() {
       title: "Digital Marketing Seminar",
       club: "Marketing Professionals",
       clubId: 5,
-      date: "Dec 25, 2024",
+      date: "2024-12-25",
       time: "1:00 PM - 5:00 PM",
-      location: "Business Center, Portland",
+      location: "Business Center",
+      city: "Portland",
+      university: "Portland State University",
       attendees: 92,
       maxAttendees: 120,
-      category: "Business",
+      tags: ["Business", "Marketing", "Digital", "Strategy"],
       description:
         "Explore the latest digital marketing trends, social media strategies, and conversion optimization techniques.",
       price: 35,
@@ -833,127 +846,326 @@ function EventsPage() {
       title: "Community Art Exhibition",
       club: "Local Artists Guild",
       clubId: 6,
-      date: "Dec 28, 2024",
+      date: "2024-12-28",
       time: "6:00 PM - 9:00 PM",
-      location: "City Gallery, Chicago",
+      location: "City Gallery",
+      city: "Chicago",
+      university: "University of Chicago",
       attendees: 156,
       maxAttendees: 200,
-      category: "Arts",
+      tags: ["Arts", "Exhibition", "Community", "Culture"],
       description:
         "Showcase of local talent featuring paintings, sculptures, and digital art with artist meet-and-greets.",
       price: 0,
       status: "Open",
     },
+    {
+      id: 7,
+      title: "Sustainable Energy Conference",
+      club: "Green Future Society",
+      clubId: 7,
+      date: "2025-01-05",
+      time: "9:00 AM - 5:00 PM",
+      location: "Engineering Hall",
+      city: "Berkeley",
+      university: "UC Berkeley",
+      attendees: 203,
+      maxAttendees: 300,
+      tags: ["Environment", "Sustainability", "Energy", "Conference"],
+      description:
+        "Explore renewable energy solutions and sustainable technologies for a greener future.",
+      price: 0,
+      status: "Open",
+    },
+    {
+      id: 8,
+      title: "Cybersecurity Bootcamp",
+      club: "InfoSec Club",
+      clubId: 8,
+      date: "2025-01-10",
+      time: "10:00 AM - 6:00 PM",
+      location: "Tech Hub",
+      city: "Boston",
+      university: "MIT",
+      attendees: 78,
+      maxAttendees: 100,
+      tags: ["Technology", "Security", "Cybersecurity", "Workshop"],
+      description:
+        "Intensive bootcamp covering ethical hacking, penetration testing, and cybersecurity best practices.",
+      price: 75,
+      status: "Open",
+    },
   ];
 
-  const categories = ["Technology", "Arts", "Business", "Sports", "Education"];
-  const locations = [
-    "Downtown",
+  const universities = [
+    "Stanford University",
+    "NYU",
+    "UT Austin",
+    "University of Washington",
+    "Portland State University",
+    "University of Chicago",
+    "UC Berkeley",
+    "MIT",
+  ];
+
+  const cities = [
+    "San Francisco",
     "Brooklyn",
     "Austin",
     "Seattle",
     "Portland",
     "Chicago",
+    "Berkeley",
+    "Boston",
   ];
+
+  const allTags = Array.from(new Set(events.flatMap((event) => event.tags)));
+
+  const handleTagToggle = (tag: string) => {
+    setSelectedTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
+    );
+  };
 
   const filteredEvents = events.filter((event) => {
     const matchesSearch =
       event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      event.club.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory =
-      selectedCategory === "all" || event.category === selectedCategory;
-    const matchesLocation =
-      selectedLocation === "all" ||
-      event.location.toLowerCase().includes(selectedLocation.toLowerCase());
-    return matchesSearch && matchesCategory && matchesLocation;
+      event.club.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      event.description.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesUniversity =
+      selectedUniversity === "all" || event.university === selectedUniversity;
+
+    const matchesCity = selectedCity === "all" || event.city === selectedCity;
+
+    const matchesTags =
+      selectedTags.length === 0 ||
+      selectedTags.some((tag) => event.tags.includes(tag));
+
+    const matchesDateRange =
+      (!dateRange.start || event.date >= dateRange.start) &&
+      (!dateRange.end || event.date <= dateRange.end);
+
+    return (
+      matchesSearch &&
+      matchesUniversity &&
+      matchesCity &&
+      matchesTags &&
+      matchesDateRange
+    );
   });
 
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Events</h1>
+          <h1 className="text-3xl font-bold text-foreground">
+            Discover Events
+          </h1>
           <p className="text-muted-foreground">
-            Discover amazing events in your community
+            Find amazing events at universities and in your community
           </p>
         </div>
-        <button className="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors flex items-center space-x-2">
-          <PlusIcon />
-          <span>Create Event</span>
-        </button>
+        <div className="flex items-center space-x-3">
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            className="bg-muted text-muted-foreground px-4 py-2 rounded-lg font-medium hover:bg-muted/80 transition-colors flex items-center space-x-2 sm:hidden"
+          >
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.207A1 1 0 013 6.5V4z"
+              />
+            </svg>
+            <span>Filters</span>
+          </button>
+          <button className="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors flex items-center space-x-2 shadow-sm">
+            <PlusIcon />
+            <span>Create Event</span>
+          </button>
+        </div>
       </div>
 
-      {/* Filters */}
+      {/* Modern Search Bar */}
       <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
-        <h2 className="text-lg font-semibold text-foreground mb-4">
-          Filter Events
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-foreground mb-1">
-              Search
-            </label>
-            <div className="relative">
+        <div className="relative mb-6">
+          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+            <SearchIcon />
+          </div>
+          <input
+            type="text"
+            placeholder="Search events, clubs, or descriptions..."
+            className="w-full pl-12 pr-4 py-3 border-2 border-muted rounded-xl focus:ring-2 focus:ring-secondary focus:border-secondary transition-all text-lg"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+
+        {/* Advanced Filters */}
+        <div
+          className={`space-y-6 ${showFilters ? "block" : "hidden sm:block"}`}
+        >
+          {/* Primary Filters Row */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div>
+              <label className="block text-sm font-semibold text-foreground mb-2">
+                University
+              </label>
+              <select
+                className="w-full px-3 py-2.5 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                value={selectedUniversity}
+                onChange={(e) => setSelectedUniversity(e.target.value)}
+              >
+                <option value="all">All Universities</option>
+                {universities.map((university) => (
+                  <option key={university} value={university}>
+                    {university}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-foreground mb-2">
+                City
+              </label>
+              <select
+                className="w-full px-3 py-2.5 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                value={selectedCity}
+                onChange={(e) => setSelectedCity(e.target.value)}
+              >
+                <option value="all">All Cities</option>
+                {cities.map((city) => (
+                  <option key={city} value={city}>
+                    {city}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-foreground mb-2">
+                Start Date
+              </label>
               <input
-                type="text"
-                placeholder="Search events..."
-                className="w-full pl-10 pr-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                type="date"
+                className="w-full px-3 py-2.5 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                value={dateRange.start}
+                onChange={(e) =>
+                  setDateRange((prev) => ({ ...prev, start: e.target.value }))
+                }
               />
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <SearchIcon />
-              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-foreground mb-2">
+                End Date
+              </label>
+              <input
+                type="date"
+                className="w-full px-3 py-2.5 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                value={dateRange.end}
+                onChange={(e) =>
+                  setDateRange((prev) => ({ ...prev, end: e.target.value }))
+                }
+              />
             </div>
           </div>
+
+          {/* Tags Section */}
           <div>
-            <label className="block text-sm font-medium text-foreground mb-1">
-              Category
+            <label className="block text-sm font-semibold text-foreground mb-3">
+              Tags ({selectedTags.length} selected)
             </label>
-            <select
-              className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent"
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-            >
-              <option value="all">All Categories</option>
-              {categories.map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
+            <div className="flex flex-wrap gap-2">
+              {allTags.map((tag) => (
+                <button
+                  key={tag}
+                  onClick={() => handleTagToggle(tag)}
+                  className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
+                    selectedTags.includes(tag)
+                      ? "bg-secondary text-white shadow-md scale-105"
+                      : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
+                  }`}
+                >
+                  {tag}
+                </button>
               ))}
-            </select>
+            </div>
+            {selectedTags.length > 0 && (
+              <button
+                onClick={() => setSelectedTags([])}
+                className="mt-2 text-sm text-secondary hover:text-secondary/80 font-medium"
+              >
+                Clear all tags
+              </button>
+            )}
           </div>
-          <div>
-            <label className="block text-sm font-medium text-foreground mb-1">
-              Location
-            </label>
-            <select
-              className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent"
-              value={selectedLocation}
-              onChange={(e) => setSelectedLocation(e.target.value)}
-            >
-              <option value="all">All Locations</option>
-              {locations.map((location) => (
-                <option key={location} value={location}>
-                  {location}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-foreground mb-1">
-              Sort By
-            </label>
-            <select
-              className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent"
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-            >
-              <option value="date">Date</option>
-              <option value="popularity">Popularity</option>
-              <option value="price">Price</option>
-            </select>
+
+          {/* Active Filters & Sort */}
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 pt-4 border-t border-muted">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-sm font-medium text-muted-foreground">
+                Active filters:
+              </span>
+              {selectedUniversity !== "all" && (
+                <span className="bg-blue-50 text-blue-700 px-2 py-1 rounded text-xs font-medium flex items-center gap-1">
+                  University: {selectedUniversity}
+                  <button
+                    onClick={() => setSelectedUniversity("all")}
+                    className="hover:bg-blue-200 rounded p-0.5"
+                  >
+                    ×
+                  </button>
+                </span>
+              )}
+              {selectedCity !== "all" && (
+                <span className="bg-green-50 text-green-700 px-2 py-1 rounded text-xs font-medium flex items-center gap-1">
+                  City: {selectedCity}
+                  <button
+                    onClick={() => setSelectedCity("all")}
+                    className="hover:bg-green-200 rounded p-0.5"
+                  >
+                    ×
+                  </button>
+                </span>
+              )}
+              {(dateRange.start || dateRange.end) && (
+                <span className="bg-purple-50 text-purple-700 px-2 py-1 rounded text-xs font-medium flex items-center gap-1">
+                  Date Range
+                  <button
+                    onClick={() => setDateRange({ start: "", end: "" })}
+                    className="hover:bg-purple-200 rounded p-0.5"
+                  >
+                    ×
+                  </button>
+                </span>
+              )}
+            </div>
+
+            <div className="flex items-center space-x-3">
+              <label className="text-sm font-medium text-muted-foreground">
+                Sort by:
+              </label>
+              <select
+                className="px-3 py-1.5 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary text-sm"
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+              >
+                <option value="date">Date</option>
+                <option value="popularity">Popularity</option>
+                <option value="price">Price</option>
+                <option value="alphabetical">Alphabetical</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
@@ -1001,7 +1213,14 @@ function EventsPage() {
                 <div className="space-y-2 text-sm text-muted-foreground mb-4">
                   <div className="flex items-center">
                     <CalendarIcon />
-                    <span className="ml-2">{event.date}</span>
+                    <span className="ml-2">
+                      {new Date(event.date).toLocaleDateString("en-US", {
+                        weekday: "short",
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </span>
                   </div>
                   <div className="flex items-center">
                     <ClockIcon />
@@ -1009,7 +1228,27 @@ function EventsPage() {
                   </div>
                   <div className="flex items-center">
                     <LocationIcon />
-                    <span className="ml-2 truncate">{event.location}</span>
+                    <span className="ml-2 truncate">
+                      {event.location}, {event.city}
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                      />
+                    </svg>
+                    <span className="ml-2 truncate text-xs">
+                      {event.university}
+                    </span>
                   </div>
                 </div>
 
