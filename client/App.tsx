@@ -1184,9 +1184,21 @@ function EventsPage() {
             >
               <div className="h-48 bg-gradient-to-br from-secondary to-primary relative">
                 <div className="absolute top-3 left-3">
-                  <span className="inline-block bg-white/90 backdrop-blur-sm text-secondary text-xs px-2 py-1 rounded font-medium">
-                    {event.category}
-                  </span>
+                  <div className="flex flex-wrap gap-1">
+                    {event.tags.slice(0, 2).map((tag, index) => (
+                      <span
+                        key={index}
+                        className="inline-block bg-white/90 backdrop-blur-sm text-secondary text-xs px-2 py-1 rounded font-medium"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                    {event.tags.length > 2 && (
+                      <span className="inline-block bg-white/90 backdrop-blur-sm text-secondary text-xs px-2 py-1 rounded font-medium">
+                        +{event.tags.length - 2}
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <div className="absolute top-3 right-3">
                   <span className="text-xs text-white/90 bg-black/20 backdrop-blur-sm px-2 py-1 rounded">
