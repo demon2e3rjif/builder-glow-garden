@@ -491,15 +491,15 @@ function Sidebar() {
   ];
 
   return (
-    <div className="fixed left-0 top-14 h-full w-64 bg-slate-900 border-r border-slate-700 shadow-lg">
-      <div className="p-6 border-b border-slate-700">
+    <div className="fixed left-0 top-14 h-full w-64 bg-gray-900 border-r border-gray-700 shadow-lg">
+      <div className="p-6 border-b border-gray-700">
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center shadow-md">
             <span className="text-white font-bold text-lg">E</span>
           </div>
           <div>
             <h1 className="text-xl font-bold text-white">EventHub</h1>
-            <p className="text-xs text-slate-400">Event Management</p>
+            <p className="text-xs text-gray-400">Event Management</p>
           </div>
         </div>
       </div>
@@ -517,7 +517,7 @@ function Sidebar() {
                     className={`flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                       isActive(item.path)
                         ? "bg-primary text-white shadow-md"
-                        : "text-slate-300 hover:text-white hover:bg-slate-800/50"
+                        : "text-gray-300 hover:text-white hover:bg-gray-800/50"
                     }`}
                   >
                     <IconComponent />
@@ -530,20 +530,20 @@ function Sidebar() {
       </nav>
 
       {/* User Profile Section */}
-      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-700 bg-slate-800/50">
+      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-700 bg-gray-800/50">
         <div className="flex items-center space-x-3">
           <div className="w-8 h-8 bg-gradient-to-br from-secondary to-accent rounded-full flex items-center justify-center text-white font-semibold text-sm">
             J
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-white truncate">John Doe</p>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-gray-400">
               {userType === "club" ? "Club Manager" : "Member"}
             </p>
           </div>
           <button
             onClick={() => setIsLoggedIn(false)}
-            className="text-slate-400 hover:text-white transition-colors"
+            className="text-gray-400 hover:text-white transition-colors"
             title="Logout"
           >
             <svg
