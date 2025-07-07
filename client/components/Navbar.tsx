@@ -18,7 +18,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "./ui/dropdown-menu";
-import { cn } from "@/lib/utils";
+import { cn } from "../lib/utils";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
