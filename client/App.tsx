@@ -6,7 +6,47 @@ import {
   useLocation,
   useParams,
 } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
+
+// Dark Mode Context
+const ThemeContext = createContext<{
+  isDark: boolean;
+  toggleTheme: () => void;
+}>({
+  isDark: false,
+  toggleTheme: () => {},
+});
+
+function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+    setIsDark(saved ? saved === "dark" : prefersDark);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDark]);
+
+  const toggleTheme = () => setIsDark(!isDark);
+
+  return (
+    <ThemeContext.Provider value={{ isDark, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+const useTheme = () => useContext(ThemeContext);
 
 // Professional Icon Components
 const HomeIcon = () => (
@@ -234,6 +274,7 @@ function TopNavbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [userType, setUserType] = useState<"user" | "club">("user");
   const [showNotifications, setShowNotifications] = useState(false);
+  const { isDark, toggleTheme } = useTheme();
 
   return (
     <div className="bg-white border-b border-border shadow-sm sticky top-0 z-50">
@@ -251,6 +292,43 @@ function TopNavbar() {
 
           {/* Right Side - Auth Controls */}
           <div className="flex items-center space-x-3">
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted transition-colors"
+              title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {isDark ? (
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                  />
+                </svg>
+              )}
+            </button>
+
             {isLoggedIn ? (
               <>
                 {/* Notifications */}
@@ -413,15 +491,15 @@ function Sidebar() {
   ];
 
   return (
-    <div className="fixed left-0 top-14 h-full w-64 bg-white border-r border-border shadow-lg">
-      <div className="p-6 border-b border-border">
+    <div className="fixed left-0 top-14 h-full w-64 bg-slate-900 border-r border-slate-700 shadow-lg">
+      <div className="p-6 border-b border-slate-700">
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center shadow-md">
             <span className="text-white font-bold text-lg">E</span>
           </div>
           <div>
-            <h1 className="text-xl font-bold text-primary">EventHub</h1>
-            <p className="text-xs text-muted-foreground">Event Management</p>
+            <h1 className="text-xl font-bold text-white">EventHub</h1>
+            <p className="text-xs text-slate-400">Event Management</p>
           </div>
         </div>
       </div>
@@ -439,7 +517,7 @@ function Sidebar() {
                     className={`flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                       isActive(item.path)
                         ? "bg-primary text-white shadow-md"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                        : "text-slate-300 hover:text-white hover:bg-slate-800/50"
                     }`}
                   >
                     <IconComponent />
@@ -452,22 +530,20 @@ function Sidebar() {
       </nav>
 
       {/* User Profile Section */}
-      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-border bg-muted/30">
+      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-700 bg-slate-800/50">
         <div className="flex items-center space-x-3">
           <div className="w-8 h-8 bg-gradient-to-br from-secondary to-accent rounded-full flex items-center justify-center text-white font-semibold text-sm">
             J
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-foreground truncate">
-              John Doe
-            </p>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-sm font-medium text-white truncate">John Doe</p>
+            <p className="text-xs text-slate-400">
               {userType === "club" ? "Club Manager" : "Member"}
             </p>
           </div>
           <button
             onClick={() => setIsLoggedIn(false)}
-            className="text-muted-foreground hover:text-foreground transition-colors"
+            className="text-slate-400 hover:text-white transition-colors"
             title="Logout"
           >
             <svg
@@ -2140,29 +2216,31 @@ function RegisterPage() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route
-          path="*"
-          element={
-            <PageLayout>
-              <Routes>
-                <Route path="/" element={<DashboardPage />} />
-                <Route path="/dashboard" element={<DashboardPage />} />
-                <Route path="/events" element={<EventsPage />} />
-                <Route path="/events/:id" element={<EventDetailsPage />} />
-                <Route path="/clubs" element={<ClubsPage />} />
-                <Route path="/clubs/:id" element={<ClubDetailsPage />} />
-                <Route path="/applications" element={<ApplicationsPage />} />
-                <Route path="/profile" element={<ProfilePage />} />
-                <Route path="/settings" element={<SettingsPage />} />
-              </Routes>
-            </PageLayout>
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route
+            path="*"
+            element={
+              <PageLayout>
+                <Routes>
+                  <Route path="/" element={<DashboardPage />} />
+                  <Route path="/dashboard" element={<DashboardPage />} />
+                  <Route path="/events" element={<EventsPage />} />
+                  <Route path="/events/:id" element={<EventDetailsPage />} />
+                  <Route path="/clubs" element={<ClubsPage />} />
+                  <Route path="/clubs/:id" element={<ClubDetailsPage />} />
+                  <Route path="/applications" element={<ApplicationsPage />} />
+                  <Route path="/profile" element={<ProfilePage />} />
+                  <Route path="/settings" element={<SettingsPage />} />
+                </Routes>
+              </PageLayout>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
