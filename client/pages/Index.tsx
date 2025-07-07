@@ -184,10 +184,10 @@ export default function Index() {
               return (
                 <div
                   key={index}
-                  className="bg-white rounded-xl p-8 shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
+                  className="bg-white rounded-xl p-8 shadow-sm border border-gray-200 hover:shadow-lg hover:border-purple-200 transition-all duration-300 transform hover:-translate-y-1"
                 >
-                  <div className="w-12 h-12 bg-brand-100 rounded-lg flex items-center justify-center mb-6">
-                    <Icon className="w-6 h-6 text-brand-600" />
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center mb-6 group-hover:from-purple-200 group-hover:to-purple-300 transition-all">
+                    <Icon className="w-6 h-6 text-purple-600" />
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-3">
                     {feature.title}
@@ -224,9 +224,9 @@ export default function Index() {
             {featuredEvents.map((event) => (
               <div
                 key={event.id}
-                className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow"
+                className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-xl hover:border-purple-200 transition-all duration-300 transform hover:-translate-y-2"
               >
-                <div className="h-48 bg-gradient-to-br from-brand-400 to-brand-600"></div>
+                <div className="h-48 bg-gradient-to-br from-purple-400 via-purple-500 to-blue-600"></div>
                 <div className="p-6">
                   <div className="flex items-center space-x-2 text-sm text-brand-600 mb-2">
                     <Users className="w-4 h-4" />
