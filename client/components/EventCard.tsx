@@ -59,7 +59,7 @@ export function EventCard({
       )}
     >
       {/* Event Image */}
-      <div className="relative h-48 bg-gradient-to-br from-brand-400 to-brand-600 overflow-hidden">
+      <div className="relative h-48 bg-gradient-to-br from-purple-400 to-blue-600 overflow-hidden">
         {event.image ? (
           <img
             src={event.image}
@@ -67,7 +67,7 @@ export function EventCard({
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center">
+          <div className="w-full h-full bg-gradient-to-br from-purple-400 via-purple-500 to-blue-600 flex items-center justify-center">
             <Calendar className="w-12 h-12 text-white/80" />
           </div>
         )}
@@ -101,12 +101,12 @@ export function EventCard({
       <div className="p-6">
         {/* Club Info */}
         <div className="flex items-center space-x-2 mb-3">
-          <div className="w-6 h-6 bg-brand-100 rounded-full flex items-center justify-center">
-            <Users className="w-3 h-3 text-brand-600" />
+          <div className="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center">
+            <Users className="w-3 h-3 text-purple-600" />
           </div>
           <Link
             to={`/clubs/${event.club.id}`}
-            className="text-sm text-brand-600 hover:text-brand-700 font-medium"
+            className="text-sm text-purple-600 hover:text-purple-700 font-medium"
           >
             {event.club.name}
           </Link>

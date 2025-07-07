@@ -38,7 +38,7 @@ export function ClubCard({
       )}
     >
       {/* Club Header Image */}
-      <div className="relative h-40 bg-gradient-to-br from-brand-400 to-brand-600 overflow-hidden">
+      <div className="relative h-40 bg-gradient-to-br from-purple-400 to-blue-600 overflow-hidden">
         {club.image ? (
           <img
             src={club.image}
@@ -46,7 +46,7 @@ export function ClubCard({
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center">
+          <div className="w-full h-full bg-gradient-to-br from-purple-400 via-purple-500 to-blue-600 flex items-center justify-center">
             <Users className="w-12 h-12 text-white/80" />
           </div>
         )}
