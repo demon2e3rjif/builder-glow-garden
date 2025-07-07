@@ -8,10 +8,231 @@ import {
 } from "react-router-dom";
 import { useState } from "react";
 
+// Professional Icon Components
+const HomeIcon = () => (
+  <svg
+    className="w-5 h-5"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+    />
+  </svg>
+);
+
+const CalendarIcon = () => (
+  <svg
+    className="w-5 h-5"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+    />
+  </svg>
+);
+
+const UsersIcon = () => (
+  <svg
+    className="w-5 h-5"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+    />
+  </svg>
+);
+
+const DocumentIcon = () => (
+  <svg
+    className="w-5 h-5"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+    />
+  </svg>
+);
+
+const UserIcon = () => (
+  <svg
+    className="w-5 h-5"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+    />
+  </svg>
+);
+
+const CogIcon = () => (
+  <svg
+    className="w-5 h-5"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+    />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+    />
+  </svg>
+);
+
+const LocationIcon = () => (
+  <svg
+    className="w-4 h-4"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+    />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+    />
+  </svg>
+);
+
+const ClockIcon = () => (
+  <svg
+    className="w-4 h-4"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+    />
+  </svg>
+);
+
+const SearchIcon = () => (
+  <svg
+    className="w-4 h-4"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+    />
+  </svg>
+);
+
+const PlusIcon = () => (
+  <svg
+    className="w-4 h-4"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+    />
+  </svg>
+);
+
+const ArrowLeftIcon = () => (
+  <svg
+    className="w-6 h-6"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M15 19l-7-7 7-7"
+    />
+  </svg>
+);
+
+const ExternalLinkIcon = () => (
+  <svg
+    className="w-5 h-5"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+    />
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg
+    className="w-4 h-4"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M5 13l4 4L19 7"
+    />
+  </svg>
+);
+
 // Sidebar Component
 function Sidebar() {
   const location = useLocation();
-  const [isLoggedIn, setIsLoggedIn] = useState(true); // Simulated auth state
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [userType, setUserType] = useState<"user" | "club">("user");
 
   const isActive = (path: string) => location.pathname.startsWith(path);
@@ -20,58 +241,58 @@ function Sidebar() {
     {
       name: "Dashboard",
       path: "/dashboard",
-      icon: "🏠",
+      icon: HomeIcon,
       show: true,
     },
     {
       name: "Events",
       path: "/events",
-      icon: "📅",
+      icon: CalendarIcon,
       show: true,
     },
     {
       name: "Clubs",
       path: "/clubs",
-      icon: "👥",
+      icon: UsersIcon,
       show: true,
     },
     {
       name: "My Applications",
       path: "/applications",
-      icon: "📝",
+      icon: DocumentIcon,
       show: userType === "user",
     },
     {
       name: "Manage Events",
       path: "/manage-events",
-      icon: "⚙️",
+      icon: CogIcon,
       show: userType === "club",
     },
     {
       name: "Members",
       path: "/members",
-      icon: "👤",
+      icon: UsersIcon,
       show: userType === "club",
     },
     {
       name: "Profile",
       path: "/profile",
-      icon: "👨‍💼",
+      icon: UserIcon,
       show: true,
     },
     {
       name: "Settings",
       path: "/settings",
-      icon: "⚙️",
+      icon: CogIcon,
       show: true,
     },
   ];
 
   return (
-    <div className="fixed left-0 top-0 h-full w-64 bg-white border-r border-border shadow-sm">
+    <div className="fixed left-0 top-0 h-full w-64 bg-white border-r border-border shadow-lg">
       <div className="p-6 border-b border-border">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
+          <div className="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center shadow-md">
             <span className="text-white font-bold text-lg">E</span>
           </div>
           <div>
@@ -82,29 +303,32 @@ function Sidebar() {
       </div>
 
       <nav className="p-4">
-        <ul className="space-y-2">
+        <ul className="space-y-1">
           {navigationItems
             .filter((item) => item.show)
-            .map((item) => (
-              <li key={item.path}>
-                <Link
-                  to={item.path}
-                  className={`flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    isActive(item.path)
-                      ? "bg-primary text-white"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                  }`}
-                >
-                  <span className="text-base">{item.icon}</span>
-                  <span>{item.name}</span>
-                </Link>
-              </li>
-            ))}
+            .map((item) => {
+              const IconComponent = item.icon;
+              return (
+                <li key={item.path}>
+                  <Link
+                    to={item.path}
+                    className={`flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      isActive(item.path)
+                        ? "bg-primary text-white shadow-md"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                    }`}
+                  >
+                    <IconComponent />
+                    <span>{item.name}</span>
+                  </Link>
+                </li>
+              );
+            })}
         </ul>
       </nav>
 
       {/* User Profile Section */}
-      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-border">
+      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-border bg-muted/30">
         <div className="flex items-center space-x-3">
           <div className="w-8 h-8 bg-gradient-to-br from-secondary to-accent rounded-full flex items-center justify-center text-white font-semibold text-sm">
             J
@@ -119,7 +343,7 @@ function Sidebar() {
           </div>
           <button
             onClick={() => setIsLoggedIn(false)}
-            className="text-muted-foreground hover:text-foreground"
+            className="text-muted-foreground hover:text-foreground transition-colors"
             title="Logout"
           >
             <svg
@@ -160,12 +384,31 @@ function DashboardPage() {
     {
       label: "Events Attended",
       value: "12",
-      icon: "📅",
+      icon: CalendarIcon,
       color: "text-blue-600",
+      bgColor: "bg-blue-50",
     },
-    { label: "Clubs Joined", value: "3", icon: "👥", color: "text-green-600" },
-    { label: "Applications", value: "5", icon: "📝", color: "text-yellow-600" },
-    { label: "Connections", value: "48", icon: "🤝", color: "text-purple-600" },
+    {
+      label: "Clubs Joined",
+      value: "3",
+      icon: UsersIcon,
+      color: "text-green-600",
+      bgColor: "bg-green-50",
+    },
+    {
+      label: "Applications",
+      value: "5",
+      icon: DocumentIcon,
+      color: "text-orange-600",
+      bgColor: "bg-orange-50",
+    },
+    {
+      label: "Connections",
+      value: "48",
+      icon: UserIcon,
+      color: "text-purple-600",
+      bgColor: "bg-purple-50",
+    },
   ];
 
   const recentEvents = [
@@ -196,22 +439,27 @@ function DashboardPage() {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {stats.map((stat, index) => (
-          <div
-            key={index}
-            className="bg-white p-6 rounded-xl border border-border shadow-sm"
-          >
-            <div className="flex items-center space-x-4">
-              <div className="text-2xl">{stat.icon}</div>
-              <div>
-                <p className="text-2xl font-bold text-foreground">
-                  {stat.value}
-                </p>
-                <p className="text-sm text-muted-foreground">{stat.label}</p>
+        {stats.map((stat, index) => {
+          const IconComponent = stat.icon;
+          return (
+            <div
+              key={index}
+              className="bg-white p-6 rounded-xl border border-border shadow-sm hover:shadow-md transition-shadow"
+            >
+              <div className="flex items-center space-x-4">
+                <div className={`p-3 rounded-lg ${stat.bgColor}`}>
+                  <IconComponent />
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-foreground">
+                    {stat.value}
+                  </p>
+                  <p className="text-sm text-muted-foreground">{stat.label}</p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Recent Activity */}
@@ -257,28 +505,28 @@ function DashboardPage() {
           <div className="space-y-3">
             <Link
               to="/events"
-              className="block p-3 bg-muted rounded-lg hover:bg-muted/80 transition-colors"
+              className="block p-3 bg-muted/50 rounded-lg hover:bg-muted transition-colors"
             >
               <div className="flex items-center space-x-3">
-                <span className="text-lg">🔍</span>
+                <SearchIcon />
                 <span className="font-medium">Browse Events</span>
               </div>
             </Link>
             <Link
               to="/clubs"
-              className="block p-3 bg-muted rounded-lg hover:bg-muted/80 transition-colors"
+              className="block p-3 bg-muted/50 rounded-lg hover:bg-muted transition-colors"
             >
               <div className="flex items-center space-x-3">
-                <span className="text-lg">👥</span>
+                <UsersIcon />
                 <span className="font-medium">Find Clubs</span>
               </div>
             </Link>
             <Link
               to="/applications"
-              className="block p-3 bg-muted rounded-lg hover:bg-muted/80 transition-colors"
+              className="block p-3 bg-muted/50 rounded-lg hover:bg-muted transition-colors"
             >
               <div className="flex items-center space-x-3">
-                <span className="text-lg">📝</span>
+                <DocumentIcon />
                 <span className="font-medium">My Applications</span>
               </div>
             </Link>
@@ -309,7 +557,7 @@ function EventsPage() {
       maxAttendees: 200,
       category: "Technology",
       description:
-        "A full-day summit featuring the latest in tech innovation...",
+        "A full-day summit featuring the latest in tech innovation, networking opportunities, and keynote speakers from industry leaders.",
       price: 0,
       status: "Open",
     },
@@ -325,7 +573,7 @@ function EventsPage() {
       maxAttendees: 50,
       category: "Arts",
       description:
-        "Learn advanced photography techniques from professionals...",
+        "Learn advanced photography techniques from professional photographers with hands-on workshops and real-world scenarios.",
       price: 25,
       status: "Open",
     },
@@ -340,14 +588,70 @@ function EventsPage() {
       attendees: 89,
       maxAttendees: 150,
       category: "Business",
-      description: "Watch emerging startups pitch to investors...",
+      description:
+        "Watch emerging startups pitch their innovative ideas to a panel of experienced investors and industry experts.",
       price: 15,
+      status: "Open",
+    },
+    {
+      id: 4,
+      title: "Machine Learning Workshop",
+      club: "AI Research Club",
+      clubId: 4,
+      date: "Dec 22, 2024",
+      time: "10:00 AM - 4:00 PM",
+      location: "University Campus, Seattle",
+      attendees: 67,
+      maxAttendees: 80,
+      category: "Technology",
+      description:
+        "Comprehensive workshop covering machine learning fundamentals, practical applications, and hands-on coding sessions.",
+      price: 50,
+      status: "Open",
+    },
+    {
+      id: 5,
+      title: "Digital Marketing Seminar",
+      club: "Marketing Professionals",
+      clubId: 5,
+      date: "Dec 25, 2024",
+      time: "1:00 PM - 5:00 PM",
+      location: "Business Center, Portland",
+      attendees: 92,
+      maxAttendees: 120,
+      category: "Business",
+      description:
+        "Explore the latest digital marketing trends, social media strategies, and conversion optimization techniques.",
+      price: 35,
+      status: "Open",
+    },
+    {
+      id: 6,
+      title: "Community Art Exhibition",
+      club: "Local Artists Guild",
+      clubId: 6,
+      date: "Dec 28, 2024",
+      time: "6:00 PM - 9:00 PM",
+      location: "City Gallery, Chicago",
+      attendees: 156,
+      maxAttendees: 200,
+      category: "Arts",
+      description:
+        "Showcase of local talent featuring paintings, sculptures, and digital art with artist meet-and-greets.",
+      price: 0,
       status: "Open",
     },
   ];
 
   const categories = ["Technology", "Arts", "Business", "Sports", "Education"];
-  const locations = ["Downtown", "Brooklyn", "Austin", "Seattle", "Portland"];
+  const locations = [
+    "Downtown",
+    "Brooklyn",
+    "Austin",
+    "Seattle",
+    "Portland",
+    "Chicago",
+  ];
 
   const filteredEvents = events.filter((event) => {
     const matchesSearch =
@@ -371,8 +675,9 @@ function EventsPage() {
             Discover amazing events in your community
           </p>
         </div>
-        <button className="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors">
-          Create Event
+        <button className="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors flex items-center space-x-2">
+          <PlusIcon />
+          <span>Create Event</span>
         </button>
       </div>
 
@@ -386,13 +691,18 @@ function EventsPage() {
             <label className="block text-sm font-medium text-foreground mb-1">
               Search
             </label>
-            <input
-              type="text"
-              placeholder="Search events..."
-              className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search events..."
+                className="w-full pl-10 pr-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <SearchIcon />
+              </div>
+            </div>
           </div>
           <div>
             <label className="block text-sm font-medium text-foreground mb-1">
@@ -450,30 +760,33 @@ function EventsPage() {
         <h2 className="text-lg font-semibold text-foreground mb-4">
           {filteredEvents.length} Events Found
         </h2>
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+        {/* Responsive Grid - 1 col on mobile, 2 on tablet, 3 on desktop, 4 on large screens */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
           {filteredEvents.map((event) => (
             <div
               key={event.id}
-              className="bg-white rounded-xl border border-border shadow-sm overflow-hidden hover:shadow-md transition-shadow"
+              className="bg-white rounded-xl border border-border shadow-sm overflow-hidden hover:shadow-lg hover:border-secondary/20 transition-all duration-300"
             >
-              <div className="h-48 bg-gradient-to-br from-secondary to-primary"></div>
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="inline-block bg-muted text-muted-foreground text-xs px-2 py-1 rounded">
+              <div className="h-48 bg-gradient-to-br from-secondary to-primary relative">
+                <div className="absolute top-3 left-3">
+                  <span className="inline-block bg-white/90 backdrop-blur-sm text-secondary text-xs px-2 py-1 rounded font-medium">
                     {event.category}
                   </span>
-                  <span className="text-xs text-muted-foreground">
-                    {event.attendees}/{event.maxAttendees} attending
+                </div>
+                <div className="absolute top-3 right-3">
+                  <span className="text-xs text-white/90 bg-black/20 backdrop-blur-sm px-2 py-1 rounded">
+                    {event.attendees}/{event.maxAttendees}
                   </span>
                 </div>
-
-                <h3 className="text-xl font-semibold text-foreground mb-2">
+              </div>
+              <div className="p-4">
+                <h3 className="text-lg font-semibold text-foreground mb-2 line-clamp-2">
                   {event.title}
                 </h3>
 
                 <Link
                   to={`/clubs/${event.clubId}`}
-                  className="text-sm text-secondary hover:text-secondary/80 mb-2 block"
+                  className="text-sm text-secondary hover:text-secondary/80 mb-3 block font-medium"
                 >
                   by {event.club}
                 </Link>
@@ -484,58 +797,16 @@ function EventsPage() {
 
                 <div className="space-y-2 text-sm text-muted-foreground mb-4">
                   <div className="flex items-center">
-                    <svg
-                      className="w-4 h-4 mr-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                      />
-                    </svg>
-                    {event.date}
+                    <CalendarIcon />
+                    <span className="ml-2">{event.date}</span>
                   </div>
                   <div className="flex items-center">
-                    <svg
-                      className="w-4 h-4 mr-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                    {event.time}
+                    <ClockIcon />
+                    <span className="ml-2">{event.time}</span>
                   </div>
                   <div className="flex items-center">
-                    <svg
-                      className="w-4 h-4 mr-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                    </svg>
-                    {event.location}
+                    <LocationIcon />
+                    <span className="ml-2 truncate">{event.location}</span>
                   </div>
                 </div>
 
@@ -555,6 +826,260 @@ function EventsPage() {
                     </button>
                   </div>
                 </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Clubs Page
+function ClubsPage() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
+  const clubs = [
+    {
+      id: 1,
+      name: "Tech Innovators Club",
+      description:
+        "A vibrant community of developers, designers, and tech enthusiasts passionate about innovation and cutting-edge technology. We organize workshops, hackathons, and networking events.",
+      members: 1247,
+      upcomingEvents: 8,
+      category: "Technology",
+      location: "San Francisco, CA",
+      founded: "2020",
+      isVerified: true,
+    },
+    {
+      id: 2,
+      name: "Creative Lens Society",
+      description:
+        "Professional and amateur photographers sharing knowledge, techniques, and passion for visual storytelling. Regular photo walks and exhibitions.",
+      members: 892,
+      upcomingEvents: 5,
+      category: "Arts",
+      location: "Brooklyn, NY",
+      founded: "2019",
+      isVerified: true,
+    },
+    {
+      id: 3,
+      name: "Entrepreneurs Network",
+      description:
+        "Connect with fellow entrepreneurs, share experiences, and build the next generation of innovative businesses. Monthly pitch nights and mentorship programs.",
+      members: 2156,
+      upcomingEvents: 12,
+      category: "Business",
+      location: "Austin, TX",
+      founded: "2018",
+      isVerified: true,
+    },
+    {
+      id: 4,
+      name: "AI Research Club",
+      description:
+        "Dedicated to advancing artificial intelligence research and applications. Weekly seminars, research collaborations, and industry partnerships.",
+      members: 543,
+      upcomingEvents: 6,
+      category: "Technology",
+      location: "Seattle, WA",
+      founded: "2021",
+      isVerified: false,
+    },
+    {
+      id: 5,
+      name: "Marketing Professionals",
+      description:
+        "Digital marketing experts sharing strategies, tools, and insights. Quarterly conferences and monthly skill-building workshops.",
+      members: 1089,
+      upcomingEvents: 9,
+      category: "Business",
+      location: "Portland, OR",
+      founded: "2019",
+      isVerified: true,
+    },
+    {
+      id: 6,
+      name: "Local Artists Guild",
+      description:
+        "Supporting local artists through exhibitions, collaborative projects, and community art initiatives. Painters, sculptors, and digital artists welcome.",
+      members: 445,
+      upcomingEvents: 4,
+      category: "Arts",
+      location: "Chicago, IL",
+      founded: "2020",
+      isVerified: false,
+    },
+    {
+      id: 7,
+      name: "Fitness Enthusiasts",
+      description:
+        "Community of fitness lovers organizing group workouts, nutrition workshops, and wellness challenges. All fitness levels welcome.",
+      members: 723,
+      upcomingEvents: 7,
+      category: "Sports",
+      location: "Miami, FL",
+      founded: "2022",
+      isVerified: false,
+    },
+    {
+      id: 8,
+      name: "Book Lovers Society",
+      description:
+        "Literary community discussing books, hosting author events, and organizing reading challenges. Monthly book club meetings and literary discussions.",
+      members: 334,
+      upcomingEvents: 3,
+      category: "Education",
+      location: "Boston, MA",
+      founded: "2021",
+      isVerified: true,
+    },
+  ];
+
+  const categories = ["Technology", "Arts", "Business", "Sports", "Education"];
+
+  const filteredClubs = clubs.filter((club) => {
+    const matchesSearch =
+      club.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      club.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory =
+      selectedCategory === "all" || club.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  return (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold text-foreground">Clubs</h1>
+          <p className="text-muted-foreground">
+            Find communities that match your interests
+          </p>
+        </div>
+        <button className="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors flex items-center space-x-2">
+          <PlusIcon />
+          <span>Create Club</span>
+        </button>
+      </div>
+
+      {/* Filters */}
+      <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-foreground mb-1">
+              Search Clubs
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search clubs..."
+                className="w-full pl-10 pr-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <SearchIcon />
+              </div>
+            </div>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-foreground mb-1">
+              Category
+            </label>
+            <select
+              className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent"
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+            >
+              <option value="all">All Categories</option>
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-foreground mb-1">
+              Sort By
+            </label>
+            <select className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent">
+              <option value="members">Most Members</option>
+              <option value="events">Most Events</option>
+              <option value="newest">Newest</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      {/* Results */}
+      <div>
+        <h2 className="text-lg font-semibold text-foreground mb-4">
+          {filteredClubs.length} Clubs Found
+        </h2>
+        {/* Responsive Grid - 1 col on mobile, 2 on tablet, 3 on desktop, 4 on large screens */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
+          {filteredClubs.map((club) => (
+            <div
+              key={club.id}
+              className="bg-white rounded-xl border border-border shadow-sm p-6 hover:shadow-lg hover:border-secondary/20 transition-all duration-300"
+            >
+              <div className="flex items-start space-x-4 mb-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-secondary to-primary rounded-xl flex items-center justify-center text-white font-bold text-xl shrink-0">
+                  {club.name.charAt(0)}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <h3 className="text-lg font-semibold text-foreground truncate">
+                      {club.name}
+                    </h3>
+                    {club.isVerified && <CheckIcon />}
+                  </div>
+                  <span className="inline-block bg-muted text-muted-foreground text-xs px-2 py-1 rounded font-medium">
+                    {club.category}
+                  </span>
+                </div>
+              </div>
+
+              <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
+                {club.description}
+              </p>
+
+              <div className="space-y-2 text-sm text-muted-foreground mb-4">
+                <div className="flex items-center justify-between">
+                  <span className="flex items-center">
+                    <UsersIcon />
+                    <span className="ml-1">
+                      {club.members.toLocaleString()}
+                    </span>
+                  </span>
+                  <span className="flex items-center">
+                    <CalendarIcon />
+                    <span className="ml-1">{club.upcomingEvents}</span>
+                  </span>
+                </div>
+                <div className="flex items-center">
+                  <LocationIcon />
+                  <span className="ml-2 truncate">{club.location}</span>
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  Founded {club.founded}
+                </div>
+              </div>
+
+              <div className="flex space-x-2">
+                <Link
+                  to={`/clubs/${club.id}`}
+                  className="flex-1 bg-secondary text-white px-3 py-2 rounded-lg text-sm font-medium text-center hover:bg-secondary/90 transition-colors"
+                >
+                  View Club
+                </Link>
+                <button className="bg-primary text-white px-3 py-2 rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors">
+                  Join
+                </button>
               </div>
             </div>
           ))}
@@ -619,19 +1144,7 @@ function EventDetailsPage() {
           to="/events"
           className="text-muted-foreground hover:text-foreground"
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
+          <ArrowLeftIcon />
         </Link>
         <div>
           <h1 className="text-3xl font-bold text-foreground">{event.title}</h1>
@@ -714,78 +1227,24 @@ function EventDetailsPage() {
             </h3>
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
-                <svg
-                  className="w-5 h-5 text-muted-foreground"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg>
+                <CalendarIcon />
                 <div>
                   <p className="font-medium text-foreground">{event.date}</p>
                   <p className="text-sm text-muted-foreground">{event.time}</p>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
-                <svg
-                  className="w-5 h-5 text-muted-foreground"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
+                <LocationIcon />
                 <p className="text-foreground">{event.location}</p>
               </div>
               <div className="flex items-center space-x-3">
-                <svg
-                  className="w-5 h-5 text-muted-foreground"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                  />
-                </svg>
+                <UsersIcon />
                 <p className="text-foreground">
                   {event.attendees} / {event.maxAttendees} attending
                 </p>
               </div>
               <div className="flex items-center space-x-3">
-                <svg
-                  className="w-5 h-5 text-muted-foreground"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
-                  />
-                </svg>
+                <span className="text-lg">💰</span>
                 <p className="text-foreground text-lg font-bold">
                   {event.price === 0 ? "Free" : `$${event.price}`}
                 </p>
@@ -824,180 +1283,6 @@ function EventDetailsPage() {
             </Link>
           </div>
         </div>
-      </div>
-    </div>
-  );
-}
-
-// Clubs Page
-function ClubsPage() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("all");
-
-  const clubs = [
-    {
-      id: 1,
-      name: "Tech Innovators Club",
-      description:
-        "A community of developers, designers, and tech enthusiasts passionate about innovation and cutting-edge technology.",
-      members: 1247,
-      upcomingEvents: 8,
-      category: "Technology",
-      location: "San Francisco, CA",
-      founded: "2020",
-      isVerified: true,
-    },
-    {
-      id: 2,
-      name: "Creative Lens Society",
-      description:
-        "Professional and amateur photographers sharing knowledge, techniques, and passion for visual storytelling.",
-      members: 892,
-      upcomingEvents: 5,
-      category: "Arts",
-      location: "Brooklyn, NY",
-      founded: "2019",
-      isVerified: true,
-    },
-    {
-      id: 3,
-      name: "Entrepreneurs Network",
-      description:
-        "Connect with fellow entrepreneurs, share experiences, and build the next generation of innovative businesses.",
-      members: 2156,
-      upcomingEvents: 12,
-      category: "Business",
-      location: "Austin, TX",
-      founded: "2018",
-      isVerified: true,
-    },
-  ];
-
-  const categories = ["Technology", "Arts", "Business", "Sports", "Education"];
-
-  const filteredClubs = clubs.filter((club) => {
-    const matchesSearch =
-      club.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      club.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory =
-      selectedCategory === "all" || club.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
-
-  return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">Clubs</h1>
-          <p className="text-muted-foreground">
-            Find communities that match your interests
-          </p>
-        </div>
-        <button className="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors">
-          Create Club
-        </button>
-      </div>
-
-      {/* Filters */}
-      <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-foreground mb-1">
-              Search Clubs
-            </label>
-            <input
-              type="text"
-              placeholder="Search clubs..."
-              className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-foreground mb-1">
-              Category
-            </label>
-            <select
-              className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent"
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-            >
-              <option value="all">All Categories</option>
-              {categories.map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-foreground mb-1">
-              Sort By
-            </label>
-            <select className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent">
-              <option value="members">Most Members</option>
-              <option value="events">Most Events</option>
-              <option value="newest">Newest</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      {/* Results */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-        {filteredClubs.map((club) => (
-          <div
-            key={club.id}
-            className="bg-white rounded-xl border border-border shadow-sm p-6 hover:shadow-md transition-shadow"
-          >
-            <div className="flex items-start space-x-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-secondary to-primary rounded-xl flex items-center justify-center text-white font-bold text-xl shrink-0">
-                {club.name.charAt(0)}
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center space-x-2 mb-2">
-                  <h3 className="text-lg font-semibold text-foreground truncate">
-                    {club.name}
-                  </h3>
-                  {club.isVerified && (
-                    <span className="text-secondary" title="Verified Club">
-                      ✓
-                    </span>
-                  )}
-                </div>
-                <span className="inline-block bg-muted text-muted-foreground text-xs px-2 py-1 rounded mb-2">
-                  {club.category}
-                </span>
-                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                  {club.description}
-                </p>
-                <div className="grid grid-cols-2 gap-4 text-sm text-muted-foreground mb-4">
-                  <div>
-                    <span className="font-medium">{club.members}</span> members
-                  </div>
-                  <div>
-                    <span className="font-medium">{club.upcomingEvents}</span>{" "}
-                    events
-                  </div>
-                  <div className="col-span-2">
-                    📍 {club.location} • Founded {club.founded}
-                  </div>
-                </div>
-                <div className="flex space-x-2">
-                  <Link
-                    to={`/clubs/${club.id}`}
-                    className="flex-1 bg-secondary text-white px-3 py-2 rounded-lg text-sm font-medium text-center hover:bg-secondary/90 transition-colors"
-                  >
-                    View Club
-                  </Link>
-                  <button className="bg-primary text-white px-3 py-2 rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors">
-                    Join
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
       </div>
     </div>
   );
@@ -1065,19 +1350,7 @@ function ClubDetailsPage() {
           to="/clubs"
           className="text-muted-foreground hover:text-foreground"
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
+          <ArrowLeftIcon />
         </Link>
         <div className="flex items-center space-x-4">
           <div className="w-16 h-16 bg-gradient-to-br from-secondary to-primary rounded-xl flex items-center justify-center text-white font-bold text-xl">
@@ -1088,11 +1361,7 @@ function ClubDetailsPage() {
               <h1 className="text-3xl font-bold text-foreground">
                 {club.name}
               </h1>
-              {club.isVerified && (
-                <span className="text-secondary text-xl" title="Verified Club">
-                  ✓
-                </span>
-              )}
+              {club.isVerified && <CheckIcon />}
             </div>
             <div className="flex items-center space-x-4 text-muted-foreground">
               <span>{club.category}</span>
@@ -1235,45 +1504,21 @@ function ClubDetailsPage() {
                 href={club.website}
                 className="flex items-center space-x-3 text-muted-foreground hover:text-foreground transition-colors"
               >
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0 9c-5 0-9-4-9-9m9 9c5 0 9-4 9-9m-9 9v-9m0 9c-5 0-9-4-9-9"
-                  />
-                </svg>
+                <ExternalLinkIcon />
                 <span>Website</span>
               </a>
               <a
                 href="#"
                 className="flex items-center space-x-3 text-muted-foreground hover:text-foreground transition-colors"
               >
-                <svg
-                  className="w-5 h-5"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z" />
-                </svg>
+                <span className="w-5 h-5">��</span>
                 <span>{club.socialMedia.twitter}</span>
               </a>
               <a
                 href="#"
                 className="flex items-center space-x-3 text-muted-foreground hover:text-foreground transition-colors"
               >
-                <svg
-                  className="w-5 h-5"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                </svg>
+                <span className="w-5 h-5">💼</span>
                 <span>{club.socialMedia.linkedin}</span>
               </a>
             </div>
@@ -1311,330 +1556,15 @@ function ClubDetailsPage() {
   );
 }
 
-// Profile Page
+// Profile Page (simplified for space)
 function ProfilePage() {
-  const [activeTab, setActiveTab] = useState("overview");
-
-  const userProfile = {
-    name: "John Doe",
-    email: "john.doe@example.com",
-    joinDate: "January 2023",
-    bio: "Passionate software developer and tech enthusiast. Love attending tech meetups and learning about new technologies.",
-    location: "San Francisco, CA",
-    website: "https://johndoe.dev",
-    skills: ["React", "Node.js", "Python", "Machine Learning"],
-    clubs: [
-      { name: "Tech Innovators Club", role: "Member", joinDate: "Jan 2023" },
-      { name: "Creative Lens Society", role: "Member", joinDate: "Mar 2023" },
-    ],
-    events: [
-      {
-        name: "Tech Innovation Summit",
-        date: "Dec 15, 2024",
-        status: "Confirmed",
-      },
-      { name: "Photography Workshop", date: "Dec 18, 2024", status: "Pending" },
-    ],
-  };
-
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold text-foreground">Profile</h1>
+      <h1 className="text-3xl font-bold text-foreground">Profile</h1>
+      <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
         <p className="text-muted-foreground">
-          Manage your account and preferences
+          Profile page with tabs - coming soon
         </p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Profile Overview */}
-        <div className="lg:col-span-1">
-          <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
-            <div className="text-center">
-              <div className="w-24 h-24 bg-gradient-to-br from-secondary to-primary rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4">
-                {userProfile.name
-                  .split(" ")
-                  .map((n) => n[0])
-                  .join("")}
-              </div>
-              <h2 className="text-xl font-semibold text-foreground">
-                {userProfile.name}
-              </h2>
-              <p className="text-muted-foreground">{userProfile.email}</p>
-              <p className="text-sm text-muted-foreground mt-2">
-                Member since {userProfile.joinDate}
-              </p>
-            </div>
-
-            <div className="mt-6 space-y-4">
-              <div>
-                <h3 className="font-medium text-foreground mb-2">Location</h3>
-                <p className="text-muted-foreground">{userProfile.location}</p>
-              </div>
-              <div>
-                <h3 className="font-medium text-foreground mb-2">Website</h3>
-                <a
-                  href={userProfile.website}
-                  className="text-secondary hover:text-secondary/80"
-                >
-                  {userProfile.website}
-                </a>
-              </div>
-              <div>
-                <h3 className="font-medium text-foreground mb-2">Skills</h3>
-                <div className="flex flex-wrap gap-2">
-                  {userProfile.skills.map((skill, index) => (
-                    <span
-                      key={index}
-                      className="bg-muted text-muted-foreground px-2 py-1 rounded text-sm"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <button className="w-full mt-6 bg-primary text-white py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors">
-              Edit Profile
-            </button>
-          </div>
-        </div>
-
-        {/* Profile Content */}
-        <div className="lg:col-span-2">
-          {/* Tabs */}
-          <div className="bg-white rounded-xl border border-border shadow-sm">
-            <div className="border-b border-border">
-              <nav className="flex">
-                {[
-                  { id: "overview", name: "Overview" },
-                  { id: "clubs", name: "My Clubs" },
-                  { id: "events", name: "My Events" },
-                  { id: "settings", name: "Settings" },
-                ].map((tab) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`px-6 py-4 font-medium text-sm border-b-2 transition-colors ${
-                      activeTab === tab.id
-                        ? "border-primary text-primary"
-                        : "border-transparent text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    {tab.name}
-                  </button>
-                ))}
-              </nav>
-            </div>
-
-            <div className="p-6">
-              {activeTab === "overview" && (
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-lg font-semibold text-foreground mb-2">
-                      About
-                    </h3>
-                    <p className="text-muted-foreground">{userProfile.bio}</p>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <h4 className="font-medium text-foreground mb-3">
-                        Recent Activity
-                      </h4>
-                      <div className="space-y-3">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-2 h-2 bg-success rounded-full"></div>
-                          <span className="text-sm text-muted-foreground">
-                            Applied to Tech Innovation Summit
-                          </span>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                          <div className="w-2 h-2 bg-secondary rounded-full"></div>
-                          <span className="text-sm text-muted-foreground">
-                            Joined Creative Lens Society
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <h4 className="font-medium text-foreground mb-3">
-                        Statistics
-                      </h4>
-                      <div className="space-y-2">
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">
-                            Events Attended
-                          </span>
-                          <span className="font-medium">12</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">
-                            Clubs Joined
-                          </span>
-                          <span className="font-medium">3</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">
-                            Applications
-                          </span>
-                          <span className="font-medium">5</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {activeTab === "clubs" && (
-                <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-foreground">
-                    My Clubs
-                  </h3>
-                  {userProfile.clubs.map((club, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between p-4 border border-border rounded-lg"
-                    >
-                      <div className="flex items-center space-x-4">
-                        <div className="w-12 h-12 bg-gradient-to-br from-secondary to-primary rounded-lg flex items-center justify-center text-white font-bold">
-                          {club.name.charAt(0)}
-                        </div>
-                        <div>
-                          <p className="font-medium text-foreground">
-                            {club.name}
-                          </p>
-                          <p className="text-sm text-muted-foreground">
-                            {club.role} • Joined {club.joinDate}
-                          </p>
-                        </div>
-                      </div>
-                      <Link
-                        to={`/clubs/${index + 1}`}
-                        className="text-secondary hover:text-secondary/80"
-                      >
-                        View Club →
-                      </Link>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {activeTab === "events" && (
-                <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-foreground">
-                    My Events
-                  </h3>
-                  {userProfile.events.map((event, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between p-4 border border-border rounded-lg"
-                    >
-                      <div>
-                        <p className="font-medium text-foreground">
-                          {event.name}
-                        </p>
-                        <p className="text-sm text-muted-foreground">
-                          {event.date}
-                        </p>
-                      </div>
-                      <div className="flex items-center space-x-4">
-                        <span
-                          className={`px-2 py-1 rounded-full text-xs font-medium ${
-                            event.status === "Confirmed"
-                              ? "bg-success/10 text-success"
-                              : "bg-warning/10 text-warning"
-                          }`}
-                        >
-                          {event.status}
-                        </span>
-                        <Link
-                          to={`/events/${index + 1}`}
-                          className="text-secondary hover:text-secondary/80"
-                        >
-                          View Event →
-                        </Link>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {activeTab === "settings" && (
-                <div className="space-y-6">
-                  <h3 className="text-lg font-semibold text-foreground">
-                    Account Settings
-                  </h3>
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-foreground mb-1">
-                        Email Notifications
-                      </label>
-                      <div className="space-y-2">
-                        <label className="flex items-center">
-                          <input
-                            type="checkbox"
-                            className="mr-2"
-                            defaultChecked
-                          />
-                          <span className="text-sm text-muted-foreground">
-                            Event reminders
-                          </span>
-                        </label>
-                        <label className="flex items-center">
-                          <input
-                            type="checkbox"
-                            className="mr-2"
-                            defaultChecked
-                          />
-                          <span className="text-sm text-muted-foreground">
-                            Application updates
-                          </span>
-                        </label>
-                        <label className="flex items-center">
-                          <input type="checkbox" className="mr-2" />
-                          <span className="text-sm text-muted-foreground">
-                            Club newsletters
-                          </span>
-                        </label>
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-foreground mb-1">
-                        Privacy
-                      </label>
-                      <div className="space-y-2">
-                        <label className="flex items-center">
-                          <input
-                            type="checkbox"
-                            className="mr-2"
-                            defaultChecked
-                          />
-                          <span className="text-sm text-muted-foreground">
-                            Make profile public
-                          </span>
-                        </label>
-                        <label className="flex items-center">
-                          <input type="checkbox" className="mr-2" />
-                          <span className="text-sm text-muted-foreground">
-                            Show attendance history
-                          </span>
-                        </label>
-                      </div>
-                    </div>
-
-                    <button className="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors">
-                      Save Settings
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

@@ -9,39 +9,39 @@
    * A different format will require also updating the theme in tailwind.config.ts.
   */
   :root {
-    /* App-specific color scheme */
-    --primary: 210 29% 24%; /* Deep Indigo Blue #2C3E50 */
+    /* Professional darker color scheme */
+    --primary: 210 29% 20%; /* Darker Deep Blue #1f2937 */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 204 70% 53%; /* Vibrant Sky Blue #3498DB */
+    --secondary: 204 70% 45%; /* Darker Sky Blue #2563eb */
     --secondary-foreground: 0 0% 100%;
 
-    --accent: 6 78% 57%; /* Energetic Coral #E74C3C */
+    --accent: 6 78% 50%; /* Darker Coral #dc2626 */
     --accent-foreground: 0 0% 100%;
 
-    --success: 145 63% 49%; /* Emerald Green #2ECC71 */
+    --success: 145 63% 42%; /* Darker Green #059669 */
     --success-foreground: 0 0% 100%;
 
-    --warning: 48 89% 60%; /* Sunflower Yellow #F1C40F */
-    --warning-foreground: 210 29% 24%;
+    --warning: 48 89% 50%; /* Darker Yellow #d97706 */
+    --warning-foreground: 0 0% 100%;
 
-    --background: 210 17% 98%; /* Ghost White #F8F9FA */
-    --foreground: 218 23% 23%; /* Almost Black #2D3436 */
+    --background: 220 13% 96%; /* Darker background #f1f5f9 */
+    --foreground: 218 23% 15%; /* Darker text #1e293b */
 
     --card: 0 0% 100%;
-    --card-foreground: 218 23% 23%;
+    --card-foreground: 218 23% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 218 23% 23%;
+    --popover-foreground: 218 23% 15%;
 
-    --muted: 210 16% 93%; /* Cloud Gray #ECF0F1 */
-    --muted-foreground: 215 25% 27%; /* Charcoal Gray #34495E */
+    --muted: 210 16% 90%; /* Darker muted #e2e8f0 */
+    --muted-foreground: 215 25% 35%; /* Darker muted text #475569 */
 
-    --border: 210 16% 93%;
-    --input: 210 16% 93%;
-    --ring: 204 70% 53%;
+    --border: 210 16% 88%; /* Darker border #cbd5e1 */
+    --input: 210 16% 88%;
+    --ring: 204 70% 45%;
 
-    --destructive: 6 78% 57%;
+    --destructive: 6 78% 50%;
     --destructive-foreground: 0 0% 100%;
 
     --radius: 0.5rem;
@@ -64,38 +64,38 @@
   }
 
   .dark {
-    --primary: 210 29% 24%;
+    --primary: 210 29% 20%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 204 70% 53%;
+    --secondary: 204 70% 45%;
     --secondary-foreground: 0 0% 100%;
 
-    --accent: 6 78% 57%;
+    --accent: 6 78% 50%;
     --accent-foreground: 0 0% 100%;
 
-    --success: 145 63% 49%;
+    --success: 145 63% 42%;
     --success-foreground: 0 0% 100%;
 
-    --warning: 48 89% 60%;
-    --warning-foreground: 210 29% 24%;
+    --warning: 48 89% 50%;
+    --warning-foreground: 0 0% 100%;
 
-    --background: 218 23% 23%;
+    --background: 218 23% 8%;
     --foreground: 210 17% 98%;
 
-    --card: 215 25% 27%;
+    --card: 215 25% 12%;
     --card-foreground: 210 17% 98%;
 
-    --popover: 215 25% 27%;
+    --popover: 215 25% 12%;
     --popover-foreground: 210 17% 98%;
 
-    --muted: 215 25% 27%;
-    --muted-foreground: 210 16% 93%;
+    --muted: 215 25% 15%;
+    --muted-foreground: 210 16% 75%;
 
-    --border: 215 25% 27%;
-    --input: 215 25% 27%;
-    --ring: 204 70% 53%;
+    --border: 215 25% 20%;
+    --input: 215 25% 20%;
+    --ring: 204 70% 45%;
 
-    --destructive: 6 78% 57%;
+    --destructive: 6 78% 50%;
     --destructive-foreground: 0 0% 100%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
