@@ -19,7 +19,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-50 to-purple-50/30">
         <Navbar />
         <main className="flex-1">
           <Routes>

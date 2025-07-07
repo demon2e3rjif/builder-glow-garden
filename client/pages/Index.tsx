@@ -96,7 +96,7 @@ export default function Index() {
                 <Link to="/auth/register">
                   <Button
                     size="lg"
-                    className="bg-white text-brand-700 hover:bg-brand-50 font-semibold"
+                    className="bg-white text-purple-700 hover:bg-purple-50 font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-200"
                   >
                     Get Started
                     <ArrowRight className="w-4 h-4 ml-2" />
@@ -106,7 +106,7 @@ export default function Index() {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="border-white text-white hover:bg-white hover:text-brand-700"
+                    className="border-white text-white hover:bg-white hover:text-purple-700 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
                   >
                     Browse Events
                   </Button>
@@ -115,29 +115,32 @@ export default function Index() {
             </div>
 
             <div className="relative">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:scale-105">
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-brand-500 rounded-full flex items-center justify-center">
+                    <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
                       <Calendar className="w-6 h-6 text-white" />
                     </div>
                     <div>
                       <h3 className="font-semibold">Tech Meetup Tonight</h3>
-                      <p className="text-brand-200 text-sm">
+                      <p className="text-purple-200 text-sm">
                         124 people attending
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-2 text-sm text-brand-200">
+                  <div className="flex items-center space-x-2 text-sm text-purple-200">
                     <Clock className="w-4 h-4" />
                     <span>6:00 PM - 9:00 PM</span>
                   </div>
-                  <div className="flex items-center space-x-2 text-sm text-brand-200">
+                  <div className="flex items-center space-x-2 text-sm text-purple-200">
                     <MapPin className="w-4 h-4" />
                     <span>Downtown Convention Center</span>
                   </div>
                 </div>
               </div>
+              {/* Floating elements for visual appeal */}
+              <div className="absolute -top-4 -right-4 w-8 h-8 bg-white/20 rounded-full animate-pulse"></div>
+              <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-purple-300/30 rounded-full animate-bounce"></div>
             </div>
           </div>
         </div>
