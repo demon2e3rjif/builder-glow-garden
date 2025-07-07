@@ -229,6 +229,130 @@ const CheckIcon = () => (
   </svg>
 );
 
+// Top Navbar Component
+function TopNavbar() {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [userType, setUserType] = useState<"user" | "club">("user");
+  const [showNotifications, setShowNotifications] = useState(false);
+
+  return (
+    <div className="bg-white border-b border-border shadow-sm sticky top-0 z-50">
+      <div className="max-w-full px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-14">
+          {/* App Branding */}
+          <div className="flex items-center space-x-3">
+            <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-sm">E</span>
+            </div>
+            <div className="hidden sm:block">
+              <h1 className="text-lg font-bold text-primary">EventHub</h1>
+            </div>
+          </div>
+
+          {/* Right Side - Auth Controls */}
+          <div className="flex items-center space-x-3">
+            {isLoggedIn ? (
+              <>
+                {/* Notifications */}
+                <div className="relative">
+                  <button
+                    onClick={() => setShowNotifications(!showNotifications)}
+                    className="p-2 text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted transition-colors relative"
+                  >
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                      />
+                    </svg>
+                    {/* Notification badge */}
+                    <span className="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full text-xs flex items-center justify-center">
+                      <span className="w-1.5 h-1.5 bg-white rounded-full"></span>
+                    </span>
+                  </button>
+
+                  {/* Notifications Dropdown */}
+                  {showNotifications && (
+                    <div className="absolute right-0 mt-2 w-80 bg-white border border-border rounded-lg shadow-lg z-50">
+                      <div className="p-4 border-b border-border">
+                        <h3 className="font-semibold text-foreground">
+                          Notifications
+                        </h3>
+                      </div>
+                      <div className="max-h-64 overflow-y-auto">
+                        <div className="p-3 hover:bg-muted/50 border-b border-border">
+                          <p className="text-sm font-medium text-foreground">
+                            New event application
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            John Doe applied to Tech Summit
+                          </p>
+                          <p className="text-xs text-muted-foreground mt-1">
+                            2 minutes ago
+                          </p>
+                        </div>
+                        <div className="p-3 hover:bg-muted/50 border-b border-border">
+                          <p className="text-sm font-medium text-foreground">
+                            Event reminder
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            Photography Workshop starts in 1 hour
+                          </p>
+                          <p className="text-xs text-muted-foreground mt-1">
+                            1 hour ago
+                          </p>
+                        </div>
+                      </div>
+                      <div className="p-3 border-t border-border">
+                        <button className="text-sm text-secondary hover:text-secondary/80 w-full text-center">
+                          View all notifications
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* User Menu */}
+                <div className="flex items-center space-x-2">
+                  <span className="hidden sm:block text-sm text-muted-foreground">
+                    {userType === "club" ? "Club Manager" : "Member"}
+                  </span>
+                  <div className="w-8 h-8 bg-gradient-to-br from-secondary to-accent rounded-full flex items-center justify-center text-white font-semibold text-sm cursor-pointer">
+                    J
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                {/* Login/Signup */}
+                <Link
+                  to="/login"
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to="/register"
+                  className="bg-primary text-white px-3 py-1.5 rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // Sidebar Component
 function Sidebar() {
   const location = useLocation();
@@ -289,7 +413,7 @@ function Sidebar() {
   ];
 
   return (
-    <div className="fixed left-0 top-0 h-full w-64 bg-white border-r border-border shadow-lg">
+    <div className="fixed left-0 top-14 h-full w-64 bg-white border-r border-border shadow-lg">
       <div className="p-6 border-b border-border">
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center shadow-md">
@@ -369,10 +493,13 @@ function Sidebar() {
 // Page Layout Wrapper
 function PageLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-background flex">
-      <Sidebar />
-      <div className="flex-1 ml-64">
-        <main className="p-6">{children}</main>
+    <div className="min-h-screen bg-background">
+      <TopNavbar />
+      <div className="flex">
+        <Sidebar />
+        <div className="flex-1 ml-64">
+          <main className="p-6">{children}</main>
+        </div>
       </div>
     </div>
   );
@@ -1511,7 +1638,7 @@ function ClubDetailsPage() {
                 href="#"
                 className="flex items-center space-x-3 text-muted-foreground hover:text-foreground transition-colors"
               >
-                <span className="w-5 h-5">��</span>
+                <span className="w-5 h-5">🐦</span>
                 <span>{club.socialMedia.twitter}</span>
               </a>
               <a
@@ -1597,57 +1724,414 @@ function SettingsPage() {
 
 // Login page (outside of sidebar layout)
 function LoginPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    // TODO: Implement login API call to POST /auth/login/
+    console.log("Login attempt:", { email, password });
+  };
+
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center">
-      <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full border border-border">
-        <div className="text-center mb-8">
-          <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center mx-auto mb-4">
-            <span className="text-white font-bold text-lg">E</span>
+    <div className="min-h-screen bg-background">
+      <TopNavbar />
+      <div className="flex items-center justify-center py-12 px-4">
+        <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full border border-border">
+          <div className="text-center mb-8">
+            <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center mx-auto mb-4">
+              <span className="text-white font-bold text-lg">E</span>
+            </div>
+            <h2 className="text-2xl font-bold text-foreground">Welcome Back</h2>
+            <p className="text-muted-foreground">
+              Sign in to your EventHub account
+            </p>
           </div>
-          <h2 className="text-2xl font-bold text-foreground">Welcome Back</h2>
-          <p className="text-muted-foreground">
-            Sign in to your EventHub account
-          </p>
+
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-1">
+                Email
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-1">
+                Password
+              </label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent"
+                placeholder="Enter your password"
+                required
+              />
+            </div>
+
+            <div className="flex items-center justify-between">
+              <label className="flex items-center">
+                <input type="checkbox" className="mr-2" />
+                <span className="text-sm text-muted-foreground">
+                  Remember me
+                </span>
+              </label>
+              <Link
+                to="/forgot-password"
+                className="text-sm text-secondary hover:underline"
+              >
+                Forgot password?
+              </Link>
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-primary text-white py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors"
+            >
+              Sign In
+            </button>
+          </form>
+
+          <div className="mt-6 text-center">
+            <p className="text-muted-foreground">
+              Don't have an account?{" "}
+              <Link to="/register" className="text-secondary hover:underline">
+                Sign up
+              </Link>
+            </p>
+          </div>
         </div>
+      </div>
+    </div>
+  );
+}
 
-        <form className="space-y-6">
-          <div>
-            <label className="block text-sm font-medium text-foreground mb-1">
-              Email
-            </label>
-            <input
-              type="email"
-              className="w-full px-4 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent"
-              placeholder="Enter your email"
-            />
+// Registration Page with Person/Club Selection
+function RegisterPage() {
+  const [step, setStep] = useState<"select-type" | "register">("select-type");
+  const [userType, setUserType] = useState<"person" | "club" | null>(null);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+    firstName: "",
+    lastName: "",
+    clubName: "",
+    description: "",
+  });
+
+  const handleTypeSelect = (type: "person" | "club") => {
+    setUserType(type);
+    setStep("register");
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords don't match!");
+      return;
+    }
+
+    const endpoint =
+      userType === "person" ? "/auth/register/person/" : "/auth/register/club/";
+
+    const payload =
+      userType === "person"
+        ? {
+            email: formData.email,
+            password: formData.password,
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+          }
+        : {
+            email: formData.email,
+            password: formData.password,
+            clubName: formData.clubName,
+            description: formData.description,
+          };
+
+    // TODO: Implement API call to respective endpoint
+    console.log(`Registration for ${userType}:`, { endpoint, payload });
+  };
+
+  if (step === "select-type") {
+    return (
+      <div className="min-h-screen bg-background">
+        <TopNavbar />
+        <div className="flex items-center justify-center py-12 px-4">
+          <div className="bg-white p-8 rounded-xl shadow-lg max-w-2xl w-full border border-border">
+            <div className="text-center mb-8">
+              <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center mx-auto mb-4">
+                <span className="text-white font-bold text-lg">E</span>
+              </div>
+              <h2 className="text-2xl font-bold text-foreground">
+                Join EventHub
+              </h2>
+              <p className="text-muted-foreground">
+                Choose your account type to get started
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Person Registration */}
+              <button
+                onClick={() => handleTypeSelect("person")}
+                className="p-6 border-2 border-muted rounded-xl hover:border-secondary hover:bg-secondary/5 transition-all text-left group"
+              >
+                <div className="flex items-center space-x-4 mb-4">
+                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+                    <UserIcon />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-foreground">
+                      Individual
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      Personal Account
+                    </p>
+                  </div>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Join as an individual to discover events, apply to attend, and
+                  connect with clubs in your community.
+                </p>
+                <div className="mt-4 flex items-center text-xs text-secondary">
+                  <CheckIcon />
+                  <span className="ml-1">Browse & apply to events</span>
+                </div>
+                <div className="mt-1 flex items-center text-xs text-secondary">
+                  <CheckIcon />
+                  <span className="ml-1">Join clubs & communities</span>
+                </div>
+              </button>
+
+              {/* Club Registration */}
+              <button
+                onClick={() => handleTypeSelect("club")}
+                className="p-6 border-2 border-muted rounded-xl hover:border-secondary hover:bg-secondary/5 transition-all text-left group"
+              >
+                <div className="flex items-center space-x-4 mb-4">
+                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center group-hover:bg-purple-200 transition-colors">
+                    <UsersIcon />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-foreground">
+                      Club / Organization
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      Organization Account
+                    </p>
+                  </div>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Register your club to create and manage events, review
+                  applications, and build your community.
+                </p>
+                <div className="mt-4 flex items-center text-xs text-secondary">
+                  <CheckIcon />
+                  <span className="ml-1">Create & manage events</span>
+                </div>
+                <div className="mt-1 flex items-center text-xs text-secondary">
+                  <CheckIcon />
+                  <span className="ml-1">Review applications</span>
+                </div>
+              </button>
+            </div>
+
+            <div className="mt-8 text-center">
+              <p className="text-muted-foreground">
+                Already have an account?{" "}
+                <Link to="/login" className="text-secondary hover:underline">
+                  Sign in
+                </Link>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-background">
+      <TopNavbar />
+      <div className="flex items-center justify-center py-12 px-4">
+        <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full border border-border">
+          <div className="text-center mb-8">
+            <button
+              onClick={() => setStep("select-type")}
+              className="flex items-center text-secondary hover:text-secondary/80 mb-4"
+            >
+              <ArrowLeftIcon />
+              <span className="ml-1">Back</span>
+            </button>
+            <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center mx-auto mb-4">
+              {userType === "person" ? <UserIcon /> : <UsersIcon />}
+            </div>
+            <h2 className="text-2xl font-bold text-foreground">
+              Create {userType === "person" ? "Personal" : "Club"} Account
+            </h2>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-foreground mb-1">
-              Password
-            </label>
-            <input
-              type="password"
-              className="w-full px-4 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent"
-              placeholder="Enter your password"
-            />
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            {userType === "person" ? (
+              <>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-foreground mb-1">
+                      First Name
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.firstName}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          firstName: e.target.value,
+                        }))
+                      }
+                      className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent"
+                      placeholder="John"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-foreground mb-1">
+                      Last Name
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.lastName}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          lastName: e.target.value,
+                        }))
+                      }
+                      className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent"
+                      placeholder="Doe"
+                      required
+                    />
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-1">
+                    Club Name
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.clubName}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        clubName: e.target.value,
+                      }))
+                    }
+                    className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent"
+                    placeholder="Enter club name"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-1">
+                    Description
+                  </label>
+                  <textarea
+                    rows={3}
+                    value={formData.description}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        description: e.target.value,
+                      }))
+                    }
+                    className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent"
+                    placeholder="Tell us about your club..."
+                    required
+                  />
+                </div>
+              </>
+            )}
+
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-1">
+                Email
+              </label>
+              <input
+                type="email"
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, email: e.target.value }))
+                }
+                className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-1">
+                Password
+              </label>
+              <input
+                type="password"
+                value={formData.password}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, password: e.target.value }))
+                }
+                className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent"
+                placeholder="Create a password"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-1">
+                Confirm Password
+              </label>
+              <input
+                type="password"
+                value={formData.confirmPassword}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    confirmPassword: e.target.value,
+                  }))
+                }
+                className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent"
+                placeholder="Confirm your password"
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-primary text-white py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors"
+            >
+              Create Account
+            </button>
+          </form>
+
+          <div className="mt-6 text-center">
+            <p className="text-muted-foreground">
+              Already have an account?{" "}
+              <Link to="/login" className="text-secondary hover:underline">
+                Sign in
+              </Link>
+            </p>
           </div>
-
-          <button
-            type="submit"
-            className="w-full bg-primary text-white py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors"
-          >
-            Sign In
-          </button>
-        </form>
-
-        <div className="mt-6 text-center">
-          <p className="text-muted-foreground">
-            Don't have an account?{" "}
-            <Link to="/register" className="text-secondary hover:underline">
-              Sign up
-            </Link>
-          </p>
         </div>
       </div>
     </div>
@@ -1659,6 +2143,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route
           path="*"
           element={
