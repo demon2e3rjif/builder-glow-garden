@@ -18,26 +18,44 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 271 91% 65%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 222.2 84% 4.9%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 222.2 84% 4.9%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 271 91% 65%;
 
-    --radius: 0.5rem;
+    --success: 142 76% 36%;
+    --success-foreground: 355.7 100% 97.3%;
+
+    --warning: 32 95% 44%;
+    --warning-foreground: 210 40% 98%;
+
+    --brand-50: 270 100% 98%;
+    --brand-100: 269 100% 95%;
+    --brand-200: 269 100% 92%;
+    --brand-300: 269 97% 85%;
+    --brand-400: 270 95% 75%;
+    --brand-500: 271 91% 65%;
+    --brand-600: 271 81% 56%;
+    --brand-700: 272 72% 47%;
+    --brand-800: 272 69% 39%;
+    --brand-900: 273 67% 32%;
+    --brand-950: 274 87% 21%;
+
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -66,8 +84,8 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 271 91% 65%;
+    --primary-foreground: 0 0% 100%;
 
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -83,7 +101,25 @@
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --ring: 271 91% 65%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 355.7 100% 97.3%;
+
+    --warning: 32 95% 44%;
+    --warning-foreground: 210 40% 98%;
+
+    --brand-50: 274 87% 21%;
+    --brand-100: 273 67% 32%;
+    --brand-200: 272 69% 39%;
+    --brand-300: 272 72% 47%;
+    --brand-400: 271 81% 56%;
+    --brand-500: 271 91% 65%;
+    --brand-600: 270 95% 75%;
+    --brand-700: 269 97% 85%;
+    --brand-800: 269 100% 92%;
+    --brand-900: 269 100% 95%;
+    --brand-950: 270 100% 98%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;

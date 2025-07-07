@@ -1,62 +1,291 @@
-import { DemoResponse } from "@shared/api";
-import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import {
+  Calendar,
+  Users,
+  MapPin,
+  Clock,
+  Star,
+  ArrowRight,
+  CheckCircle,
+} from "lucide-react";
 
 export default function Index() {
-  const [exampleFromServer, setExampleFromServer] = useState("");
-  // Fetch users on component mount
-  useEffect(() => {
-    fetchDemo();
-  }, []);
+  const features = [
+    {
+      icon: Calendar,
+      title: "Discover Events",
+      description:
+        "Find exciting events happening in your community and beyond.",
+    },
+    {
+      icon: Users,
+      title: "Join Clubs",
+      description:
+        "Connect with like-minded people and join clubs that match your interests.",
+    },
+    {
+      icon: MapPin,
+      title: "Easy Management",
+      description:
+        "Clubs can effortlessly create and manage events with our intuitive tools.",
+    },
+  ];
 
-  // Example of how to fetch data from the server (if needed)
-  const fetchDemo = async () => {
-    try {
-      const response = await fetch("/api/demo");
-      const data = (await response.json()) as DemoResponse;
-      setExampleFromServer(data.message);
-    } catch (error) {
-      console.error("Error fetching hello:", error);
-    }
-  };
+  const stats = [
+    { value: "10K+", label: "Active Users" },
+    { value: "500+", label: "Events Created" },
+    { value: "200+", label: "Active Clubs" },
+    { value: "50K+", label: "Connections Made" },
+  ];
+
+  const featuredEvents = [
+    {
+      id: 1,
+      title: "Tech Meetup 2024",
+      club: "Tech Innovators Club",
+      date: "Dec 15, 2024",
+      time: "6:00 PM",
+      location: "Downtown Convention Center",
+      attendees: 124,
+      image: "/placeholder.svg",
+    },
+    {
+      id: 2,
+      title: "Photography Workshop",
+      club: "Creative Lens Society",
+      date: "Dec 18, 2024",
+      time: "2:00 PM",
+      location: "Studio Art Space",
+      attendees: 45,
+      image: "/placeholder.svg",
+    },
+    {
+      id: 3,
+      title: "Startup Pitch Night",
+      club: "Entrepreneurs Network",
+      date: "Dec 20, 2024",
+      time: "7:00 PM",
+      location: "Innovation Hub",
+      attendees: 89,
+      image: "/placeholder.svg",
+    },
+  ];
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200">
-      <div className="text-center">
-        {/* TODO: FUSION_GENERATION_APP_PLACEHOLDER replace everything here with the actual app! */}
-        <h1 className="text-2xl font-semibold text-slate-800 flex items-center justify-center gap-3">
-          <svg
-            className="animate-spin h-8 w-8 text-slate-400"
-            viewBox="0 0 50 50"
-          >
-            <circle
-              className="opacity-30"
-              cx="25"
-              cy="25"
-              r="20"
-              stroke="currentColor"
-              strokeWidth="5"
-              fill="none"
-            />
-            <circle
-              className="text-slate-600"
-              cx="25"
-              cy="25"
-              r="20"
-              stroke="currentColor"
-              strokeWidth="5"
-              fill="none"
-              strokeDasharray="100"
-              strokeDashoffset="75"
-            />
-          </svg>
-          Generating your app...
-        </h1>
-        <p className="mt-4 text-slate-600 max-w-md">
-          Watch the chat on the left for updates that might need your attention
-          to finish generating
-        </p>
-        <p className="mt-4 hidden max-w-md">{exampleFromServer}</p>
-      </div>
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-br from-brand-600 via-brand-700 to-brand-800 text-white overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
+                Connect Through
+                <span className="block text-brand-200">
+                  Events & Communities
+                </span>
+              </h1>
+              <p className="text-xl text-brand-100 mb-8 leading-relaxed">
+                Join clubs, discover events, and build meaningful connections in
+                your community. Whether you're organizing or attending, EventHub
+                makes it seamless.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link to="/auth/register">
+                  <Button
+                    size="lg"
+                    className="bg-white text-brand-700 hover:bg-brand-50 font-semibold"
+                  >
+                    Get Started
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
+                <Link to="/events">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="border-white text-white hover:bg-white hover:text-brand-700"
+                  >
+                    Browse Events
+                  </Button>
+                </Link>
+              </div>
+            </div>
+
+            <div className="relative">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-12 h-12 bg-brand-500 rounded-full flex items-center justify-center">
+                      <Calendar className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold">Tech Meetup Tonight</h3>
+                      <p className="text-brand-200 text-sm">
+                        124 people attending
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-2 text-sm text-brand-200">
+                    <Clock className="w-4 h-4" />
+                    <span>6:00 PM - 9:00 PM</span>
+                  </div>
+                  <div className="flex items-center space-x-2 text-sm text-brand-200">
+                    <MapPin className="w-4 h-4" />
+                    <span>Downtown Convention Center</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center">
+                <div className="text-3xl lg:text-4xl font-bold text-brand-600 mb-2">
+                  {stat.value}
+                </div>
+                <div className="text-gray-600">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              Everything you need to connect
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Our platform brings together event organizers and attendees,
+              making it easy to discover, create, and manage community events.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <div
+                  key={index}
+                  className="bg-white rounded-xl p-8 shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
+                >
+                  <div className="w-12 h-12 bg-brand-100 rounded-lg flex items-center justify-center mb-6">
+                    <Icon className="w-6 h-6 text-brand-600" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-600">{feature.description}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Events */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between mb-12">
+            <div>
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                Featured Events
+              </h2>
+              <p className="text-xl text-gray-600">
+                Don't miss these exciting upcoming events
+              </p>
+            </div>
+            <Link to="/events">
+              <Button variant="outline">
+                View All Events
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featuredEvents.map((event) => (
+              <div
+                key={event.id}
+                className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow"
+              >
+                <div className="h-48 bg-gradient-to-br from-brand-400 to-brand-600"></div>
+                <div className="p-6">
+                  <div className="flex items-center space-x-2 text-sm text-brand-600 mb-2">
+                    <Users className="w-4 h-4" />
+                    <span>{event.club}</span>
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                    {event.title}
+                  </h3>
+                  <div className="space-y-2 text-sm text-gray-600 mb-4">
+                    <div className="flex items-center space-x-2">
+                      <Calendar className="w-4 h-4" />
+                      <span>{event.date}</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Clock className="w-4 h-4" />
+                      <span>{event.time}</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <MapPin className="w-4 h-4" />
+                      <span>{event.location}</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-500">
+                      {event.attendees} attending
+                    </span>
+                    <Button size="sm">Learn More</Button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-brand-600 to-brand-800 text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl lg:text-4xl font-bold mb-6">
+            Ready to start connecting?
+          </h2>
+          <p className="text-xl text-brand-100 mb-8">
+            Join thousands of people already using EventHub to discover events
+            and build communities.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/auth/register">
+              <Button
+                size="lg"
+                className="bg-white text-brand-700 hover:bg-brand-50"
+              >
+                Create Account
+              </Button>
+            </Link>
+            <Link to="/clubs">
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white text-white hover:bg-white hover:text-brand-700"
+              >
+                Browse Clubs
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
