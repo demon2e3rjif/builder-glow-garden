@@ -1,42 +1,14 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Navbar } from "./components/Navbar";
-import { Footer } from "./components/Footer";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-
-// Import auth pages
-import LoginPage from "./pages/auth/Login";
-import RegisterPage from "./pages/auth/Register";
-
-// Import main pages
-import EventsPage from "./pages/events/EventsPage";
-import ClubsPage from "./pages/clubs/ClubsPage";
-import EventDetails from "./pages/events/EventDetails";
-import ClubDetails from "./pages/clubs/ClubDetails";
-import ProfilePage from "./pages/profile/ProfilePage";
-import Dashboard from "./pages/dashboard/Dashboard";
-
 export default function App() {
   return (
-    <BrowserRouter>
-      <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-50 to-purple-50/30">
-        <Navbar />
-        <main className="flex-1">
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/auth/login" element={<LoginPage />} />
-            <Route path="/auth/register" element={<RegisterPage />} />
-            <Route path="/events" element={<EventsPage />} />
-            <Route path="/events/:id" element={<EventDetails />} />
-            <Route path="/clubs" element={<ClubsPage />} />
-            <Route path="/clubs/:id" element={<ClubDetails />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-        <Footer />
+    <div className="min-h-screen bg-gradient-to-br from-purple-600 to-blue-800 flex items-center justify-center">
+      <div className="text-center text-white p-8">
+        <h1 className="text-5xl font-bold mb-6">EventHub</h1>
+        <p className="text-xl mb-8">Multi-Actor Event Management Platform</p>
+        <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+          <p className="text-lg mb-4">✨ React is working!</p>
+          <p>Building an amazing event management platform...</p>
+        </div>
       </div>
-    </BrowserRouter>
+    </div>
   );
 }
