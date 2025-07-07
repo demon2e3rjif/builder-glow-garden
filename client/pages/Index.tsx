@@ -75,8 +75,9 @@ export default function Index() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-brand-600 via-brand-700 to-brand-800 text-white overflow-hidden">
+      <section className="relative bg-gradient-to-br from-purple-600 via-purple-700 to-blue-800 text-white overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -147,11 +148,14 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-3xl lg:text-4xl font-bold text-brand-600 mb-2">
+              <div
+                key={index}
+                className="text-center p-6 rounded-xl bg-gradient-to-br from-purple-50 to-blue-50 border border-purple-100"
+              >
+                <div className="text-3xl lg:text-4xl font-bold text-purple-600 mb-2">
                   {stat.value}
                 </div>
-                <div className="text-gray-600">{stat.label}</div>
+                <div className="text-gray-600 font-medium">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -256,12 +260,13 @@ export default function Index() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-brand-600 to-brand-800 text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="py-20 bg-gradient-to-r from-purple-600 to-blue-800 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20"></div>
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold mb-6">
             Ready to start connecting?
           </h2>
-          <p className="text-xl text-brand-100 mb-8">
+          <p className="text-xl text-purple-100 mb-8">
             Join thousands of people already using EventHub to discover events
             and build communities.
           </p>
@@ -269,7 +274,7 @@ export default function Index() {
             <Link to="/auth/register">
               <Button
                 size="lg"
-                className="bg-white text-brand-700 hover:bg-brand-50"
+                className="bg-white text-purple-700 hover:bg-purple-50 shadow-lg"
               >
                 Create Account
               </Button>
@@ -278,7 +283,7 @@ export default function Index() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white text-white hover:bg-white hover:text-brand-700"
+                className="border-white text-white hover:bg-white hover:text-purple-700 shadow-lg"
               >
                 Browse Clubs
               </Button>
