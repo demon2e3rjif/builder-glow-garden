@@ -9,7 +9,7 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-br from-brand-500 to-brand-700 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-purple-700 rounded-lg flex items-center justify-center">
                 <Calendar className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold text-gray-900">EventHub</span>
@@ -47,7 +47,7 @@ export function Footer() {
               <li>
                 <Link
                   to="/events"
-                  className="text-gray-600 hover:text-gray-900 transition-colors"
+                  className="text-gray-600 hover:text-purple-600 transition-colors"
                 >
                   Browse Events
                 </Link>
@@ -55,7 +55,7 @@ export function Footer() {
               <li>
                 <Link
                   to="/clubs"
-                  className="text-gray-600 hover:text-gray-900 transition-colors"
+                  className="text-gray-600 hover:text-purple-600 transition-colors"
                 >
                   Find Clubs
                 </Link>
@@ -63,7 +63,7 @@ export function Footer() {
               <li>
                 <Link
                   to="/auth/register"
-                  className="text-gray-600 hover:text-gray-900 transition-colors"
+                  className="text-gray-600 hover:text-purple-600 transition-colors"
                 >
                   Join Community
                 </Link>
@@ -78,7 +78,7 @@ export function Footer() {
               <li>
                 <a
                   href="#"
-                  className="text-gray-600 hover:text-gray-900 transition-colors"
+                  className="text-gray-600 hover:text-purple-600 transition-colors"
                 >
                   Help Center
                 </a>
@@ -86,7 +86,7 @@ export function Footer() {
               <li>
                 <a
                   href="#"
-                  className="text-gray-600 hover:text-gray-900 transition-colors"
+                  className="text-gray-600 hover:text-purple-600 transition-colors"
                 >
                   Privacy Policy
                 </a>
@@ -94,7 +94,7 @@ export function Footer() {
               <li>
                 <a
                   href="#"
-                  className="text-gray-600 hover:text-gray-900 transition-colors"
+                  className="text-gray-600 hover:text-purple-600 transition-colors"
                 >
                   Terms of Service
                 </a>
