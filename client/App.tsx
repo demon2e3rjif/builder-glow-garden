@@ -436,6 +436,7 @@ function Sidebar() {
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [userType, setUserType] = useState<"user" | "club">("user");
+  const [userOwnsClub, setUserOwnsClub] = useState(true); // This would come from auth
 
   const isActive = (path: string) => location.pathname.startsWith(path);
 
@@ -459,22 +460,16 @@ function Sidebar() {
       show: true,
     },
     {
+      name: "My Club",
+      path: "/my-club",
+      icon: CogIcon,
+      show: userOwnsClub, // Only show if user owns a club
+    },
+    {
       name: "My Applications",
       path: "/applications",
       icon: DocumentIcon,
-      show: userType === "user",
-    },
-    {
-      name: "Manage Events",
-      path: "/manage-events",
-      icon: CogIcon,
-      show: userType === "club",
-    },
-    {
-      name: "Members",
-      path: "/members",
-      icon: UsersIcon,
-      show: userType === "club",
+      show: !userOwnsClub, // Hide if user owns a club since they manage applications differently
     },
     {
       name: "Profile",
