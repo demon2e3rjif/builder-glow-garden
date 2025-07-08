@@ -1745,29 +1745,94 @@ function EventDetailsPage() {
 // Club Details Page
 function ClubDetailsPage() {
   const { id } = useParams();
+  const [activeTab, setActiveTab] = useState("overview");
+  const [isEditing, setIsEditing] = useState(false);
+  const [isMember, setIsMember] = useState(false);
+  const [isOwner, setIsOwner] = useState(false); // This would come from auth
 
-  const club = {
-    id: 1,
+  // Mock data based on your database model
+  const [clubData, setClubData] = useState({
+    id: parseInt(id || "1"),
+    user_id: 1,
     name: "Tech Innovators Club",
+    university: "Stanford University",
+    address: "1600 Amphitheatre Parkway, Mountain View, CA 94043",
     description:
-      "A vibrant community of developers, designers, and tech enthusiasts passionate about innovation and cutting-edge technology. We organize workshops, hackathons, networking events, and technical talks to help our members grow professionally and personally.",
-    members: 1247,
-    upcomingEvents: 8,
-    category: "Technology",
-    location: "San Francisco, CA",
+      "A vibrant community of developers, designers, and tech enthusiasts passionate about innovation and cutting-edge technology. We organize workshops, hackathons, networking events, and technical talks to help our members grow professionally and personally. Join us to connect with like-minded individuals and advance your career in tech.",
+    phone: "+1 (555) 123-4567",
+    image_url: null,
+    email: "contact@techinnovators.stanford.edu",
     founded: "2020",
+    category: "Technology",
     isVerified: true,
     website: "https://techinnovators.com",
     socialMedia: {
       twitter: "@techinnovators",
       linkedin: "tech-innovators-club",
     },
-    organizers: [
-      { name: "Sarah Johnson", role: "President", avatar: "S" },
-      { name: "Mike Chen", role: "VP Technology", avatar: "M" },
-      { name: "Emily Davis", role: "Event Coordinator", avatar: "E" },
-    ],
+  });
+
+  const [editFormData, setEditFormData] = useState({ ...clubData });
+
+  // Club statistics
+  const clubStats = {
+    totalMembers: 1247,
+    totalEvents: 45,
+    upcomingEvents: 8,
+    activeApplications: 23,
   };
+
+  // Members data
+  const members = [
+    {
+      id: 1,
+      name: "Alice Johnson",
+      major: "Computer Science",
+      year: 3,
+      avatar: "A",
+      role: "President",
+    },
+    {
+      id: 2,
+      name: "Bob Chen",
+      major: "Software Engineering",
+      year: 2,
+      avatar: "B",
+      role: "VP Technology",
+    },
+    {
+      id: 3,
+      name: "Carol Davis",
+      major: "Data Science",
+      year: 4,
+      avatar: "C",
+      role: "Event Coordinator",
+    },
+    {
+      id: 4,
+      name: "David Wilson",
+      major: "Computer Science",
+      year: 1,
+      avatar: "D",
+      role: "Member",
+    },
+    {
+      id: 5,
+      name: "Eva Martinez",
+      major: "Information Systems",
+      year: 3,
+      avatar: "E",
+      role: "Member",
+    },
+    {
+      id: 6,
+      name: "Frank Thompson",
+      major: "AI/ML",
+      year: 2,
+      avatar: "F",
+      role: "Member",
+    },
+  ];
 
   const clubEvents = [
     {
