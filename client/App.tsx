@@ -2010,16 +2010,511 @@ function ClubDetailsPage() {
   );
 }
 
-// Profile Page (simplified for space)
+// Profile Page with Person/Club support
 function ProfilePage() {
+  const [userType, setUserType] = useState<"person" | "club">("person"); // This would come from auth
+  const [isEditing, setIsEditing] = useState(false);
+  const [activeTab, setActiveTab] = useState("profile");
+
+  // Mock data - this would come from API
+  const [personData, setPersonData] = useState({
+    id: 1,
+    email: "john.doe@stanford.edu",
+    fullName: "John Doe",
+    university: "Stanford University",
+    phone: "+1 (555) 123-4567",
+    major: "Computer Science",
+    year: 3,
+    city: "Palo Alto",
+    imageUrl: null,
+    membershipCount: 3,
+    applicationCount: 2,
+  });
+
+  const [clubData, setClubData] = useState({
+    id: 1,
+    email: "contact@techclub.stanford.edu",
+    name: "Stanford Tech Club",
+    university: "Stanford University",
+    address: "1600 Amphitheatre Parkway, Mountain View, CA",
+    description:
+      "A community of technology enthusiasts at Stanford University. We organize hackathons, tech talks, and networking events.",
+    phone: "+1 (555) 987-6543",
+    imageUrl: null,
+    memberCount: 156,
+    eventCount: 12,
+  });
+
+  const [editFormData, setEditFormData] = useState(
+    userType === "person" ? { ...personData } : { ...clubData },
+  );
+
+  const handleSave = () => {
+    if (userType === "person") {
+      setPersonData({ ...editFormData });
+    } else {
+      setClubData({ ...editFormData });
+    }
+    setIsEditing(false);
+  };
+
+  const handleCancel = () => {
+    setEditFormData(
+      userType === "person" ? { ...personData } : { ...clubData },
+    );
+    setIsEditing(false);
+  };
+
+  const currentData = userType === "person" ? personData : clubData;
+
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold text-foreground">Profile</h1>
-      <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
-        <p className="text-muted-foreground">
-          Profile page with tabs - coming soon
-        </p>
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
+        <div className="flex items-center space-x-4">
+          <div className="w-20 h-20 bg-gradient-to-br from-secondary to-primary rounded-xl flex items-center justify-center text-white text-2xl font-bold">
+            {userType === "person"
+              ? personData.fullName
+                  .split(" ")
+                  .map((n) => n[0])
+                  .join("")
+              : clubData.name
+                  .split(" ")
+                  .map((n) => n[0])
+                  .join("")}
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold text-foreground">
+              {userType === "person" ? personData.fullName : clubData.name}
+            </h1>
+            <p className="text-muted-foreground">
+              {userType === "person"
+                ? `${personData.major} • Year ${personData.year} • ${personData.university}`
+                : `${clubData.university} • ${clubData.memberCount} members`}
+            </p>
+          </div>
+        </div>
+        <button
+          onClick={() => setIsEditing(!isEditing)}
+          className="bg-secondary text-white px-4 py-2 rounded-lg font-medium hover:bg-secondary/90 transition-colors flex items-center space-x-2"
+        >
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+            />
+          </svg>
+          <span>{isEditing ? "Cancel" : "Edit Profile"}</span>
+        </button>
       </div>
+
+      {/* Tabs */}
+      <div className="border-b border-border">
+        <nav className="flex space-x-8">
+          {["profile", "activity", "settings"].map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`py-2 px-1 border-b-2 font-medium text-sm capitalize transition-colors ${
+                activeTab === tab
+                  ? "border-secondary text-secondary"
+                  : "border-transparent text-muted-foreground hover:text-foreground hover:border-muted"
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </nav>
+      </div>
+
+      {/* Content */}
+      {activeTab === "profile" && (
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Main Profile Info */}
+          <div className="lg:col-span-2 space-y-6">
+            <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-xl font-semibold text-foreground">
+                  {userType === "person"
+                    ? "Personal Information"
+                    : "Organization Information"}
+                </h2>
+                {isEditing && (
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={handleCancel}
+                      className="px-3 py-1.5 text-sm border border-muted rounded-lg hover:bg-muted/50 transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={handleSave}
+                      className="px-3 py-1.5 text-sm bg-secondary text-white rounded-lg hover:bg-secondary/90 transition-colors"
+                    >
+                      Save Changes
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {userType === "person" ? (
+                  <>
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        Full Name
+                      </label>
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={editFormData.fullName || ""}
+                          onChange={(e) =>
+                            setEditFormData({
+                              ...editFormData,
+                              fullName: e.target.value,
+                            })
+                          }
+                          className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                        />
+                      ) : (
+                        <p className="text-foreground">{personData.fullName}</p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        Email
+                      </label>
+                      <p className="text-foreground">{personData.email}</p>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        University
+                      </label>
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={editFormData.university || ""}
+                          onChange={(e) =>
+                            setEditFormData({
+                              ...editFormData,
+                              university: e.target.value,
+                            })
+                          }
+                          className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                        />
+                      ) : (
+                        <p className="text-foreground">
+                          {personData.university}
+                        </p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        Major
+                      </label>
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={editFormData.major || ""}
+                          onChange={(e) =>
+                            setEditFormData({
+                              ...editFormData,
+                              major: e.target.value,
+                            })
+                          }
+                          className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                        />
+                      ) : (
+                        <p className="text-foreground">{personData.major}</p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        Year
+                      </label>
+                      {isEditing ? (
+                        <select
+                          value={editFormData.year || ""}
+                          onChange={(e) =>
+                            setEditFormData({
+                              ...editFormData,
+                              year: parseInt(e.target.value),
+                            })
+                          }
+                          className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                        >
+                          <option value={1}>Year 1</option>
+                          <option value={2}>Year 2</option>
+                          <option value={3}>Year 3</option>
+                          <option value={4}>Year 4</option>
+                          <option value={5}>Year 5+</option>
+                        </select>
+                      ) : (
+                        <p className="text-foreground">
+                          Year {personData.year}
+                        </p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        City
+                      </label>
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={editFormData.city || ""}
+                          onChange={(e) =>
+                            setEditFormData({
+                              ...editFormData,
+                              city: e.target.value,
+                            })
+                          }
+                          className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                        />
+                      ) : (
+                        <p className="text-foreground">{personData.city}</p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        Phone
+                      </label>
+                      {isEditing ? (
+                        <input
+                          type="tel"
+                          value={editFormData.phone || ""}
+                          onChange={(e) =>
+                            setEditFormData({
+                              ...editFormData,
+                              phone: e.target.value,
+                            })
+                          }
+                          className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                        />
+                      ) : (
+                        <p className="text-foreground">{personData.phone}</p>
+                      )}
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        Organization Name
+                      </label>
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={editFormData.name || ""}
+                          onChange={(e) =>
+                            setEditFormData({
+                              ...editFormData,
+                              name: e.target.value,
+                            })
+                          }
+                          className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                        />
+                      ) : (
+                        <p className="text-foreground">{clubData.name}</p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        Email
+                      </label>
+                      <p className="text-foreground">{clubData.email}</p>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        University
+                      </label>
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={editFormData.university || ""}
+                          onChange={(e) =>
+                            setEditFormData({
+                              ...editFormData,
+                              university: e.target.value,
+                            })
+                          }
+                          className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                        />
+                      ) : (
+                        <p className="text-foreground">{clubData.university}</p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        Phone
+                      </label>
+                      {isEditing ? (
+                        <input
+                          type="tel"
+                          value={editFormData.phone || ""}
+                          onChange={(e) =>
+                            setEditFormData({
+                              ...editFormData,
+                              phone: e.target.value,
+                            })
+                          }
+                          className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                        />
+                      ) : (
+                        <p className="text-foreground">{clubData.phone}</p>
+                      )}
+                    </div>
+                    <div className="md:col-span-2">
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        Address
+                      </label>
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={editFormData.address || ""}
+                          onChange={(e) =>
+                            setEditFormData({
+                              ...editFormData,
+                              address: e.target.value,
+                            })
+                          }
+                          className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                        />
+                      ) : (
+                        <p className="text-foreground">{clubData.address}</p>
+                      )}
+                    </div>
+                    <div className="md:col-span-2">
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        Description
+                      </label>
+                      {isEditing ? (
+                        <textarea
+                          value={editFormData.description || ""}
+                          onChange={(e) =>
+                            setEditFormData({
+                              ...editFormData,
+                              description: e.target.value,
+                            })
+                          }
+                          rows={4}
+                          className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                        />
+                      ) : (
+                        <p className="text-foreground">
+                          {clubData.description}
+                        </p>
+                      )}
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Sidebar Stats */}
+          <div className="space-y-6">
+            <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+              <h3 className="text-lg font-semibold text-foreground mb-4">
+                Statistics
+              </h3>
+              <div className="space-y-4">
+                {userType === "person" ? (
+                  <>
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">
+                        Club Memberships
+                      </span>
+                      <span className="font-medium text-secondary">
+                        {personData.membershipCount}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">
+                        Applications
+                      </span>
+                      <span className="font-medium text-secondary">
+                        {personData.applicationCount}
+                      </span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">
+                        Total Members
+                      </span>
+                      <span className="font-medium text-secondary">
+                        {clubData.memberCount}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">
+                        Events Hosted
+                      </span>
+                      <span className="font-medium text-secondary">
+                        {clubData.eventCount}
+                      </span>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+              <h3 className="text-lg font-semibold text-foreground mb-4">
+                Quick Actions
+              </h3>
+              <div className="space-y-3">
+                {userType === "person" ? (
+                  <>
+                    <button className="w-full bg-secondary text-white py-2 rounded-lg font-medium hover:bg-secondary/90 transition-colors">
+                      Browse Clubs
+                    </button>
+                    <button className="w-full bg-muted text-muted-foreground py-2 rounded-lg font-medium hover:bg-muted/80 transition-colors">
+                      My Applications
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button className="w-full bg-secondary text-white py-2 rounded-lg font-medium hover:bg-secondary/90 transition-colors">
+                      Create Event
+                    </button>
+                    <button className="w-full bg-muted text-muted-foreground py-2 rounded-lg font-medium hover:bg-muted/80 transition-colors">
+                      Manage Members
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {activeTab === "activity" && (
+        <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+          <h2 className="text-xl font-semibold text-foreground mb-4">
+            Recent Activity
+          </h2>
+          <p className="text-muted-foreground">Activity feed coming soon...</p>
+        </div>
+      )}
+
+      {activeTab === "settings" && (
+        <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+          <h2 className="text-xl font-semibold text-foreground mb-4">
+            Account Settings
+          </h2>
+          <p className="text-muted-foreground">Settings panel coming soon...</p>
+        </div>
+      )}
     </div>
   );
 }
