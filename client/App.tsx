@@ -1896,213 +1896,638 @@ function ClubDetailsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center space-x-4">
-        <Link
-          to="/clubs"
-          className="text-muted-foreground hover:text-foreground"
-        >
-          <ArrowLeftIcon />
-        </Link>
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
         <div className="flex items-center space-x-4">
-          <div className="w-16 h-16 bg-gradient-to-br from-secondary to-primary rounded-xl flex items-center justify-center text-white font-bold text-xl">
-            {club.name.charAt(0)}
+          <Link
+            to="/clubs"
+            className="text-muted-foreground hover:text-foreground"
+          >
+            <ArrowLeftIcon />
+          </Link>
+          <div className="w-20 h-20 bg-gradient-to-br from-secondary to-primary rounded-xl flex items-center justify-center text-white text-2xl font-bold">
+            {clubData.name.charAt(0)}
           </div>
           <div>
             <div className="flex items-center space-x-2">
               <h1 className="text-3xl font-bold text-foreground">
-                {club.name}
+                {clubData.name}
               </h1>
-              {club.isVerified && <CheckIcon />}
+              {clubData.isVerified && <CheckIcon />}
             </div>
-            <div className="flex items-center space-x-4 text-muted-foreground">
-              <span>{club.category}</span>
-              <span>•</span>
-              <span>{club.location}</span>
-              <span>•</span>
-              <span>Founded {club.founded}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Main Content */}
-        <div className="lg:col-span-2 space-y-6">
-          {/* Club Cover */}
-          <div className="h-48 bg-gradient-to-br from-secondary to-primary rounded-xl"></div>
-
-          {/* About */}
-          <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
-            <h2 className="text-xl font-semibold text-foreground mb-4">
-              About This Club
-            </h2>
-            <p className="text-muted-foreground leading-relaxed">
-              {club.description}
+            <p className="text-muted-foreground">
+              {clubData.university} • {clubStats.totalMembers} members • Founded{" "}
+              {clubData.founded}
             </p>
           </div>
-
-          {/* Upcoming Events */}
-          <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-foreground">
-                Upcoming Events ({clubEvents.length})
-              </h2>
-              <Link
-                to="/events"
-                className="text-secondary hover:text-secondary/80 text-sm"
-              >
-                View all events →
-              </Link>
-            </div>
-            <div className="space-y-4">
-              {clubEvents.map((event) => (
-                <div
-                  key={event.id}
-                  className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors"
-                >
-                  <div>
-                    <Link
-                      to={`/events/${event.id}`}
-                      className="font-medium text-foreground hover:text-secondary"
-                    >
-                      {event.title}
-                    </Link>
-                    <p className="text-sm text-muted-foreground">
-                      {event.date} at {event.time}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm text-muted-foreground">
-                      {event.attendees}/{event.maxAttendees} attending
-                    </p>
-                    <Link
-                      to={`/events/${event.id}`}
-                      className="text-secondary hover:text-secondary/80 text-sm"
-                    >
-                      View details →
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Organizers */}
-          <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
-            <h2 className="text-xl font-semibold text-foreground mb-4">
-              Club Organizers
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {club.organizers.map((organizer, index) => (
-                <div key={index} className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-secondary to-primary rounded-full flex items-center justify-center text-white font-bold">
-                    {organizer.avatar}
-                  </div>
-                  <div>
-                    <p className="font-medium text-foreground">
-                      {organizer.name}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      {organizer.role}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
-
-        {/* Sidebar */}
-        <div className="space-y-6">
-          {/* Club Stats */}
-          <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
-            <h3 className="text-lg font-semibold text-foreground mb-4">
-              Club Stats
-            </h3>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-muted-foreground">Members</span>
-                <span className="font-semibold text-foreground">
-                  {club.members.toLocaleString()}
-                </span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-muted-foreground">Upcoming Events</span>
-                <span className="font-semibold text-foreground">
-                  {club.upcomingEvents}
-                </span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-muted-foreground">Founded</span>
-                <span className="font-semibold text-foreground">
-                  {club.founded}
-                </span>
-              </div>
-            </div>
-
-            <button className="w-full mt-6 bg-primary text-white py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors">
-              Join Club
+        <div className="flex items-center space-x-3">
+          {isOwner && (
+            <button
+              onClick={() => setIsEditing(!isEditing)}
+              className="bg-muted text-muted-foreground px-4 py-2 rounded-lg font-medium hover:bg-muted/80 transition-colors flex items-center space-x-2"
+            >
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                />
+              </svg>
+              <span>{isEditing ? "Cancel" : "Edit Club"}</span>
             </button>
-          </div>
-
-          {/* Contact Info */}
-          <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
-            <h3 className="text-lg font-semibold text-foreground mb-4">
-              Connect
-            </h3>
-            <div className="space-y-3">
-              <a
-                href={club.website}
-                className="flex items-center space-x-3 text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <ExternalLinkIcon />
-                <span>Website</span>
-              </a>
-              <a
-                href="#"
-                className="flex items-center space-x-3 text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <span className="w-5 h-5">🐦</span>
-                <span>{club.socialMedia.twitter}</span>
-              </a>
-              <a
-                href="#"
-                className="flex items-center space-x-3 text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <span className="w-5 h-5">💼</span>
-                <span>{club.socialMedia.linkedin}</span>
-              </a>
-            </div>
-          </div>
-
-          {/* Recent Activity */}
-          <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
-            <h3 className="text-lg font-semibold text-foreground mb-4">
-              Recent Activity
-            </h3>
-            <div className="space-y-3 text-sm">
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-success rounded-full"></div>
-                <span className="text-muted-foreground">
-                  5 new members joined this week
-                </span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-secondary rounded-full"></div>
-                <span className="text-muted-foreground">
-                  Posted new event: React Workshop
-                </span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-warning rounded-full"></div>
-                <span className="text-muted-foreground">
-                  Tech Summit applications are now open
-                </span>
-              </div>
-            </div>
-          </div>
+          )}
+          <button
+            onClick={handleJoinLeave}
+            className={`px-4 py-2 rounded-lg font-medium transition-colors flex items-center space-x-2 ${
+              isMember
+                ? "bg-muted text-muted-foreground hover:bg-muted/80"
+                : "bg-secondary text-white hover:bg-secondary/90"
+            }`}
+          >
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d={
+                  isMember
+                    ? "M6 18L18 6M6 6l12 12"
+                    : "M12 6v6m0 0v6m0-6h6m-6 0H6"
+                }
+              />
+            </svg>
+            <span>{isMember ? "Leave Club" : "Join Club"}</span>
+          </button>
         </div>
       </div>
+
+      {/* Tabs */}
+      <div className="border-b border-border">
+        <nav className="flex space-x-8">
+          {["overview", "events", "members", "about"].map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`py-2 px-1 border-b-2 font-medium text-sm capitalize transition-colors ${
+                activeTab === tab
+                  ? "border-secondary text-secondary"
+                  : "border-transparent text-muted-foreground hover:text-foreground hover:border-muted"
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </nav>
+      </div>
+
+      {/* Content based on active tab */}
+      {activeTab === "overview" && (
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Main Content */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Club Cover */}
+            <div className="h-48 bg-gradient-to-br from-secondary to-primary rounded-xl relative">
+              <div className="absolute bottom-4 left-4 text-white">
+                <h2 className="text-2xl font-bold">{clubData.name}</h2>
+                <p className="text-white/90">
+                  {clubData.category} • {clubData.university}
+                </p>
+              </div>
+            </div>
+
+            {/* Quick Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-white p-4 rounded-xl border border-border text-center">
+                <p className="text-2xl font-bold text-secondary">
+                  {clubStats.totalMembers}
+                </p>
+                <p className="text-sm text-muted-foreground">Members</p>
+              </div>
+              <div className="bg-white p-4 rounded-xl border border-border text-center">
+                <p className="text-2xl font-bold text-secondary">
+                  {clubStats.upcomingEvents}
+                </p>
+                <p className="text-sm text-muted-foreground">Upcoming Events</p>
+              </div>
+              <div className="bg-white p-4 rounded-xl border border-border text-center">
+                <p className="text-2xl font-bold text-secondary">
+                  {clubStats.totalEvents}
+                </p>
+                <p className="text-sm text-muted-foreground">Total Events</p>
+              </div>
+              <div className="bg-white p-4 rounded-xl border border-border text-center">
+                <p className="text-2xl font-bold text-secondary">
+                  {clubStats.activeApplications}
+                </p>
+                <p className="text-sm text-muted-foreground">Applications</p>
+              </div>
+            </div>
+
+            {/* About */}
+            <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+              <h2 className="text-xl font-semibold text-foreground mb-4">
+                About
+              </h2>
+              <p className="text-muted-foreground leading-relaxed">
+                {clubData.description}
+              </p>
+            </div>
+
+            {/* Recent Events */}
+            <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-semibold text-foreground">
+                  Recent Events
+                </h2>
+                <button
+                  onClick={() => setActiveTab("events")}
+                  className="text-secondary hover:text-secondary/80 text-sm font-medium"
+                >
+                  View all →
+                </button>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {clubEvents.slice(0, 4).map((event) => (
+                  <div
+                    key={event.id}
+                    className="border border-border rounded-lg p-4 hover:shadow-md transition-shadow"
+                  >
+                    <h3 className="font-medium text-foreground mb-1">
+                      {event.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-2">
+                      {new Date(event.date).toLocaleDateString()} • {event.time}
+                    </p>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs bg-secondary/10 text-secondary px-2 py-1 rounded-full">
+                        {event.attendees}/{event.maxAttendees} attending
+                      </span>
+                      <Link
+                        to={`/events/${event.id}`}
+                        className="text-secondary hover:text-secondary/80 text-sm"
+                      >
+                        View →
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Sidebar */}
+          <div className="space-y-6">
+            {/* Contact Info */}
+            <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+              <h3 className="text-lg font-semibold text-foreground mb-4">
+                Contact
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-center space-x-3">
+                  <svg
+                    className="w-4 h-4 text-muted-foreground"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                  <span className="text-muted-foreground text-sm">
+                    {clubData.email}
+                  </span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <svg
+                    className="w-4 h-4 text-muted-foreground"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                    />
+                  </svg>
+                  <span className="text-muted-foreground text-sm">
+                    {clubData.phone}
+                  </span>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <LocationIcon />
+                  <span className="text-muted-foreground text-sm">
+                    {clubData.address}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Connect */}
+            <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+              <h3 className="text-lg font-semibold text-foreground mb-4">
+                Connect
+              </h3>
+              <div className="space-y-3">
+                <a
+                  href={clubData.website}
+                  className="flex items-center space-x-3 text-muted-foreground hover:text-secondary transition-colors"
+                >
+                  <ExternalLinkIcon />
+                  <span>Website</span>
+                </a>
+                <a
+                  href="#"
+                  className="flex items-center space-x-3 text-muted-foreground hover:text-secondary transition-colors"
+                >
+                  <span className="w-4 h-4">🐦</span>
+                  <span>{clubData.socialMedia.twitter}</span>
+                </a>
+                <a
+                  href="#"
+                  className="flex items-center space-x-3 text-muted-foreground hover:text-secondary transition-colors"
+                >
+                  <span className="w-4 h-4">💼</span>
+                  <span>{clubData.socialMedia.linkedin}</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Recent Activity */}
+            <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+              <h3 className="text-lg font-semibold text-foreground mb-4">
+                Recent Activity
+              </h3>
+              <div className="space-y-3 text-sm">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-success rounded-full"></div>
+                  <span className="text-muted-foreground">
+                    5 new members joined this week
+                  </span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-secondary rounded-full"></div>
+                  <span className="text-muted-foreground">
+                    Posted new event: React Workshop
+                  </span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-warning rounded-full"></div>
+                  <span className="text-muted-foreground">
+                    Tech Summit applications are now open
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {activeTab === "events" && (
+        <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-semibold text-foreground">
+              Club Events
+            </h2>
+            {isOwner && (
+              <button className="bg-secondary text-white px-4 py-2 rounded-lg font-medium hover:bg-secondary/90 transition-colors">
+                Create Event
+              </button>
+            )}
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {clubEvents.map((event) => (
+              <div
+                key={event.id}
+                className="border border-border rounded-xl p-4 hover:shadow-md transition-shadow"
+              >
+                <div className="flex justify-between items-start mb-3">
+                  <h3 className="font-semibold text-foreground">
+                    {event.title}
+                  </h3>
+                  <span
+                    className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      event.status === "Open"
+                        ? "bg-success/10 text-success"
+                        : "bg-muted text-muted-foreground"
+                    }`}
+                  >
+                    {event.status}
+                  </span>
+                </div>
+                <p className="text-sm text-muted-foreground mb-3">
+                  {event.description}
+                </p>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center space-x-2">
+                    <CalendarIcon />
+                    <span>
+                      {new Date(event.date).toLocaleDateString()} • {event.time}
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <LocationIcon />
+                    <span>{event.location}</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <UsersIcon />
+                    <span>
+                      {event.attendees}/{event.maxAttendees} attending
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-lg">💰</span>
+                    <span className="font-medium">
+                      {event.price === 0 ? "Free" : `$${event.price}`}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-1 mt-3 mb-4">
+                  {event.tags.map((tag, index) => (
+                    <span
+                      key={index}
+                      className="bg-secondary/10 text-secondary px-2 py-1 rounded-full text-xs"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <Link
+                  to={`/events/${event.id}`}
+                  className="block w-full bg-secondary text-white text-center py-2 rounded-lg font-medium hover:bg-secondary/90 transition-colors"
+                >
+                  View Details
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {activeTab === "members" && (
+        <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-semibold text-foreground">
+              Members ({members.length})
+            </h2>
+            {isOwner && (
+              <button className="bg-secondary text-white px-4 py-2 rounded-lg font-medium hover:bg-secondary/90 transition-colors">
+                Manage Members
+              </button>
+            )}
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {members.map((member) => (
+              <div
+                key={member.id}
+                className="border border-border rounded-lg p-4"
+              >
+                <div className="flex items-center space-x-3 mb-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-secondary to-primary rounded-full flex items-center justify-center text-white font-bold">
+                    {member.avatar}
+                  </div>
+                  <div>
+                    <p className="font-medium text-foreground">{member.name}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {member.major}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span
+                    className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      member.role === "President" ||
+                      member.role === "VP Technology" ||
+                      member.role === "Event Coordinator"
+                        ? "bg-secondary/10 text-secondary"
+                        : "bg-muted text-muted-foreground"
+                    }`}
+                  >
+                    {member.role}
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Year {member.year}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {activeTab === "about" && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-xl font-semibold text-foreground">
+                Club Information
+              </h2>
+              {isOwner && isEditing && (
+                <div className="flex space-x-2">
+                  <button
+                    onClick={handleCancel}
+                    className="px-3 py-1.5 text-sm border border-muted rounded-lg hover:bg-muted/50 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleSave}
+                    className="px-3 py-1.5 text-sm bg-secondary text-white rounded-lg hover:bg-secondary/90 transition-colors"
+                  >
+                    Save
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Club Name
+                </label>
+                {isOwner && isEditing ? (
+                  <input
+                    type="text"
+                    value={editFormData.name}
+                    onChange={(e) =>
+                      setEditFormData({ ...editFormData, name: e.target.value })
+                    }
+                    className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                  />
+                ) : (
+                  <p className="text-foreground">{clubData.name}</p>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  University
+                </label>
+                {isOwner && isEditing ? (
+                  <input
+                    type="text"
+                    value={editFormData.university}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        university: e.target.value,
+                      })
+                    }
+                    className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                  />
+                ) : (
+                  <p className="text-foreground">{clubData.university}</p>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Phone
+                </label>
+                {isOwner && isEditing ? (
+                  <input
+                    type="tel"
+                    value={editFormData.phone}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        phone: e.target.value,
+                      })
+                    }
+                    className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                  />
+                ) : (
+                  <p className="text-foreground">{clubData.phone}</p>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Address
+                </label>
+                {isOwner && isEditing ? (
+                  <textarea
+                    value={editFormData.address}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        address: e.target.value,
+                      })
+                    }
+                    rows={2}
+                    className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                  />
+                ) : (
+                  <p className="text-foreground">{clubData.address}</p>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Description
+                </label>
+                {isOwner && isEditing ? (
+                  <textarea
+                    value={editFormData.description}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        description: e.target.value,
+                      })
+                    }
+                    rows={4}
+                    className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                  />
+                ) : (
+                  <p className="text-foreground">{clubData.description}</p>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-6">
+            <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+              <h3 className="text-lg font-semibold text-foreground mb-4">
+                Statistics
+              </h3>
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Total Members</span>
+                  <span className="font-medium text-secondary">
+                    {clubStats.totalMembers}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Total Events</span>
+                  <span className="font-medium text-secondary">
+                    {clubStats.totalEvents}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Upcoming Events</span>
+                  <span className="font-medium text-secondary">
+                    {clubStats.upcomingEvents}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">
+                    Active Applications
+                  </span>
+                  <span className="font-medium text-secondary">
+                    {clubStats.activeApplications}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+              <h3 className="text-lg font-semibold text-foreground mb-4">
+                Quick Actions
+              </h3>
+              <div className="space-y-3">
+                {isOwner ? (
+                  <>
+                    <button className="w-full bg-secondary text-white py-2 rounded-lg font-medium hover:bg-secondary/90 transition-colors">
+                      Create Event
+                    </button>
+                    <button className="w-full bg-muted text-muted-foreground py-2 rounded-lg font-medium hover:bg-muted/80 transition-colors">
+                      Manage Applications
+                    </button>
+                    <button className="w-full bg-muted text-muted-foreground py-2 rounded-lg font-medium hover:bg-muted/80 transition-colors">
+                      View Analytics
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button className="w-full bg-secondary text-white py-2 rounded-lg font-medium hover:bg-secondary/90 transition-colors">
+                      Browse Events
+                    </button>
+                    <button className="w-full bg-muted text-muted-foreground py-2 rounded-lg font-medium hover:bg-muted/80 transition-colors">
+                      Contact Club
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
