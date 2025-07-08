@@ -4167,6 +4167,407 @@ function ClubManagementPage() {
           </div>
         </div>
       )}
+
+      {/* Edit Event Modal */}
+      {editingEvent && editEventData && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-border">
+              <div className="flex justify-between items-center">
+                <h2 className="text-xl font-semibold text-foreground">
+                  Edit Event
+                </h2>
+                <button
+                  onClick={handleCancelEditEvent}
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div className="p-6 space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Event Name
+                  </label>
+                  <input
+                    type="text"
+                    value={editEventData.name}
+                    onChange={(e) =>
+                      setEditEventData({
+                        ...editEventData,
+                        name: e.target.value,
+                      })
+                    }
+                    className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Event Type
+                  </label>
+                  <select
+                    value={editEventData.event_type}
+                    onChange={(e) =>
+                      setEditEventData({
+                        ...editEventData,
+                        event_type: e.target.value,
+                      })
+                    }
+                    className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                  >
+                    <option value="CONFERENCE">Conference</option>
+                    <option value="WORKSHOP">Workshop</option>
+                    <option value="SEMINAR">Seminar</option>
+                    <option value="COMPETITION">Competition</option>
+                    <option value="NETWORKING">Networking</option>
+                    <option value="OTHER">Other</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Start Date & Time
+                  </label>
+                  <input
+                    type="datetime-local"
+                    value={
+                      editEventData.date_start
+                        ? new Date(editEventData.date_start)
+                            .toISOString()
+                            .slice(0, 16)
+                        : ""
+                    }
+                    onChange={(e) =>
+                      setEditEventData({
+                        ...editEventData,
+                        date_start: e.target.value,
+                      })
+                    }
+                    className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    End Date & Time
+                  </label>
+                  <input
+                    type="datetime-local"
+                    value={
+                      editEventData.date_end
+                        ? new Date(editEventData.date_end)
+                            .toISOString()
+                            .slice(0, 16)
+                        : ""
+                    }
+                    onChange={(e) =>
+                      setEditEventData({
+                        ...editEventData,
+                        date_end: e.target.value,
+                      })
+                    }
+                    className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Venue
+                  </label>
+                  <input
+                    type="text"
+                    value={editEventData.venue}
+                    onChange={(e) =>
+                      setEditEventData({
+                        ...editEventData,
+                        venue: e.target.value,
+                      })
+                    }
+                    className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Content Category
+                  </label>
+                  <input
+                    type="text"
+                    value={editEventData.content}
+                    onChange={(e) =>
+                      setEditEventData({
+                        ...editEventData,
+                        content: e.target.value,
+                      })
+                    }
+                    className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Status
+                  </label>
+                  <select
+                    value={editEventData.status}
+                    onChange={(e) =>
+                      setEditEventData({
+                        ...editEventData,
+                        status: e.target.value,
+                      })
+                    }
+                    className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                  >
+                    <option value="UPCOMING">Upcoming</option>
+                    <option value="COMPLETED">Completed</option>
+                    <option value="CANCELLED">Cancelled</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Max Attendees
+                  </label>
+                  <input
+                    type="number"
+                    value={editEventData.maxAttendees}
+                    onChange={(e) =>
+                      setEditEventData({
+                        ...editEventData,
+                        maxAttendees: parseInt(e.target.value),
+                      })
+                    }
+                    className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Description
+                </label>
+                <textarea
+                  value={editEventData.description}
+                  onChange={(e) =>
+                    setEditEventData({
+                      ...editEventData,
+                      description: e.target.value,
+                    })
+                  }
+                  rows={4}
+                  className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                />
+              </div>
+            </div>
+
+            <div className="p-6 border-t border-border flex justify-end space-x-3">
+              <button
+                onClick={handleCancelEditEvent}
+                className="px-4 py-2 border border-muted rounded-lg hover:bg-muted/50 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSaveEvent}
+                className="px-4 py-2 bg-secondary text-white rounded-lg hover:bg-secondary/90 transition-colors"
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* View Applications Modal */}
+      {viewingApplications && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-border">
+              <div className="flex justify-between items-center">
+                <div>
+                  <h2 className="text-xl font-semibold text-foreground">
+                    Event Applications
+                  </h2>
+                  <p className="text-muted-foreground">
+                    {clubEvents.find((e) => e.id === viewingApplications)?.name}
+                  </p>
+                </div>
+                <button
+                  onClick={handleCloseViewApplications}
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div className="p-6">
+              <div className="mb-4 flex space-x-2">
+                <span className="px-3 py-1 bg-warning/10 text-warning rounded-full text-sm">
+                  Pending:{" "}
+                  {
+                    applications.filter(
+                      (app) =>
+                        app.event_id === viewingApplications &&
+                        app.status === "PENDING",
+                    ).length
+                  }
+                </span>
+                <span className="px-3 py-1 bg-success/10 text-success rounded-full text-sm">
+                  Accepted:{" "}
+                  {
+                    applications.filter(
+                      (app) =>
+                        app.event_id === viewingApplications &&
+                        app.status === "ACCEPTED",
+                    ).length
+                  }
+                </span>
+                <span className="px-3 py-1 bg-destructive/10 text-destructive rounded-full text-sm">
+                  Rejected:{" "}
+                  {
+                    applications.filter(
+                      (app) =>
+                        app.event_id === viewingApplications &&
+                        app.status === "REJECTED",
+                    ).length
+                  }
+                </span>
+              </div>
+
+              <div className="space-y-4 max-h-[60vh] overflow-y-auto">
+                {applications
+                  .filter((app) => app.event_id === viewingApplications)
+                  .map((application) => (
+                    <div
+                      key={application.id}
+                      className="border border-border rounded-xl p-4"
+                    >
+                      <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4">
+                        <div className="flex-1">
+                          <div className="flex items-start justify-between mb-3">
+                            <div>
+                              <h3 className="font-semibold text-foreground">
+                                {application.applicant.name}
+                              </h3>
+                              <p className="text-sm text-muted-foreground">
+                                {application.applicant.email}
+                              </p>
+                              <p className="text-sm text-muted-foreground">
+                                {application.applicant.major} • Year{" "}
+                                {application.applicant.year}
+                              </p>
+                            </div>
+                            <span
+                              className={`px-3 py-1 rounded-full text-sm font-medium border ${getApplicationStatusColor(application.status)}`}
+                            >
+                              {application.status}
+                            </span>
+                          </div>
+
+                          <div className="mb-3">
+                            <p className="text-sm text-muted-foreground">
+                              Applied:{" "}
+                              {new Date(
+                                application.submitted_at,
+                              ).toLocaleDateString()}
+                            </p>
+                          </div>
+
+                          <div className="mb-3">
+                            <h4 className="text-sm font-medium text-foreground mb-2">
+                              Motivation
+                            </h4>
+                            <p className="text-sm text-muted-foreground bg-muted/30 p-3 rounded-lg">
+                              {application.motivation}
+                            </p>
+                          </div>
+                        </div>
+
+                        {application.status === "PENDING" && (
+                          <div className="flex space-x-2 min-w-[160px]">
+                            <button
+                              onClick={() =>
+                                handleAcceptApplication(application.id)
+                              }
+                              className="flex-1 bg-success text-white py-2 px-3 rounded-lg font-medium hover:bg-success/90 transition-colors text-sm"
+                            >
+                              Accept
+                            </button>
+                            <button
+                              onClick={() =>
+                                handleRejectApplication(application.id)
+                              }
+                              className="flex-1 bg-destructive text-white py-2 px-3 rounded-lg font-medium hover:bg-destructive/90 transition-colors text-sm"
+                            >
+                              Reject
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+
+                {applications.filter(
+                  (app) => app.event_id === viewingApplications,
+                ).length === 0 && (
+                  <div className="text-center py-12">
+                    <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+                      <svg
+                        className="w-8 h-8 text-muted-foreground"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                        />
+                      </svg>
+                    </div>
+                    <h3 className="text-lg font-medium text-foreground mb-2">
+                      No applications yet
+                    </h3>
+                    <p className="text-muted-foreground">
+                      This event hasn't received any applications.
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
