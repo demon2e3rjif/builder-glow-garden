@@ -3437,6 +3437,18 @@ function ClubManagementPage() {
   const [editingEvent, setEditingEvent] = useState(null);
   const [viewingApplications, setViewingApplications] = useState(null);
   const [editEventData, setEditEventData] = useState(null);
+  const [newEventData, setNewEventData] = useState({
+    name: "",
+    event_type: "WORKSHOP",
+    date_start: "",
+    date_end: "",
+    venue: "",
+    description: "",
+    content: "",
+    status: "UPCOMING",
+    maxAttendees: 100,
+    price: 0,
+  });
 
   // Mock club data based on database model
   const [clubData, setClubData] = useState({
