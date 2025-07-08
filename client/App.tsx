@@ -3041,15 +3041,394 @@ function ProfilePage() {
   );
 }
 
-// Simple placeholder pages
+// Applications Page
 function ApplicationsPage() {
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [selectedApplication, setSelectedApplication] = useState(null);
+
+  // Mock applications data based on your database model
+  const applications = [
+    {
+      id: 1,
+      user_id: 1,
+      event_id: 1,
+      motivation:
+        "I'm passionate about technology and innovation. This summit aligns perfectly with my career goals in software development. I want to network with like-minded individuals and learn from industry experts.",
+      submitted_at: "2024-12-01T10:30:00Z",
+      status: "PENDING",
+      event: {
+        title: "Tech Innovation Summit 2024",
+        date: "2024-12-15",
+        time: "9:00 AM - 5:00 PM",
+        location: "Main Auditorium",
+        club: "Tech Innovators Club",
+        clubId: 1,
+        price: 0,
+      },
+    },
+    {
+      id: 2,
+      user_id: 1,
+      event_id: 4,
+      motivation:
+        "I have 2 years of React experience and want to learn advanced patterns to improve my development skills. This workshop would help me advance in my career.",
+      submitted_at: "2024-11-25T14:15:00Z",
+      status: "ACCEPTED",
+      event: {
+        title: "React Workshop: Advanced Patterns",
+        date: "2024-12-22",
+        time: "2:00 PM - 6:00 PM",
+        location: "Computer Lab A",
+        club: "Tech Innovators Club",
+        clubId: 1,
+        price: 25,
+      },
+    },
+    {
+      id: 3,
+      user_id: 1,
+      event_id: 3,
+      motivation:
+        "As an aspiring entrepreneur, I'm looking for investment opportunities and mentorship. I have a tech startup idea that I'd love to pitch.",
+      submitted_at: "2024-11-20T09:45:00Z",
+      status: "REJECTED",
+      event: {
+        title: "Startup Pitch Competition",
+        date: "2024-12-18",
+        time: "7:00 PM - 10:00 PM",
+        location: "Innovation Lab",
+        club: "Entrepreneur Society",
+        clubId: 3,
+        price: 15,
+      },
+    },
+    {
+      id: 4,
+      user_id: 1,
+      event_id: 5,
+      motivation:
+        "I'm interested in AI and machine learning applications. This meetup would help me connect with others in the field and share knowledge.",
+      submitted_at: "2024-12-05T16:20:00Z",
+      status: "PENDING",
+      event: {
+        title: "AI & Machine Learning Meetup",
+        date: "2025-01-08",
+        time: "6:00 PM - 8:00 PM",
+        location: "Innovation Hub",
+        club: "AI Research Club",
+        clubId: 4,
+        price: 0,
+      },
+    },
+    {
+      id: 5,
+      user_id: 1,
+      event_id: 6,
+      motivation:
+        "I appreciate local art and want to support the community. This exhibition would be a great way to discover new artists and their work.",
+      submitted_at: "2024-11-30T11:00:00Z",
+      status: "ACCEPTED",
+      event: {
+        title: "Community Art Exhibition",
+        date: "2024-12-28",
+        time: "6:00 PM - 9:00 PM",
+        location: "City Gallery",
+        club: "Local Artists Guild",
+        clubId: 6,
+        price: 0,
+      },
+    },
+  ];
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "PENDING":
+        return "bg-warning/10 text-warning border-warning/20";
+      case "ACCEPTED":
+        return "bg-success/10 text-success border-success/20";
+      case "REJECTED":
+        return "bg-destructive/10 text-destructive border-destructive/20";
+      default:
+        return "bg-muted text-muted-foreground border-muted";
+    }
+  };
+
+  const getStatusIcon = (status) => {
+    switch (status) {
+      case "PENDING":
+        return "⏳";
+      case "ACCEPTED":
+        return "✅";
+      case "REJECTED":
+        return "❌";
+      default:
+        return "📋";
+    }
+  };
+
+  const filteredApplications = applications.filter((app) => {
+    if (activeFilter === "all") return true;
+    return app.status.toLowerCase() === activeFilter.toLowerCase();
+  });
+
+  const statusCounts = {
+    all: applications.length,
+    pending: applications.filter((app) => app.status === "PENDING").length,
+    accepted: applications.filter((app) => app.status === "ACCEPTED").length,
+    rejected: applications.filter((app) => app.status === "REJECTED").length,
+  };
+
+  const handleWithdrawApplication = (applicationId) => {
+    // This would make an API call to withdraw the application
+    console.log("Withdrawing application:", applicationId);
+  };
+
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold text-foreground">My Applications</h1>
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+        <div>
+          <h1 className="text-3xl font-bold text-foreground">
+            My Applications
+          </h1>
+          <p className="text-muted-foreground">
+            Track and manage your event applications
+          </p>
+        </div>
+        <div className="flex items-center space-x-3">
+          <button className="bg-secondary text-white px-4 py-2 rounded-lg font-medium hover:bg-secondary/90 transition-colors flex items-center space-x-2">
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+              />
+            </svg>
+            <span>Browse Events</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="bg-white p-4 rounded-xl border border-border text-center">
+          <p className="text-2xl font-bold text-secondary">
+            {statusCounts.all}
+          </p>
+          <p className="text-sm text-muted-foreground">Total Applications</p>
+        </div>
+        <div className="bg-white p-4 rounded-xl border border-border text-center">
+          <p className="text-2xl font-bold text-warning">
+            {statusCounts.pending}
+          </p>
+          <p className="text-sm text-muted-foreground">Pending</p>
+        </div>
+        <div className="bg-white p-4 rounded-xl border border-border text-center">
+          <p className="text-2xl font-bold text-success">
+            {statusCounts.accepted}
+          </p>
+          <p className="text-sm text-muted-foreground">Accepted</p>
+        </div>
+        <div className="bg-white p-4 rounded-xl border border-border text-center">
+          <p className="text-2xl font-bold text-destructive">
+            {statusCounts.rejected}
+          </p>
+          <p className="text-sm text-muted-foreground">Rejected</p>
+        </div>
+      </div>
+
+      {/* Filter Tabs */}
       <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
-        <p className="text-muted-foreground">
-          Applications management page - coming soon
-        </p>
+        <div className="flex flex-wrap gap-2 mb-6">
+          {[
+            { key: "all", label: "All Applications", count: statusCounts.all },
+            { key: "pending", label: "Pending", count: statusCounts.pending },
+            {
+              key: "accepted",
+              label: "Accepted",
+              count: statusCounts.accepted,
+            },
+            {
+              key: "rejected",
+              label: "Rejected",
+              count: statusCounts.rejected,
+            },
+          ].map((filter) => (
+            <button
+              key={filter.key}
+              onClick={() => setActiveFilter(filter.key)}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors flex items-center space-x-2 ${
+                activeFilter === filter.key
+                  ? "bg-secondary text-white"
+                  : "bg-muted text-muted-foreground hover:bg-muted/80"
+              }`}
+            >
+              <span>{filter.label}</span>
+              <span
+                className={`px-2 py-0.5 rounded-full text-xs ${
+                  activeFilter === filter.key
+                    ? "bg-white/20 text-white"
+                    : "bg-background text-muted-foreground"
+                }`}
+              >
+                {filter.count}
+              </span>
+            </button>
+          ))}
+        </div>
+
+        {/* Applications List */}
+        <div className="space-y-4">
+          {filteredApplications.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg
+                  className="w-8 h-8 text-muted-foreground"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-lg font-medium text-foreground mb-2">
+                No applications found
+              </h3>
+              <p className="text-muted-foreground">
+                {activeFilter === "all"
+                  ? "You haven't submitted any applications yet."
+                  : `No ${activeFilter} applications found.`}
+              </p>
+            </div>
+          ) : (
+            filteredApplications.map((application) => (
+              <div
+                key={application.id}
+                className="border border-border rounded-xl p-6 hover:shadow-md transition-shadow"
+              >
+                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                  {/* Main Content */}
+                  <div className="flex-1">
+                    <div className="flex items-start justify-between mb-3">
+                      <div>
+                        <h3 className="text-lg font-semibold text-foreground mb-1">
+                          {application.event.title}
+                        </h3>
+                        <Link
+                          to={`/clubs/${application.event.clubId}`}
+                          className="text-sm text-secondary hover:text-secondary/80"
+                        >
+                          by {application.event.club}
+                        </Link>
+                      </div>
+                      <span
+                        className={`px-3 py-1 rounded-full text-sm font-medium border ${getStatusColor(application.status)}`}
+                      >
+                        {getStatusIcon(application.status)} {application.status}
+                      </span>
+                    </div>
+
+                    {/* Event Details */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                      <div className="space-y-2 text-sm">
+                        <div className="flex items-center space-x-2">
+                          <CalendarIcon />
+                          <span>
+                            {new Date(
+                              application.event.date,
+                            ).toLocaleDateString()}{" "}
+                            • {application.event.time}
+                          </span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <LocationIcon />
+                          <span>{application.event.location}</span>
+                        </div>
+                      </div>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex items-center space-x-2">
+                          <svg
+                            className="w-4 h-4 text-muted-foreground"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                            />
+                          </svg>
+                          <span>
+                            Applied{" "}
+                            {new Date(
+                              application.submitted_at,
+                            ).toLocaleDateString()}
+                          </span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <span className="text-lg">💰</span>
+                          <span>
+                            {application.event.price === 0
+                              ? "Free"
+                              : `$${application.event.price}`}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Motivation */}
+                    <div className="mb-4">
+                      <h4 className="text-sm font-medium text-foreground mb-2">
+                        Motivation
+                      </h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed bg-muted/30 p-3 rounded-lg">
+                        {application.motivation}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex flex-col space-y-2 min-w-[140px]">
+                    <Link
+                      to={`/events/${application.event_id}`}
+                      className="bg-secondary text-white px-4 py-2 rounded-lg font-medium text-center hover:bg-secondary/90 transition-colors text-sm"
+                    >
+                      View Event
+                    </Link>
+                    {application.status === "PENDING" && (
+                      <button
+                        onClick={() =>
+                          handleWithdrawApplication(application.id)
+                        }
+                        className="bg-muted text-muted-foreground px-4 py-2 rounded-lg font-medium hover:bg-muted/80 transition-colors text-sm"
+                      >
+                        Withdraw
+                      </button>
+                    )}
+                    {application.status === "ACCEPTED" && (
+                      <span className="bg-success/10 text-success px-4 py-2 rounded-lg font-medium text-center text-sm">
+                        Approved ✨
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
       </div>
     </div>
   );
