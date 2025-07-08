@@ -3647,6 +3647,49 @@ function ClubManagementPage() {
     setViewingApplications(null);
   };
 
+  const handleCreateEvent = () => {
+    const newEvent = {
+      id: Math.max(...clubEvents.map((e) => e.id)) + 1,
+      ...newEventData,
+      club_id: clubData.id,
+      attendees: 0,
+      applications: 0,
+      sheet: null,
+      image_url: null,
+    };
+
+    setClubEvents((events) => [...events, newEvent]);
+    setIsCreatingEvent(false);
+    setNewEventData({
+      name: "",
+      event_type: "WORKSHOP",
+      date_start: "",
+      date_end: "",
+      venue: "",
+      description: "",
+      content: "",
+      status: "UPCOMING",
+      maxAttendees: 100,
+      price: 0,
+    });
+  };
+
+  const handleCancelCreateEvent = () => {
+    setIsCreatingEvent(false);
+    setNewEventData({
+      name: "",
+      event_type: "WORKSHOP",
+      date_start: "",
+      date_end: "",
+      venue: "",
+      description: "",
+      content: "",
+      status: "UPCOMING",
+      maxAttendees: 100,
+      price: 0,
+    });
+  };
+
   const getStatusColor = (status) => {
     switch (status) {
       case "UPCOMING":
