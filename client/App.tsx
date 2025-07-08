@@ -1838,28 +1838,60 @@ function ClubDetailsPage() {
     {
       id: 1,
       title: "Tech Innovation Summit 2024",
-      date: "Dec 15, 2024",
-      time: "9:00 AM",
+      date: "2024-12-15",
+      time: "9:00 AM - 5:00 PM",
+      location: "Main Auditorium",
       attendees: 124,
       maxAttendees: 200,
+      price: 0,
+      status: "Open",
+      tags: ["Technology", "Innovation", "Summit"],
+      description:
+        "Annual summit featuring the latest innovations in technology and startup ecosystem.",
     },
     {
       id: 4,
       title: "React Workshop: Advanced Patterns",
-      date: "Dec 22, 2024",
-      time: "2:00 PM",
+      date: "2024-12-22",
+      time: "2:00 PM - 6:00 PM",
+      location: "Computer Lab A",
       attendees: 67,
       maxAttendees: 80,
+      price: 25,
+      status: "Open",
+      tags: ["React", "Workshop", "Frontend"],
+      description:
+        "Deep dive into advanced React patterns including hooks, context, and performance optimization.",
     },
     {
       id: 5,
       title: "AI & Machine Learning Meetup",
-      date: "Jan 8, 2025",
-      time: "6:00 PM",
+      date: "2025-01-08",
+      time: "6:00 PM - 8:00 PM",
+      location: "Innovation Hub",
       attendees: 45,
       maxAttendees: 100,
+      price: 0,
+      status: "Open",
+      tags: ["AI", "Machine Learning", "Networking"],
+      description:
+        "Monthly meetup for AI enthusiasts to share projects and network with peers.",
     },
   ];
+
+  const handleSave = () => {
+    setClubData({ ...editFormData });
+    setIsEditing(false);
+  };
+
+  const handleCancel = () => {
+    setEditFormData({ ...clubData });
+    setIsEditing(false);
+  };
+
+  const handleJoinLeave = () => {
+    setIsMember(!isMember);
+  };
 
   return (
     <div className="space-y-6">
