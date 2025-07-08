@@ -64,47 +64,49 @@
   }
 
   .dark {
-    --primary: 210 29% 20%;
+    --primary: 210 29% 25%; /* Slightly lighter for better visibility */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 204 70% 45%;
+    --secondary: 204 80% 55%; /* Brighter blue for better contrast */
     --secondary-foreground: 0 0% 100%;
 
-    --accent: 6 78% 50%;
+    --accent: 6 78% 55%; /* Slightly brighter coral */
     --accent-foreground: 0 0% 100%;
 
-    --success: 145 63% 42%;
+    --success: 145 63% 48%; /* Brighter green */
     --success-foreground: 0 0% 100%;
 
-    --warning: 48 89% 50%;
-    --warning-foreground: 0 0% 100%;
+    --warning: 48 89% 55%; /* Brighter yellow */
+    --warning-foreground: 0 0% 0%; /* Black text on bright yellow */
 
-    --background: 0 0% 12%; /* Dark grey background */
-    --foreground: 0 0% 95%; /* Light grey text */
+    --background: 222 47% 11%; /* Darker blue-grey background #0f172a */
+    --foreground: 210 40% 98%; /* Pure white text for maximum contrast */
 
-    --card: 0 0% 15%; /* Dark grey cards */
-    --card-foreground: 0 0% 95%;
+    --card: 222 47% 15%; /* Dark blue-grey cards #1e293b */
+    --card-foreground: 210 40% 98%;
 
-    --popover: 0 0% 15%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 222 47% 15%;
+    --popover-foreground: 210 40% 98%;
 
-    --muted: 0 0% 18%; /* Medium grey */
-    --muted-foreground: 0 0% 70%; /* Light grey text */
+    --muted: 215 28% 22%; /* Medium blue-grey #334155 */
+    --muted-foreground: 210 20% 75%; /* Light grey text #cbd5e1 */
 
-    --border: 0 0% 25%; /* Grey borders */
-    --input: 0 0% 25%;
-    --ring: 204 70% 45%;
+    --border: 215 28% 25%; /* Lighter borders for visibility #475569 */
+    --input: 215 28% 25%;
+    --ring: 204 80% 55%;
 
-    --destructive: 6 78% 50%;
+    --destructive: 6 78% 55%;
     --destructive-foreground: 0 0% 100%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+
+    /* Sidebar colors with better contrast */
+    --sidebar-background: 222 47% 11%; /* Match main background */
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 204 80% 55%; /* Use brighter secondary */
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 215 28% 18%; /* Darker accent */
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 215 28% 25%;
+    --sidebar-ring: 204 80% 55%;
   }
 }
 
