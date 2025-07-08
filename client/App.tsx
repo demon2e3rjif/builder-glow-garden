@@ -3434,6 +3434,9 @@ function ClubManagementPage() {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [isEditingClub, setIsEditingClub] = useState(false);
   const [isCreatingEvent, setIsCreatingEvent] = useState(false);
+  const [editingEvent, setEditingEvent] = useState(null);
+  const [viewingApplications, setViewingApplications] = useState(null);
+  const [editEventData, setEditEventData] = useState(null);
 
   // Mock club data based on database model
   const [clubData, setClubData] = useState({
