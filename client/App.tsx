@@ -3933,10 +3933,16 @@ function ClubManagementPage() {
                 </div>
 
                 <div className="flex space-x-2">
-                  <button className="flex-1 bg-secondary text-white py-2 rounded-lg font-medium hover:bg-secondary/90 transition-colors text-sm">
+                  <button
+                    onClick={() => handleEditEvent(event)}
+                    className="flex-1 bg-secondary text-white py-2 rounded-lg font-medium hover:bg-secondary/90 transition-colors text-sm"
+                  >
                     Edit Event
                   </button>
-                  <button className="flex-1 bg-muted text-muted-foreground py-2 rounded-lg font-medium hover:bg-muted/80 transition-colors text-sm">
+                  <button
+                    onClick={() => handleViewApplications(event.id)}
+                    className="flex-1 bg-muted text-muted-foreground py-2 rounded-lg font-medium hover:bg-muted/80 transition-colors text-sm"
+                  >
                     View Applications
                   </button>
                 </div>
