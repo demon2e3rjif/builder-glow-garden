@@ -3874,6 +3874,7 @@ export default function App() {
                   <Route path="/events/:id" element={<EventDetailsPage />} />
                   <Route path="/clubs" element={<ClubsPage />} />
                   <Route path="/clubs/:id" element={<ClubDetailsPage />} />
+                  <Route path="/my-club" element={<ClubManagementPage />} />
                   <Route path="/applications" element={<ApplicationsPage />} />
                   <Route path="/profile" element={<ProfilePage />} />
                   <Route path="/settings" element={<SettingsPage />} />
