@@ -3429,6 +3429,711 @@ function ApplicationsPage() {
   );
 }
 
+// Club Management Page
+function ClubManagementPage() {
+  const [activeTab, setActiveTab] = useState("dashboard");
+  const [isEditingClub, setIsEditingClub] = useState(false);
+  const [isCreatingEvent, setIsCreatingEvent] = useState(false);
+
+  // Mock club data based on database model
+  const [clubData, setClubData] = useState({
+    id: 1,
+    user_id: 1,
+    name: "Tech Innovators Club",
+    university: "Stanford University",
+    address: "1600 Amphitheatre Parkway, Mountain View, CA 94043",
+    description:
+      "A vibrant community of developers, designers, and tech enthusiasts passionate about innovation and cutting-edge technology.",
+    phone: "+1 (555) 123-4567",
+    image_url: null,
+  });
+
+  const [editClubData, setEditClubData] = useState({ ...clubData });
+
+  // Club statistics
+  const clubStats = {
+    totalMembers: 247,
+    totalEvents: 45,
+    upcomingEvents: 8,
+    pendingApplications: 23,
+    thisMonthEvents: 3,
+    totalRevenue: 2450,
+  };
+
+  // Mock events data based on Event model
+  const [clubEvents, setClubEvents] = useState([
+    {
+      id: 1,
+      name: "Tech Innovation Summit 2024",
+      date_start: "2024-12-15T09:00:00Z",
+      date_end: "2024-12-15T17:00:00Z",
+      venue: "Main Auditorium",
+      description:
+        "Annual summit featuring the latest innovations in technology and startup ecosystem.",
+      event_type: "CONFERENCE",
+      content: "Technology",
+      status: "UPCOMING",
+      sheet: null,
+      image_url: null,
+      attendees: 124,
+      maxAttendees: 200,
+      price: 0,
+      applications: 45,
+    },
+    {
+      id: 2,
+      name: "React Workshop: Advanced Patterns",
+      date_start: "2024-12-22T14:00:00Z",
+      date_end: "2024-12-22T18:00:00Z",
+      venue: "Computer Lab A",
+      description:
+        "Deep dive into advanced React patterns including hooks, context, and performance optimization.",
+      event_type: "WORKSHOP",
+      content: "Frontend Development",
+      status: "UPCOMING",
+      sheet: null,
+      image_url: null,
+      attendees: 67,
+      maxAttendees: 80,
+      price: 25,
+      applications: 89,
+    },
+    {
+      id: 3,
+      name: "Startup Pitch Night",
+      date_start: "2024-11-30T19:00:00Z",
+      date_end: "2024-11-30T22:00:00Z",
+      venue: "Innovation Lab",
+      description: "Monthly pitch competition for emerging startups.",
+      event_type: "COMPETITION",
+      content: "Entrepreneurship",
+      status: "COMPLETED",
+      sheet: null,
+      image_url: null,
+      attendees: 156,
+      maxAttendees: 150,
+      price: 15,
+      applications: 78,
+    },
+  ]);
+
+  // Mock applications data
+  const [applications, setApplications] = useState([
+    {
+      id: 1,
+      user_id: 5,
+      event_id: 1,
+      motivation:
+        "I'm passionate about technology and innovation. This summit aligns perfectly with my career goals.",
+      submitted_at: "2024-12-01T10:30:00Z",
+      status: "PENDING",
+      applicant: {
+        name: "Sarah Johnson",
+        email: "sarah.j@stanford.edu",
+        major: "Computer Science",
+        year: 3,
+      },
+      event: {
+        name: "Tech Innovation Summit 2024",
+        date: "2024-12-15",
+      },
+    },
+    {
+      id: 2,
+      user_id: 6,
+      event_id: 2,
+      motivation:
+        "I have 2 years of React experience and want to learn advanced patterns to improve my development skills.",
+      submitted_at: "2024-11-25T14:15:00Z",
+      status: "PENDING",
+      applicant: {
+        name: "Mike Chen",
+        email: "mike.c@stanford.edu",
+        major: "Software Engineering",
+        year: 2,
+      },
+      event: {
+        name: "React Workshop: Advanced Patterns",
+        date: "2024-12-22",
+      },
+    },
+    {
+      id: 3,
+      user_id: 7,
+      event_id: 1,
+      motivation:
+        "As a senior CS student, I'm interested in the latest tech trends and networking opportunities.",
+      submitted_at: "2024-12-02T09:45:00Z",
+      status: "ACCEPTED",
+      applicant: {
+        name: "Emily Davis",
+        email: "emily.d@stanford.edu",
+        major: "Computer Science",
+        year: 4,
+      },
+      event: {
+        name: "Tech Innovation Summit 2024",
+        date: "2024-12-15",
+      },
+    },
+  ]);
+
+  const handleAcceptApplication = (applicationId) => {
+    setApplications((apps) =>
+      apps.map((app) =>
+        app.id === applicationId ? { ...app, status: "ACCEPTED" } : app,
+      ),
+    );
+  };
+
+  const handleRejectApplication = (applicationId) => {
+    setApplications((apps) =>
+      apps.map((app) =>
+        app.id === applicationId ? { ...app, status: "REJECTED" } : app,
+      ),
+    );
+  };
+
+  const handleSaveClub = () => {
+    setClubData({ ...editClubData });
+    setIsEditingClub(false);
+  };
+
+  const handleCancelEditClub = () => {
+    setEditClubData({ ...clubData });
+    setIsEditingClub(false);
+  };
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "UPCOMING":
+        return "bg-secondary/10 text-secondary border-secondary/20";
+      case "COMPLETED":
+        return "bg-success/10 text-success border-success/20";
+      case "CANCELLED":
+        return "bg-destructive/10 text-destructive border-destructive/20";
+      default:
+        return "bg-muted text-muted-foreground border-muted";
+    }
+  };
+
+  const getApplicationStatusColor = (status) => {
+    switch (status) {
+      case "PENDING":
+        return "bg-warning/10 text-warning border-warning/20";
+      case "ACCEPTED":
+        return "bg-success/10 text-success border-success/20";
+      case "REJECTED":
+        return "bg-destructive/10 text-destructive border-destructive/20";
+      default:
+        return "bg-muted text-muted-foreground border-muted";
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
+        <div className="flex items-center space-x-4">
+          <div className="w-20 h-20 bg-gradient-to-br from-secondary to-primary rounded-xl flex items-center justify-center text-white text-2xl font-bold">
+            {clubData.name.charAt(0)}
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold text-foreground">
+              {clubData.name}
+            </h1>
+            <p className="text-muted-foreground">
+              {clubData.university} • {clubStats.totalMembers} members
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center space-x-3">
+          <button
+            onClick={() => setIsEditingClub(!isEditingClub)}
+            className="bg-muted text-muted-foreground px-4 py-2 rounded-lg font-medium hover:bg-muted/80 transition-colors flex items-center space-x-2"
+          >
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+              />
+            </svg>
+            <span>{isEditingClub ? "Cancel" : "Edit Club"}</span>
+          </button>
+          <button
+            onClick={() => setIsCreatingEvent(true)}
+            className="bg-secondary text-white px-4 py-2 rounded-lg font-medium hover:bg-secondary/90 transition-colors flex items-center space-x-2"
+          >
+            <PlusIcon />
+            <span>Create Event</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Tabs */}
+      <div className="border-b border-border">
+        <nav className="flex space-x-8">
+          {["dashboard", "events", "applications", "members", "settings"].map(
+            (tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`py-2 px-1 border-b-2 font-medium text-sm capitalize transition-colors ${
+                  activeTab === tab
+                    ? "border-secondary text-secondary"
+                    : "border-transparent text-muted-foreground hover:text-foreground hover:border-muted"
+                }`}
+              >
+                {tab}
+              </button>
+            ),
+          )}
+        </nav>
+      </div>
+
+      {/* Content based on active tab */}
+      {activeTab === "dashboard" && (
+        <div className="space-y-6">
+          {/* Stats Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+            <div className="bg-white p-4 rounded-xl border border-border text-center">
+              <p className="text-2xl font-bold text-secondary">
+                {clubStats.totalMembers}
+              </p>
+              <p className="text-sm text-muted-foreground">Total Members</p>
+            </div>
+            <div className="bg-white p-4 rounded-xl border border-border text-center">
+              <p className="text-2xl font-bold text-secondary">
+                {clubStats.upcomingEvents}
+              </p>
+              <p className="text-sm text-muted-foreground">Upcoming Events</p>
+            </div>
+            <div className="bg-white p-4 rounded-xl border border-border text-center">
+              <p className="text-2xl font-bold text-warning">
+                {clubStats.pendingApplications}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Pending Applications
+              </p>
+            </div>
+            <div className="bg-white p-4 rounded-xl border border-border text-center">
+              <p className="text-2xl font-bold text-success">
+                {clubStats.thisMonthEvents}
+              </p>
+              <p className="text-sm text-muted-foreground">This Month</p>
+            </div>
+            <div className="bg-white p-4 rounded-xl border border-border text-center">
+              <p className="text-2xl font-bold text-secondary">
+                {clubStats.totalEvents}
+              </p>
+              <p className="text-sm text-muted-foreground">Total Events</p>
+            </div>
+            <div className="bg-white p-4 rounded-xl border border-border text-center">
+              <p className="text-2xl font-bold text-success">
+                ${clubStats.totalRevenue}
+              </p>
+              <p className="text-sm text-muted-foreground">Revenue</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Recent Events */}
+            <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-semibold text-foreground">
+                  Recent Events
+                </h2>
+                <button
+                  onClick={() => setActiveTab("events")}
+                  className="text-secondary hover:text-secondary/80 text-sm font-medium"
+                >
+                  View all →
+                </button>
+              </div>
+              <div className="space-y-3">
+                {clubEvents.slice(0, 3).map((event) => (
+                  <div
+                    key={event.id}
+                    className="flex justify-between items-center p-3 border border-border rounded-lg"
+                  >
+                    <div>
+                      <p className="font-medium text-foreground">
+                        {event.name}
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        {new Date(event.date_start).toLocaleDateString()} •{" "}
+                        {event.attendees} attendees
+                      </p>
+                    </div>
+                    <span
+                      className={`px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(event.status)}`}
+                    >
+                      {event.status}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Pending Applications */}
+            <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-semibold text-foreground">
+                  Pending Applications
+                </h2>
+                <button
+                  onClick={() => setActiveTab("applications")}
+                  className="text-secondary hover:text-secondary/80 text-sm font-medium"
+                >
+                  View all →
+                </button>
+              </div>
+              <div className="space-y-3">
+                {applications
+                  .filter((app) => app.status === "PENDING")
+                  .slice(0, 3)
+                  .map((application) => (
+                    <div
+                      key={application.id}
+                      className="flex justify-between items-center p-3 border border-border rounded-lg"
+                    >
+                      <div>
+                        <p className="font-medium text-foreground">
+                          {application.applicant.name}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {application.event.name}
+                        </p>
+                      </div>
+                      <div className="flex space-x-2">
+                        <button
+                          onClick={() =>
+                            handleAcceptApplication(application.id)
+                          }
+                          className="bg-success text-white px-2 py-1 rounded text-xs hover:bg-success/90"
+                        >
+                          Accept
+                        </button>
+                        <button
+                          onClick={() =>
+                            handleRejectApplication(application.id)
+                          }
+                          className="bg-destructive text-white px-2 py-1 rounded text-xs hover:bg-destructive/90"
+                        >
+                          Reject
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {activeTab === "events" && (
+        <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-semibold text-foreground">
+              Event Management
+            </h2>
+            <button
+              onClick={() => setIsCreatingEvent(true)}
+              className="bg-secondary text-white px-4 py-2 rounded-lg font-medium hover:bg-secondary/90 transition-colors"
+            >
+              Create Event
+            </button>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {clubEvents.map((event) => (
+              <div
+                key={event.id}
+                className="border border-border rounded-xl p-4 hover:shadow-md transition-shadow"
+              >
+                <div className="flex justify-between items-start mb-3">
+                  <div>
+                    <h3 className="font-semibold text-foreground">
+                      {event.name}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {event.event_type} • {event.content}
+                    </p>
+                  </div>
+                  <span
+                    className={`px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(event.status)}`}
+                  >
+                    {event.status}
+                  </span>
+                </div>
+
+                <p className="text-sm text-muted-foreground mb-3">
+                  {event.description}
+                </p>
+
+                <div className="space-y-2 text-sm mb-4">
+                  <div className="flex items-center space-x-2">
+                    <CalendarIcon />
+                    <span>
+                      {new Date(event.date_start).toLocaleDateString()} -{" "}
+                      {new Date(event.date_end).toLocaleDateString()}
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <LocationIcon />
+                    <span>{event.venue}</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <UsersIcon />
+                    <span>
+                      {event.attendees}/{event.maxAttendees} attendees
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-lg">📋</span>
+                    <span>{event.applications} applications</span>
+                  </div>
+                </div>
+
+                <div className="flex space-x-2">
+                  <button className="flex-1 bg-secondary text-white py-2 rounded-lg font-medium hover:bg-secondary/90 transition-colors text-sm">
+                    Edit Event
+                  </button>
+                  <button className="flex-1 bg-muted text-muted-foreground py-2 rounded-lg font-medium hover:bg-muted/80 transition-colors text-sm">
+                    View Applications
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {activeTab === "applications" && (
+        <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+          <h2 className="text-xl font-semibold text-foreground mb-6">
+            Application Management
+          </h2>
+          <div className="space-y-4">
+            {applications.map((application) => (
+              <div
+                key={application.id}
+                className="border border-border rounded-xl p-6"
+              >
+                <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4">
+                  <div className="flex-1">
+                    <div className="flex items-start justify-between mb-3">
+                      <div>
+                        <h3 className="font-semibold text-foreground">
+                          {application.applicant.name}
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                          {application.applicant.email}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {application.applicant.major} • Year{" "}
+                          {application.applicant.year}
+                        </p>
+                      </div>
+                      <span
+                        className={`px-3 py-1 rounded-full text-sm font-medium border ${getApplicationStatusColor(application.status)}`}
+                      >
+                        {application.status}
+                      </span>
+                    </div>
+
+                    <div className="mb-4">
+                      <p className="text-sm font-medium text-foreground mb-1">
+                        Event: {application.event.name}
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        Applied:{" "}
+                        {new Date(
+                          application.submitted_at,
+                        ).toLocaleDateString()}
+                      </p>
+                    </div>
+
+                    <div className="mb-4">
+                      <h4 className="text-sm font-medium text-foreground mb-2">
+                        Motivation
+                      </h4>
+                      <p className="text-sm text-muted-foreground bg-muted/30 p-3 rounded-lg">
+                        {application.motivation}
+                      </p>
+                    </div>
+                  </div>
+
+                  {application.status === "PENDING" && (
+                    <div className="flex space-x-2 min-w-[200px]">
+                      <button
+                        onClick={() => handleAcceptApplication(application.id)}
+                        className="flex-1 bg-success text-white py-2 rounded-lg font-medium hover:bg-success/90 transition-colors"
+                      >
+                        Accept
+                      </button>
+                      <button
+                        onClick={() => handleRejectApplication(application.id)}
+                        className="flex-1 bg-destructive text-white py-2 rounded-lg font-medium hover:bg-destructive/90 transition-colors"
+                      >
+                        Reject
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {activeTab === "members" && (
+        <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+          <h2 className="text-xl font-semibold text-foreground mb-4">
+            Member Management
+          </h2>
+          <p className="text-muted-foreground">
+            Member management features coming soon...
+          </p>
+        </div>
+      )}
+
+      {activeTab === "settings" && (
+        <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-semibold text-foreground">
+              Club Settings
+            </h2>
+            {isEditingClub && (
+              <div className="flex space-x-2">
+                <button
+                  onClick={handleCancelEditClub}
+                  className="px-3 py-1.5 text-sm border border-muted rounded-lg hover:bg-muted/50 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleSaveClub}
+                  className="px-3 py-1.5 text-sm bg-secondary text-white rounded-lg hover:bg-secondary/90 transition-colors"
+                >
+                  Save Changes
+                </button>
+              </div>
+            )}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-2">
+                Club Name
+              </label>
+              {isEditingClub ? (
+                <input
+                  type="text"
+                  value={editClubData.name}
+                  onChange={(e) =>
+                    setEditClubData({ ...editClubData, name: e.target.value })
+                  }
+                  className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                />
+              ) : (
+                <p className="text-foreground">{clubData.name}</p>
+              )}
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-2">
+                University
+              </label>
+              {isEditingClub ? (
+                <input
+                  type="text"
+                  value={editClubData.university}
+                  onChange={(e) =>
+                    setEditClubData({
+                      ...editClubData,
+                      university: e.target.value,
+                    })
+                  }
+                  className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                />
+              ) : (
+                <p className="text-foreground">{clubData.university}</p>
+              )}
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-foreground mb-2">
+                Phone
+              </label>
+              {isEditingClub ? (
+                <input
+                  type="tel"
+                  value={editClubData.phone}
+                  onChange={(e) =>
+                    setEditClubData({ ...editClubData, phone: e.target.value })
+                  }
+                  className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                />
+              ) : (
+                <p className="text-foreground">{clubData.phone}</p>
+              )}
+            </div>
+
+            <div className="md:col-span-2">
+              <label className="block text-sm font-medium text-foreground mb-2">
+                Address
+              </label>
+              {isEditingClub ? (
+                <input
+                  type="text"
+                  value={editClubData.address}
+                  onChange={(e) =>
+                    setEditClubData({
+                      ...editClubData,
+                      address: e.target.value,
+                    })
+                  }
+                  className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                />
+              ) : (
+                <p className="text-foreground">{clubData.address}</p>
+              )}
+            </div>
+
+            <div className="md:col-span-2">
+              <label className="block text-sm font-medium text-foreground mb-2">
+                Description
+              </label>
+              {isEditingClub ? (
+                <textarea
+                  value={editClubData.description}
+                  onChange={(e) =>
+                    setEditClubData({
+                      ...editClubData,
+                      description: e.target.value,
+                    })
+                  }
+                  rows={4}
+                  className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                />
+              ) : (
+                <p className="text-foreground">{clubData.description}</p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function SettingsPage() {
   return (
     <div className="space-y-6">
