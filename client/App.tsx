@@ -3607,6 +3607,34 @@ function ClubManagementPage() {
     setIsEditingClub(false);
   };
 
+  const handleEditEvent = (event) => {
+    setEditingEvent(event.id);
+    setEditEventData({ ...event });
+  };
+
+  const handleSaveEvent = () => {
+    setClubEvents((events) =>
+      events.map((event) =>
+        event.id === editingEvent ? { ...editEventData } : event,
+      ),
+    );
+    setEditingEvent(null);
+    setEditEventData(null);
+  };
+
+  const handleCancelEditEvent = () => {
+    setEditingEvent(null);
+    setEditEventData(null);
+  };
+
+  const handleViewApplications = (eventId) => {
+    setViewingApplications(eventId);
+  };
+
+  const handleCloseViewApplications = () => {
+    setViewingApplications(null);
+  };
+
   const getStatusColor = (status) => {
     switch (status) {
       case "UPCOMING":
