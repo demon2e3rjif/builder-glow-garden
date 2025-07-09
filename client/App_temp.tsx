@@ -6173,3 +6173,44 @@ function LoginPage() {
     </div>
   );
 }
+export default function App() {
+  return (
+    <ThemeProvider>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route
+              path="*"
+              element={
+                <ProtectedRoute>
+                  <PageLayout>
+                    <Routes>
+                      <Route path="/" element={<DashboardPage />} />
+                      <Route path="/dashboard" element={<DashboardPage />} />
+                      <Route path="/events" element={<EventsPage />} />
+                      <Route
+                        path="/events/:id"
+                        element={<EventDetailsPage />}
+                      />
+                      <Route path="/clubs" element={<ClubsPage />} />
+                      <Route path="/clubs/:id" element={<ClubDetailsPage />} />
+                      <Route path="/my-club" element={<ClubManagementPage />} />
+                      <Route
+                        path="/applications"
+                        element={<ApplicationsPage />}
+                      />
+                      <Route path="/profile" element={<ProfilePage />} />
+                      <Route path="/settings" element={<SettingsPage />} />
+                    </Routes>
+                  </PageLayout>
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+    </ThemeProvider>
+  );
+}
