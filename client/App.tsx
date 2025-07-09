@@ -48,6 +48,148 @@ function ThemeProvider({ children }: { children: React.ReactNode }) {
 
 const useTheme = () => useContext(ThemeContext);
 
+// Authentication Context
+interface User {
+  id: number;
+  email: string;
+  userType: "person" | "club";
+  name: string;
+  avatar?: string;
+  ownsClub?: boolean;
+}
+
+interface AuthContextType {
+  user: User | null;
+  isLoggedIn: boolean;
+  login: (
+    email: string,
+    password: string,
+    userType?: "person" | "club",
+  ) => Promise<boolean>;
+  register: (data: any, userType: "person" | "club") => Promise<boolean>;
+  logout: () => void;
+  loading: boolean;
+}
+
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};
+
+// Auth Provider Component
+function AuthProvider({ children }: { children: React.ReactNode }) {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  // Initialize with saved user or demo user
+  useEffect(() => {
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    } else {
+      // Demo user for development
+      const mockUser: User = {
+        id: 1,
+        email: "john.doe@stanford.edu",
+        userType: "person",
+        name: "John Doe",
+        avatar: "J",
+        ownsClub: true,
+      };
+      setUser(mockUser);
+      localStorage.setItem("user", JSON.stringify(mockUser));
+    }
+  }, []);
+
+  const login = async (
+    email: string,
+    password: string,
+    userType?: "person" | "club",
+  ): Promise<boolean> => {
+    setLoading(true);
+    try {
+      // Simulate API call delay
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Mock successful login - in real app, this would call your API
+      const mockUser: User = {
+        id: 1,
+        email: email,
+        userType: userType || "person",
+        name: userType === "club" ? "Tech Innovators Club" : "John Doe",
+        avatar: userType === "club" ? "T" : "J",
+        ownsClub: userType === "club" || Math.random() > 0.5,
+      };
+
+      setUser(mockUser);
+      localStorage.setItem("user", JSON.stringify(mockUser));
+      return true;
+    } catch (error) {
+      console.error("Login failed:", error);
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const register = async (
+    data: any,
+    userType: "person" | "club",
+  ): Promise<boolean> => {
+    setLoading(true);
+    try {
+      // Simulate API call delay
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      // Mock successful registration
+      const mockUser: User = {
+        id: Math.floor(Math.random() * 1000),
+        email: data.email,
+        userType: userType,
+        name:
+          userType === "club"
+            ? data.clubName
+            : `${data.firstName} ${data.lastName}`,
+        avatar:
+          userType === "club"
+            ? data.clubName.charAt(0)
+            : data.firstName.charAt(0),
+        ownsClub: userType === "club",
+      };
+
+      setUser(mockUser);
+      localStorage.setItem("user", JSON.stringify(mockUser));
+      return true;
+    } catch (error) {
+      console.error("Registration failed:", error);
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem("user");
+  };
+
+  const value = {
+    user,
+    isLoggedIn: !!user,
+    login,
+    register,
+    logout,
+    loading,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+}
+
 // Professional Icon Components
 const HomeIcon = () => (
   <svg
