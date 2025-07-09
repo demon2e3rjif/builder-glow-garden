@@ -3787,45 +3787,286 @@ function ClubManagementPage() {
       {/* Content based on active tab */}
       {activeTab === "dashboard" && (
         <div className="space-y-6">
-          {/* Stats Grid */}
+          {/* Enhanced Stats Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-            <div className="bg-white p-4 rounded-xl border border-border text-center">
-              <p className="text-2xl font-bold text-secondary">
-                {clubStats.totalMembers}
-              </p>
-              <p className="text-sm text-muted-foreground">Total Members</p>
+            <div className="bg-white p-4 rounded-xl border border-border text-center relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-16 h-16 bg-secondary/5 rounded-full -mr-8 -mt-8"></div>
+              <div className="relative">
+                <div className="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <UsersIcon />
+                </div>
+                <p className="text-2xl font-bold text-secondary">
+                  {clubStats.totalMembers}
+                </p>
+                <p className="text-sm text-muted-foreground">Total Members</p>
+                <p className="text-xs text-success mt-1">↗ +12% this month</p>
+              </div>
             </div>
-            <div className="bg-white p-4 rounded-xl border border-border text-center">
-              <p className="text-2xl font-bold text-secondary">
-                {clubStats.upcomingEvents}
-              </p>
-              <p className="text-sm text-muted-foreground">Upcoming Events</p>
+
+            <div className="bg-white p-4 rounded-xl border border-border text-center relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-16 h-16 bg-secondary/5 rounded-full -mr-8 -mt-8"></div>
+              <div className="relative">
+                <div className="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <CalendarIcon />
+                </div>
+                <p className="text-2xl font-bold text-secondary">
+                  {clubStats.upcomingEvents}
+                </p>
+                <p className="text-sm text-muted-foreground">Upcoming Events</p>
+                <p className="text-xs text-success mt-1">↗ +3 scheduled</p>
+              </div>
             </div>
-            <div className="bg-white p-4 rounded-xl border border-border text-center">
-              <p className="text-2xl font-bold text-warning">
-                {clubStats.pendingApplications}
-              </p>
-              <p className="text-sm text-muted-foreground">
-                Pending Applications
-              </p>
+
+            <div className="bg-white p-4 rounded-xl border border-border text-center relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-16 h-16 bg-warning/5 rounded-full -mr-8 -mt-8"></div>
+              <div className="relative">
+                <div className="w-12 h-12 bg-warning/10 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <DocumentIcon />
+                </div>
+                <p className="text-2xl font-bold text-warning">
+                  {clubStats.pendingApplications}
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Pending Applications
+                </p>
+                <p className="text-xs text-warning mt-1">⏰ Needs review</p>
+              </div>
             </div>
-            <div className="bg-white p-4 rounded-xl border border-border text-center">
-              <p className="text-2xl font-bold text-success">
-                {clubStats.thisMonthEvents}
-              </p>
-              <p className="text-sm text-muted-foreground">This Month</p>
+
+            <div className="bg-white p-4 rounded-xl border border-border text-center relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-16 h-16 bg-success/5 rounded-full -mr-8 -mt-8"></div>
+              <div className="relative">
+                <div className="w-12 h-12 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <svg
+                    className="w-6 h-6 text-success"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                    />
+                  </svg>
+                </div>
+                <p className="text-2xl font-bold text-success">
+                  {clubStats.thisMonthEvents}
+                </p>
+                <p className="text-sm text-muted-foreground">This Month</p>
+                <p className="text-xs text-success mt-1">✓ All completed</p>
+              </div>
             </div>
-            <div className="bg-white p-4 rounded-xl border border-border text-center">
-              <p className="text-2xl font-bold text-secondary">
-                {clubStats.totalEvents}
-              </p>
-              <p className="text-sm text-muted-foreground">Total Events</p>
+
+            <div className="bg-white p-4 rounded-xl border border-border text-center relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-16 h-16 bg-secondary/5 rounded-full -mr-8 -mt-8"></div>
+              <div className="relative">
+                <div className="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <svg
+                    className="w-6 h-6 text-secondary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                    />
+                  </svg>
+                </div>
+                <p className="text-2xl font-bold text-secondary">
+                  {clubStats.totalEvents}
+                </p>
+                <p className="text-sm text-muted-foreground">Total Events</p>
+                <p className="text-xs text-secondary mt-1">📊 All time</p>
+              </div>
             </div>
-            <div className="bg-white p-4 rounded-xl border border-border text-center">
-              <p className="text-2xl font-bold text-success">
-                ${clubStats.totalRevenue}
-              </p>
-              <p className="text-sm text-muted-foreground">Revenue</p>
+
+            <div className="bg-white p-4 rounded-xl border border-border text-center relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-16 h-16 bg-success/5 rounded-full -mr-8 -mt-8"></div>
+              <div className="relative">
+                <div className="w-12 h-12 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <svg
+                    className="w-6 h-6 text-success"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
+                    />
+                  </svg>
+                </div>
+                <p className="text-2xl font-bold text-success">
+                  ${clubStats.totalRevenue}
+                </p>
+                <p className="text-sm text-muted-foreground">Revenue</p>
+                <p className="text-xs text-success mt-1">💰 This year</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Event Performance Chart */}
+            <div className="lg:col-span-2 bg-white p-6 rounded-xl border border-border shadow-sm">
+              <div className="flex justify-between items-center mb-6">
+                <div>
+                  <h2 className="text-xl font-semibold text-foreground">
+                    Event Performance
+                  </h2>
+                  <p className="text-sm text-muted-foreground">
+                    Member participation over time
+                  </p>
+                </div>
+                <div className="flex space-x-2">
+                  <button className="px-3 py-1 text-xs bg-secondary text-white rounded-full">
+                    6M
+                  </button>
+                  <button className="px-3 py-1 text-xs text-muted-foreground hover:bg-muted rounded-full">
+                    1Y
+                  </button>
+                  <button className="px-3 py-1 text-xs text-muted-foreground hover:bg-muted rounded-full">
+                    All
+                  </button>
+                </div>
+              </div>
+
+              {/* Simple Chart Representation */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">Jan 2024</span>
+                  <div className="flex-1 mx-4 bg-muted rounded-full h-2">
+                    <div
+                      className="bg-secondary h-2 rounded-full"
+                      style={{ width: "65%" }}
+                    ></div>
+                  </div>
+                  <span className="text-foreground font-medium">156</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">Feb 2024</span>
+                  <div className="flex-1 mx-4 bg-muted rounded-full h-2">
+                    <div
+                      className="bg-secondary h-2 rounded-full"
+                      style={{ width: "80%" }}
+                    ></div>
+                  </div>
+                  <span className="text-foreground font-medium">198</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">Mar 2024</span>
+                  <div className="flex-1 mx-4 bg-muted rounded-full h-2">
+                    <div
+                      className="bg-secondary h-2 rounded-full"
+                      style={{ width: "45%" }}
+                    ></div>
+                  </div>
+                  <span className="text-foreground font-medium">112</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">Apr 2024</span>
+                  <div className="flex-1 mx-4 bg-muted rounded-full h-2">
+                    <div
+                      className="bg-secondary h-2 rounded-full"
+                      style={{ width: "92%" }}
+                    ></div>
+                  </div>
+                  <span className="text-foreground font-medium">234</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">May 2024</span>
+                  <div className="flex-1 mx-4 bg-muted rounded-full h-2">
+                    <div
+                      className="bg-secondary h-2 rounded-full"
+                      style={{ width: "75%" }}
+                    ></div>
+                  </div>
+                  <span className="text-foreground font-medium">189</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">Jun 2024</span>
+                  <div className="flex-1 mx-4 bg-muted rounded-full h-2">
+                    <div
+                      className="bg-secondary h-2 rounded-full"
+                      style={{ width: "88%" }}
+                    ></div>
+                  </div>
+                  <span className="text-foreground font-medium">221</span>
+                </div>
+              </div>
+
+              <div className="mt-6 flex items-center justify-between text-xs text-muted-foreground">
+                <span>Average attendance: 185 members</span>
+                <span className="text-success">
+                  ↗ 15% increase vs last period
+                </span>
+              </div>
+            </div>
+
+            {/* Member Activity Distribution */}
+            <div className="bg-white p-6 rounded-xl border border-border shadow-sm">
+              <h3 className="text-lg font-semibold text-foreground mb-4">
+                Member Activity
+              </h3>
+
+              {/* Simple Pie Chart Representation */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-4 h-4 bg-success rounded"></div>
+                    <span className="text-sm text-foreground">Very Active</span>
+                  </div>
+                  <span className="text-sm font-medium text-foreground">
+                    45%
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-4 h-4 bg-secondary rounded"></div>
+                    <span className="text-sm text-foreground">Active</span>
+                  </div>
+                  <span className="text-sm font-medium text-foreground">
+                    35%
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-4 h-4 bg-warning rounded"></div>
+                    <span className="text-sm text-foreground">Moderate</span>
+                  </div>
+                  <span className="text-sm font-medium text-foreground">
+                    15%
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-4 h-4 bg-muted rounded"></div>
+                    <span className="text-sm text-foreground">Inactive</span>
+                  </div>
+                  <span className="text-sm font-medium text-foreground">
+                    5%
+                  </span>
+                </div>
+              </div>
+
+              {/* Visual representation */}
+              <div className="mt-6">
+                <div className="flex rounded-full h-3 overflow-hidden">
+                  <div className="bg-success" style={{ width: "45%" }}></div>
+                  <div className="bg-secondary" style={{ width: "35%" }}></div>
+                  <div className="bg-warning" style={{ width: "15%" }}></div>
+                  <div className="bg-muted" style={{ width: "5%" }}></div>
+                </div>
+                <p className="text-xs text-muted-foreground mt-2 text-center">
+                  Based on event attendance & engagement
+                </p>
+              </div>
             </div>
           </div>
 
