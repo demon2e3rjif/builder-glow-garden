@@ -413,8 +413,7 @@ const CheckIcon = () => (
 
 // Top Navbar Component
 function TopNavbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [userType, setUserType] = useState<"user" | "club">("user");
+  const { user, isLoggedIn, logout } = useAuth();
   const [showNotifications, setShowNotifications] = useState(false);
   const { isDark, toggleTheme } = useTheme();
 
