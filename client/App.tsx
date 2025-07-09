@@ -4623,6 +4623,345 @@ function ClubManagementPage() {
           </div>
         </div>
       )}
+
+      {/* Create Event Modal */}
+      {isCreatingEvent && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-border">
+              <div className="flex justify-between items-center">
+                <h2 className="text-xl font-semibold text-foreground">
+                  Create New Event
+                </h2>
+                <button
+                  onClick={handleCancelCreateEvent}
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div className="p-6 space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Event Name *
+                  </label>
+                  <input
+                    type="text"
+                    value={newEventData.name}
+                    onChange={(e) =>
+                      setNewEventData({ ...newEventData, name: e.target.value })
+                    }
+                    placeholder="Enter event name"
+                    className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Event Type *
+                  </label>
+                  <select
+                    value={newEventData.event_type}
+                    onChange={(e) =>
+                      setNewEventData({
+                        ...newEventData,
+                        event_type: e.target.value,
+                      })
+                    }
+                    className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                  >
+                    <option value="WORKSHOP">Workshop</option>
+                    <option value="CONFERENCE">Conference</option>
+                    <option value="SEMINAR">Seminar</option>
+                    <option value="COMPETITION">Competition</option>
+                    <option value="NETWORKING">Networking</option>
+                    <option value="HACKATHON">Hackathon</option>
+                    <option value="EXHIBITION">Exhibition</option>
+                    <option value="OTHER">Other</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Start Date & Time *
+                  </label>
+                  <input
+                    type="datetime-local"
+                    value={newEventData.date_start}
+                    onChange={(e) =>
+                      setNewEventData({
+                        ...newEventData,
+                        date_start: e.target.value,
+                      })
+                    }
+                    className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    End Date & Time *
+                  </label>
+                  <input
+                    type="datetime-local"
+                    value={newEventData.date_end}
+                    onChange={(e) =>
+                      setNewEventData({
+                        ...newEventData,
+                        date_end: e.target.value,
+                      })
+                    }
+                    className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Venue *
+                  </label>
+                  <input
+                    type="text"
+                    value={newEventData.venue}
+                    onChange={(e) =>
+                      setNewEventData({
+                        ...newEventData,
+                        venue: e.target.value,
+                      })
+                    }
+                    placeholder="Enter venue location"
+                    className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Content Category
+                  </label>
+                  <input
+                    type="text"
+                    value={newEventData.content}
+                    onChange={(e) =>
+                      setNewEventData({
+                        ...newEventData,
+                        content: e.target.value,
+                      })
+                    }
+                    placeholder="e.g., Technology, Business, Arts"
+                    className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Max Attendees
+                  </label>
+                  <input
+                    type="number"
+                    value={newEventData.maxAttendees}
+                    onChange={(e) =>
+                      setNewEventData({
+                        ...newEventData,
+                        maxAttendees: parseInt(e.target.value) || 0,
+                      })
+                    }
+                    min="1"
+                    className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Ticket Price ($)
+                  </label>
+                  <input
+                    type="number"
+                    value={newEventData.price}
+                    onChange={(e) =>
+                      setNewEventData({
+                        ...newEventData,
+                        price: parseFloat(e.target.value) || 0,
+                      })
+                    }
+                    min="0"
+                    step="0.01"
+                    placeholder="0 for free events"
+                    className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Event Description *
+                </label>
+                <textarea
+                  value={newEventData.description}
+                  onChange={(e) =>
+                    setNewEventData({
+                      ...newEventData,
+                      description: e.target.value,
+                    })
+                  }
+                  rows={4}
+                  placeholder="Describe what attendees can expect from this event..."
+                  className="w-full px-3 py-2 border border-muted rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all"
+                  required
+                />
+              </div>
+
+              {/* Event Preview */}
+              <div className="bg-secondary/5 border border-secondary/20 p-4 rounded-lg">
+                <h3 className="text-sm font-medium text-foreground mb-3 flex items-center space-x-2">
+                  <svg
+                    className="w-4 h-4 text-secondary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    />
+                  </svg>
+                  <span>Event Preview</span>
+                </h3>
+                <div className="text-sm space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-muted-foreground">Name:</span>
+                    <span className="font-medium text-foreground">
+                      {newEventData.name || "Enter event name"}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-muted-foreground">Type:</span>
+                    <span className="text-secondary font-medium">
+                      {newEventData.event_type}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-muted-foreground">When:</span>
+                    <span className="font-medium text-foreground">
+                      {newEventData.date_start
+                        ? new Date(newEventData.date_start).toLocaleDateString()
+                        : "Select date"}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-muted-foreground">Where:</span>
+                    <span className="font-medium text-foreground">
+                      {newEventData.venue || "Enter venue"}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-muted-foreground">Price:</span>
+                    <span className="font-bold text-success">
+                      {newEventData.price === 0
+                        ? "Free"
+                        : `$${newEventData.price}`}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-muted-foreground">Capacity:</span>
+                    <span className="font-medium text-foreground">
+                      {newEventData.maxAttendees} attendees
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Validation messages */}
+              {(!newEventData.name ||
+                !newEventData.date_start ||
+                !newEventData.date_end ||
+                !newEventData.venue ||
+                !newEventData.description) && (
+                <div className="bg-warning/10 border border-warning/20 rounded-lg p-3">
+                  <div className="flex items-center space-x-2">
+                    <svg
+                      className="w-4 h-4 text-warning"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
+                      />
+                    </svg>
+                    <span className="text-sm text-warning">
+                      Please fill in all required fields (marked with *)
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="p-6 border-t border-border flex justify-end space-x-3">
+              <button
+                onClick={handleCancelCreateEvent}
+                className="px-4 py-2 border border-muted rounded-lg hover:bg-muted/50 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleCreateEvent}
+                disabled={
+                  !newEventData.name ||
+                  !newEventData.date_start ||
+                  !newEventData.date_end ||
+                  !newEventData.venue ||
+                  !newEventData.description
+                }
+                className="px-4 py-2 bg-secondary text-white rounded-lg hover:bg-secondary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+              >
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                  />
+                </svg>
+                <span>Create Event</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
