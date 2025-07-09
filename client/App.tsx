@@ -4226,7 +4226,7 @@ function ClubManagementPage() {
               <div className="mt-6 flex items-center justify-between text-xs text-muted-foreground">
                 <span>Average attendance: 185 members</span>
                 <span className="text-success">
-                  ↗ 15% increase vs last period
+                  ��� 15% increase vs last period
                 </span>
               </div>
             </div>
@@ -6224,9 +6224,32 @@ function RegisterPage() {
 
   if (step === "select-type") {
     return (
-      <div className="min-h-screen bg-background">
-        <TopNavbar />
-        <div className="flex items-center justify-center py-12 px-4">
+      <div className="min-h-screen bg-gradient-to-br from-emerald-900 via-teal-900 to-cyan-900 relative overflow-hidden">
+        {/* Stylish Tech Background */}
+        <div className="absolute inset-0">
+          {/* Circuit-like patterns */}
+          <div className="absolute top-10 left-1/4 w-64 h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-30 animate-pulse"></div>
+          <div className="absolute top-32 right-1/3 w-0.5 h-48 bg-gradient-to-b from-transparent via-emerald-400 to-transparent opacity-30 animate-pulse" style={{animationDelay: '1s'}}></div>
+          <div className="absolute bottom-1/3 left-10 w-96 h-0.5 bg-gradient-to-r from-transparent via-teal-400 to-transparent opacity-30 animate-pulse" style={{animationDelay: '2s'}}></div>
+
+          {/* Tech nodes */}
+          <div className="absolute top-20 left-1/3 w-4 h-4 border-2 border-cyan-400 rounded-full animate-ping opacity-40"></div>
+          <div className="absolute top-1/2 right-1/4 w-6 h-6 border-2 border-emerald-400 rotate-45 animate-spin opacity-30" style={{animationDuration: '8s'}}></div>
+          <div className="absolute bottom-40 left-1/2 w-3 h-3 bg-teal-400 rounded-full animate-bounce opacity-50" style={{animationDelay: '1.5s'}}></div>
+
+          {/* Hexagonal patterns */}
+          <div className="absolute top-1/4 right-10 w-16 h-16 border border-cyan-300/20" style={{clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'}}></div>
+          <div className="absolute bottom-1/4 left-20 w-12 h-12 border border-emerald-300/20 animate-spin" style={{clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)', animationDuration: '15s'}}></div>
+
+          {/* Data streams */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="h-full w-full" style={{backgroundImage: 'radial-gradient(circle at 25% 25%, cyan 1px, transparent 1px)', backgroundSize: '50px 50px'}}></div>
+          </div>
+        </div>
+
+        <div className="relative z-10">
+          <TopNavbar />
+          <div className="flex items-center justify-center py-12 px-4">
           <div className="bg-white p-8 rounded-xl shadow-lg max-w-2xl w-full border border-border">
             <div className="text-center mb-8">
               <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center mx-auto mb-4">
