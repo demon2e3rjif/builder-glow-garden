@@ -6195,7 +6195,7 @@ function RegisterPage() {
     setStep("register");
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setError("");
 
