@@ -668,16 +668,22 @@ function Sidebar() {
       <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-700 bg-gray-800/50">
         <div className="flex items-center space-x-3">
           <div className="w-8 h-8 bg-gradient-to-br from-secondary to-accent rounded-full flex items-center justify-center text-white font-semibold text-sm">
-            J
+            {user?.avatar || "U"}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-white truncate">John Doe</p>
+            <p className="text-sm font-medium text-white truncate">
+              {user?.name || "User"}
+            </p>
             <p className="text-xs text-gray-400">
-              {userType === "club" ? "Club Manager" : "Member"}
+              {user?.userType === "club"
+                ? "Club Manager"
+                : user?.ownsClub
+                  ? "Club Owner"
+                  : "Member"}
             </p>
           </div>
           <button
-            onClick={() => setIsLoggedIn(false)}
+            onClick={logout}
             className="text-gray-400 hover:text-white transition-colors"
             title="Logout"
           >
