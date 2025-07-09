@@ -5798,17 +5798,45 @@ function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative overflow-hidden">
-      {/* Animated Background Elements */}
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 relative overflow-hidden">
+      {/* Stylish Geometric Background */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
+        {/* Animated geometric shapes */}
         <div
-          className="absolute top-0 -right-4 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"
+          className="absolute top-20 left-10 w-32 h-32 border border-white/10 rotate-45 animate-spin"
+          style={{ animationDuration: "20s" }}
+        ></div>
+        <div
+          className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full opacity-20 animate-bounce"
+          style={{ animationDelay: "1s" }}
+        ></div>
+        <div
+          className="absolute bottom-40 left-1/4 w-40 h-40 border-2 border-yellow-400/20 rounded-full animate-pulse"
           style={{ animationDelay: "2s" }}
         ></div>
         <div
-          className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"
-          style={{ animationDelay: "4s" }}
+          className="absolute bottom-20 right-10 w-20 h-20 bg-gradient-to-r from-pink-400 to-red-500 transform rotate-12 opacity-30 animate-bounce"
+          style={{ animationDelay: "3s" }}
+        ></div>
+
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="grid grid-cols-12 h-full">
+            {Array.from({ length: 12 }).map((_, i) => (
+              <div key={i} className="border-r border-white/20 h-full"></div>
+            ))}
+          </div>
+        </div>
+
+        {/* Floating particles */}
+        <div className="absolute top-1/4 left-1/3 w-2 h-2 bg-white rounded-full animate-ping"></div>
+        <div
+          className="absolute top-3/4 left-1/4 w-1 h-1 bg-cyan-300 rounded-full animate-ping"
+          style={{ animationDelay: "1s" }}
+        ></div>
+        <div
+          className="absolute top-1/2 right-1/3 w-3 h-3 bg-yellow-300 rounded-full animate-ping"
+          style={{ animationDelay: "2s" }}
         ></div>
       </div>
 
