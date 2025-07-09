@@ -6250,7 +6250,7 @@ function RegisterPage() {
         <div className="relative z-10">
           <TopNavbar />
           <div className="flex items-center justify-center py-12 px-4">
-          <div className="bg-white p-8 rounded-xl shadow-lg max-w-2xl w-full border border-border">
+          <div className="bg-white/90 backdrop-blur-lg p-8 rounded-3xl shadow-2xl max-w-2xl w-full border border-white/20">
             <div className="text-center mb-8">
               <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center mx-auto mb-4">
                 <span className="text-white font-bold text-lg">E</span>
