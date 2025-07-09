@@ -539,12 +539,45 @@ function TopNavbar() {
                 </div>
 
                 {/* User Menu */}
-                <div className="flex items-center space-x-2">
-                  <span className="hidden sm:block text-sm text-muted-foreground">
-                    {userType === "club" ? "Club Manager" : "Member"}
-                  </span>
-                  <div className="w-8 h-8 bg-gradient-to-br from-secondary to-accent rounded-full flex items-center justify-center text-white font-semibold text-sm cursor-pointer">
-                    J
+                <div className="relative group">
+                  <div className="flex items-center space-x-2 cursor-pointer">
+                    <span className="hidden sm:block text-sm text-muted-foreground">
+                      {user?.userType === "club"
+                        ? "Club Manager"
+                        : user?.ownsClub
+                          ? "Club Owner"
+                          : "Member"}
+                    </span>
+                    <div className="w-8 h-8 bg-gradient-to-br from-secondary to-accent rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                      {user?.avatar || "U"}
+                    </div>
+                  </div>
+
+                  {/* User Dropdown Menu */}
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-border z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+                    <div className="p-2">
+                      <div className="px-3 py-2 text-sm font-medium text-foreground border-b border-border">
+                        {user?.name}
+                      </div>
+                      <Link
+                        to="/profile"
+                        className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
+                      >
+                        Profile
+                      </Link>
+                      <Link
+                        to="/settings"
+                        className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
+                      >
+                        Settings
+                      </Link>
+                      <button
+                        onClick={logout}
+                        className="w-full text-left px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
+                      >
+                        Logout
+                      </button>
+                    </div>
                   </div>
                 </div>
               </>
