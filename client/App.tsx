@@ -6177,6 +6177,8 @@ function LoginPage() {
 function RegisterPage() {
   const [step, setStep] = useState<"select-type" | "register">("select-type");
   const [userType, setUserType] = useState<"person" | "club" | null>(null);
+  const [error, setError] = useState("");
+  const { register, loading } = useAuth();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -6194,32 +6196,20 @@ function RegisterPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
 
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords don't match!");
+      setError("Passwords don't match!");
       return;
     }
 
-    const endpoint =
-      userType === "person" ? "/auth/register/person/" : "/auth/register/club/";
-
-    const payload =
-      userType === "person"
-        ? {
-            email: formData.email,
-            password: formData.password,
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-          }
-        : {
-            email: formData.email,
-            password: formData.password,
-            clubName: formData.clubName,
-            description: formData.description,
-          };
-
-    // TODO: Implement API call to respective endpoint
-    console.log(`Registration for ${userType}:`, { endpoint, payload });
+    const success = await register(formData, userType!);
+    if (!success) {
+      setError("Registration failed. Please try again.");
+    } else {
+      // Redirect to dashboard after successful registration
+      window.location.href = "/dashboard";
+    }
   };
 
   if (step === "select-type") {
