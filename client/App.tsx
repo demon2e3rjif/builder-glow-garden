@@ -603,13 +603,13 @@ function Sidebar() {
       name: "My Club",
       path: "/my-club",
       icon: CogIcon,
-      show: userOwnsClub, // Only show if user owns a club
+      show: user?.ownsClub || user?.userType === "club", // Only show if user owns a club
     },
     {
       name: "My Applications",
       path: "/applications",
       icon: DocumentIcon,
-      show: !userOwnsClub, // Hide if user owns a club since they manage applications differently
+      show: user?.userType === "person" && !user?.ownsClub, // Hide if user owns a club
     },
     {
       name: "Profile",
