@@ -576,9 +576,7 @@ function TopNavbar() {
 // Sidebar Component
 function Sidebar() {
   const location = useLocation();
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [userType, setUserType] = useState<"user" | "club">("user");
-  const [userOwnsClub, setUserOwnsClub] = useState(true); // This would come from auth
+  const { user, logout } = useAuth();
 
   const isActive = (path: string) => location.pathname.startsWith(path);
 
