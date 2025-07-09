@@ -6344,9 +6344,28 @@ function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <TopNavbar />
-      <div className="flex items-center justify-center py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-violet-900 via-purple-900 to-fuchsia-900 relative overflow-hidden">
+      {/* Stylish Registration Background */}
+      <div className="absolute inset-0">
+        {/* Flowing waves */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
+          <div className="absolute -top-10 -left-10 w-96 h-96 border border-purple-400/20 rounded-full animate-spin" style={{animationDuration: '20s'}}></div>
+          <div className="absolute -top-20 -right-20 w-128 h-128 border-2 border-fuchsia-400/10 rounded-full animate-spin" style={{animationDuration: '30s', animationDirection: 'reverse'}}></div>
+        </div>
+
+        {/* Floating elements */}
+        <div className="absolute top-1/4 left-10 w-8 h-8 bg-violet-400/30 rounded-lg rotate-45 animate-bounce" style={{animationDelay: '0.5s'}}></div>
+        <div className="absolute top-1/2 right-20 w-6 h-6 bg-purple-400/40 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
+        <div className="absolute bottom-1/3 left-1/3 w-10 h-10 border-2 border-fuchsia-400/30 rounded-full animate-ping" style={{animationDelay: '1.5s'}}></div>
+
+        {/* Gradient orbs */}
+        <div className="absolute top-20 right-1/4 w-32 h-32 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute bottom-20 left-1/4 w-24 h-24 bg-gradient-to-r from-violet-400/30 to-cyan-400/30 rounded-full blur-lg animate-pulse" style={{animationDelay: '2s'}}></div>
+      </div>
+
+      <div className="relative z-10">
+        <TopNavbar />
+        <div className="flex items-center justify-center py-12 px-4">
         <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full border border-border">
           <div className="text-center mb-8">
             <button
