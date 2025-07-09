@@ -5732,11 +5732,22 @@ function SettingsPage() {
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const { login, loading } = useAuth();
+  const location = useLocation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement login API call to POST /auth/login/
-    console.log("Login attempt:", { email, password });
+    setError("");
+
+    const success = await login(email, password);
+    if (!success) {
+      setError("Invalid email or password. Please try again.");
+    } else {
+      // Redirect to intended page or dashboard
+      const from = (location.state as any)?.from?.pathname || "/dashboard";
+      window.location.href = from;
+    }
   };
 
   return (
