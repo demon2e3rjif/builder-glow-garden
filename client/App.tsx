@@ -6530,6 +6530,43 @@ function RegisterPage() {
   );
 }
 
+// Simple Registration Page
+function RegisterPage() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-violet-900 via-purple-900 to-fuchsia-900 relative overflow-hidden">
+      <div className="absolute inset-0">
+        <div className="absolute top-20 right-1/4 w-32 h-32 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute bottom-20 left-1/4 w-24 h-24 bg-gradient-to-r from-violet-400/30 to-cyan-400/30 rounded-full blur-lg animate-pulse"></div>
+      </div>
+
+      <div className="relative z-10">
+        <TopNavbar />
+        <div className="flex items-center justify-center py-12 px-4">
+          <div className="bg-white/90 backdrop-blur-lg p-8 rounded-3xl shadow-2xl max-w-md w-full border border-white/20">
+            <div className="text-center">
+              <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center mx-auto mb-4">
+                <span className="text-white font-bold text-lg">E</span>
+              </div>
+              <h2 className="text-2xl font-bold text-foreground mb-4">
+                Join EventHub
+              </h2>
+              <p className="text-muted-foreground mb-6">
+                Registration feature coming soon
+              </p>
+              <Link
+                to="/login"
+                className="inline-block bg-secondary text-white px-6 py-2 rounded-lg font-medium hover:bg-secondary/90 transition-colors"
+              >
+                Back to Login
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <ThemeProvider>
